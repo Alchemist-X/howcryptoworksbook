@@ -1,5 +1,7 @@
 # Part II: The Ethereum Ecosystem
 
+*This section examines Ethereum's programmable blockchain platform, covering its virtual machine architecture, smart contract capabilities, scaling solutions, and the transition to proof-of-stake consensus.*
+
 ## Chapter 6: Ethereum Core Concepts
 
 ### Gas and Transaction Mechanics

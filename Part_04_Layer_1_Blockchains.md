@@ -1,5 +1,7 @@
 # Part IV: Layer 1 Blockchains
 
+*This section analyzes the diverse architectural approaches of Layer 1 blockchains, comparing monolithic versus modular designs and examining how different networks balance scalability, security, and decentralization.*
+
 ## Chapter 17: Blockchain Architecture Paradigms
 
 The architecture of Layer 1 blockchains is primarily diverging into two distinct design philosophies: **monolithic** and **modular**. Understanding these approaches is key to grasping the trade-offs that different networks make in pursuit of scalability, security, and decentralization.

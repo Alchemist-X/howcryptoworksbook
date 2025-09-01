@@ -1,5 +1,7 @@
 # Part IX: Custody
 
+*This section addresses the critical security infrastructure for digital asset protection, examining custody solutions, key management technologies, and the regulatory frameworks that govern institutional crypto storage.*
+
 ## Chapter 35: Custody Solutions
 
 Securing digital assets is the cornerstone of institutional adoption, revolving around the sophisticated protection of private keys. The two leading cryptographic approaches to this challenge are **Multi-Party Computation (MPC)** and **Multi-signature (Multisig)**.

@@ -1,5 +1,7 @@
 # Part III: The Solana Ecosystem
 
+*This section explores Solana's high-performance blockchain architecture, examining its unique account model, parallel execution capabilities, and the vibrant ecosystem of applications built on this fast, low-cost platform.*
+
 ## Chapter 10: Architecture and Execution
 
 - Solana uses an account-based model where programs are stateless BPF executables and state lives in separate data accounts owned by programs.

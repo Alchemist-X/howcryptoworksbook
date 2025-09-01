@@ -1,5 +1,7 @@
 # Part VI: Hyperliquid
 
+*This section examines Hyperliquid's innovative approach to decentralized perpetual trading, analyzing its high-performance orderbook architecture, tokenomics, and position within the competitive landscape of decentralized derivatives.*
+
 ## Chapter 21: The Hyperliquid Ecosystem
 
 ### Industry Context: Decentralized Perps & Competitors

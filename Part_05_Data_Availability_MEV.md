@@ -1,5 +1,7 @@
 # Part V: Data Availability & MEV
 
+*This section delves into the critical infrastructure layer of data availability and the complex dynamics of Maximal Extractable Value, exploring how these concepts shape blockchain scalability and economic incentives.*
+
 ## Chapter 19: Celestia and the Data Availability Layer
 
 **Celestia** represents a fundamental shift in blockchain architecture, operating as a specialized modular chain focused purely on **consensus** and **Data Availability (DA)**. Unlike traditional monolithic blockchains, it does not handle smart contract execution or settlement. Its primary function is to order transactions and, most importantly, guarantee that the underlying data for those transactions has been published and is accessible to everyone.

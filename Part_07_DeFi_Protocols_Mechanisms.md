@@ -1,5 +1,7 @@
 # Part VII: DeFi Protocols and Mechanisms
 
+*This section explores the core protocols that power decentralized finance, examining lending platforms, automated market makers, derivatives, and the innovative mechanisms that enable permissionless financial services.*
+
 ## Chapter 22: Lending and Borrowing Platforms
 
 ### Aave Evolution
