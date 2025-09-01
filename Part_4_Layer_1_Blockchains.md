@@ -1,6 +1,6 @@
 # Part IV: Layer 1 Blockchains
 
-## Chapter 10: Blockchain Architecture Paradigms
+## Chapter 17: Blockchain Architecture Paradigms
 
 The architecture of Layer 1 blockchains is primarily diverging into two distinct design philosophies: **monolithic** and **modular**. Understanding these approaches is key to grasping the trade-offs that different networks make in pursuit of scalability, security, and decentralization.
 
@@ -26,7 +26,7 @@ Finality models differ: **Nakamoto-style probabilistic finality** vs **BFT-style
 
 ---
 
-## Chapter 11: Layer 1 Landscape Survey
+## Chapter 18: Layer 1 Landscape Survey
 
 For full coverage of Solana, see Part III. This chapter surveys other L1 ecosystems and cross-cutting design themes.
 

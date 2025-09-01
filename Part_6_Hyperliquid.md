@@ -1,6 +1,6 @@
 # Part VI: Hyperliquid
 
-## Chapter 14: The Hyperliquid Ecosystem
+## Chapter 21: The Hyperliquid Ecosystem
 
 ### Industry Context: Decentralized Perps & Competitors
 

@@ -2,7 +2,7 @@
 
 *This section explores the critical infrastructure of stablecoins, which serve as the foundation for decentralized finance, and delves into the diverse mechanisms used to generate yield on digital assets.*
 
-## Chapter 23: Stablecoin Mechanisms
+## Chapter 30: Stablecoin Mechanisms
 
 **Stablecoins** are digital assets designed to maintain a stable value relative to a target price, typically the U.S. dollar. They are broadly categorized by their underlying collateral and stabilization mechanism.
 
@@ -63,7 +63,7 @@ Beyond fiat-backed models, more decentralized alternatives have emerged.
 
 ---
 
-## Chapter 24: Yield Generation Mechanisms
+## Chapter 31: Yield Generation Mechanisms
 
 DeFi offers numerous ways to generate returns on capital, from simple staking to complex structured products.
 
@@ -112,7 +112,7 @@ Remember **yield stacking compounds risks**: venue/custody, smart contract bugs,
 
 ---
 
-## Chapter 25: Stablecoin Failures and Lessons Learned
+## Chapter 32: Stablecoin Failures and Lessons Learned
 
 The history of stablecoins is marked by both innovation and high-profile failures, which have provided crucial lessons for the industry.
 
@@ -155,7 +155,7 @@ The Frax ecosystem has since expanded to include:
 
 ---
 
-## Chapter 26: Advanced Yield Generation Strategies
+## Chapter 33: Advanced Yield Generation Strategies
 
 Building on basic yield sources, DeFi enables more complex and automated strategies to maximize returns.
 
@@ -211,7 +211,7 @@ A vault might sell a **$25,000 ETH call option**, earning a **2% premium** while
 
 ---
 
-## Chapter 27: Stablecoin Adoption and Infrastructure
+## Chapter 34: Stablecoin Adoption and Infrastructure
 
 Despite market volatility, the adoption and usage of stablecoins have continued to grow, cementing their role as essential infrastructure for the digital economy.
 

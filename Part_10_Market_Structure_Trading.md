@@ -1,6 +1,6 @@
 # Part X: Market Structure and Trading
 
-## Chapter 29: Crypto Trading Fundamentals
+## Chapter 36: Crypto Trading Fundamentals
 
 Understanding market structure is crucial for crypto traders navigating both **centralized exchanges (CEXs)** and **decentralized exchanges (DEXs)**. This involves mastering order execution, interpreting on-chain data, and understanding the unique mechanics that drive digital asset behavior.
 

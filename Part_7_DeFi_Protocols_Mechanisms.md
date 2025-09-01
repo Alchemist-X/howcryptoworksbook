@@ -1,6 +1,6 @@
 # Part VII: DeFi Protocols and Mechanisms
 
-## Chapter 15: Lending and Borrowing Platforms
+## Chapter 22: Lending and Borrowing Platforms
 
 ### Aave Evolution
 
@@ -11,7 +11,7 @@
 - **v2 (2020)**: Added **debt tokens**, **collateral swaps**, **repay-with-collateral**, and **credit delegation** but still used separate pools rather than v4's hub-and-spoke ULL.
 - **v3 (2022)**: Introduced **Isolation Mode**, **Efficiency Mode (eMode)**, **Portal cross-chain liquidity**, and **supply/borrow caps**; v4 supersedes these with a single-vault ULL and Spokes for market-specific risk.
 
-*See Chapter 22 for flash loan mechanics and defenses.*
+*See Chapter 29 for flash loan mechanics and defenses.*
 
 Key risk knobs include **Loan-to-Value (LTV)**, **liquidation threshold/bonus**, **interest rate curves**, and **oracle choices**; ULL concentrates liquidity while Spokes isolate risk policies and listings.
 
@@ -31,7 +31,7 @@ Safeguards vary by pool (delegate skin-in-the-game, junior tranches, insurance/b
 
 ---
 
-## Chapter 16: Decentralized Exchange Innovation
+## Chapter 23: Decentralized Exchange Innovation
 
 ### Uniswap V4
 
@@ -82,7 +82,7 @@ To achieve the high performance required for a fully on-chain order book, **dYdX
 
 ---
 
-## Chapter 17: Liquid Staking Infrastructure
+## Chapter 24: Liquid Staking Infrastructure
 
 **Liquid staking protocols** solve the capital efficiency problem of traditional staking, where assets are locked and illiquid. They do this by issuing **Liquid Staking Tokens (LSTs)** that represent a user's staked position plus accrued rewards. These LSTs can be freely traded or used across other DeFi protocols for additional yield.
 
@@ -108,17 +108,17 @@ However, the space is not without risks:
 
 ---
 
-## Chapter 18: Yield Optimization and Aggregation
+## Chapter 25: Yield Optimization and Aggregation
 
 **Yield farming** is the practice of providing liquidity to DeFi protocols in exchange for token rewards. To maximize returns, these rewards must be frequently reinvested, a process that can be complex and costly.
 
-*For aggregator platforms and vault strategies, see Chapter 26 (Yearn, Convex, Beefy).*
+*For aggregator platforms and vault strategies, see Chapter 33 (Yearn, Convex, Beefy).*
 
 **Operational considerations**: **ERC-4626 share accounting**, **withdrawal queues/harvest cadence**, **strategy risk limits**, and **performance/management fees** can materially impact realized yields.
 
 ---
 
-## Chapter 19: Oracle Networks and Price Feeds
+## Chapter 26: Oracle Networks and Price Feeds
 
 **Oracles** are essential infrastructure that act as a secure bridge between blockchains and off-chain, real-world data. They solve the **"oracle problem"** by enabling smart contracts to access external information like asset prices, which is critical for DeFi functions like collateral valuation and liquidations.
 
@@ -152,7 +152,7 @@ The attack works when a contract calls an oracle for a price, but the oracle con
 
 ---
 
-## Chapter 20: Cross-Chain Infrastructure and Interoperability
+## Chapter 27: Cross-Chain Infrastructure and Interoperability
 
 As the DeFi market, projected to reach **$42.76 billion in 2025**, becomes increasingly multichain, **cross-chain interoperability** is critical. **Bridges** are the primary solution, enabling not just token transfers but also more complex cross-chain messaging.
 
@@ -167,7 +167,7 @@ Each employs different security models. A common architecture is the **lock-and-
 - Unified liquidity
 - Native asset transfers
 
-*For security models and deeper taxonomy, see Chapter 21.*
+*For security models and deeper taxonomy, see Chapter 28.*
 
 ### Bridge Security Concerns
 However, bridge security is a major concern, with loss tallies for **2025 H1 exceeding $2.4B** across hacks/scams (not only bridges), with significant incidents like **Bybit's ~$1.5B incident**.
@@ -176,7 +176,7 @@ However, bridge security is a major concern, with loss tallies for **2025 H1 exc
 
 ---
 
-## Chapter 21: Bridge and Oracle Security
+## Chapter 28: Bridge and Oracle Security
 
 ### Cross-Chain Infrastructure
 
@@ -200,7 +200,7 @@ Emerging approaches include **zk light-client bridges** that verify succinct pro
 
 ---
 
-## Chapter 22: Flash Loans and Atomic Transactions
+## Chapter 29: Flash Loans and Atomic Transactions
 
 **Flash loans**, pioneered by **Aave in 2020**, are **uncollateralized loans** that must be borrowed and repaid within a single transaction—enabled by **atomicity**.
 
@@ -209,7 +209,7 @@ Emerging approaches include **zk light-client bridges** that verify succinct pro
 - **Collateral swaps/debt refinancing**
 - **Liquidation execution** without upfront capital
 
-*For oracle-manipulation attack patterns involving flash loans and defenses, see Chapter 19 "Oracle Security."*
+*For oracle-manipulation attack patterns involving flash loans and defenses, see Chapter 26 "Oracle Security."*
 
 **Constraints and defenses**: Borrowers must repay plus fee within the same transaction; protocols harden against abuse with **reentrancy guards**, **price bounds/TWAPs**, and **cooldowns**.
 

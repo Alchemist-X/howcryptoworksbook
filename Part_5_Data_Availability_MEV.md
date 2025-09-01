@@ -1,6 +1,6 @@
 # Part V: Data Availability & MEV
 
-## Chapter 12: Celestia and the Data Availability Layer
+## Chapter 19: Celestia and the Data Availability Layer
 
 **Celestia** represents a fundamental shift in blockchain architecture, operating as a specialized modular chain focused purely on **consensus** and **Data Availability (DA)**. Unlike traditional monolithic blockchains, it does not handle smart contract execution or settlement. Its primary function is to order transactions and, most importantly, guarantee that the underlying data for those transactions has been published and is accessible to everyone.
 
@@ -46,7 +46,7 @@ Celestia is not the only solution for data availability, and understanding the a
 
 ---
 
-## Chapter 13: The Complex World of MEV
+## Chapter 20: The Complex World of MEV
 
 **Maximal Extractable Value (MEV)** is the profit block producers can capture by strategically ordering, including, or excluding transactions within the blocks they create. This concept, originally called **"Miner Extractable Value"** during Ethereum's proof-of-work era, represents revenue extracted beyond standard block rewards and transaction fees. The process begins when users submit transactions to a public **"mempool,"** a waiting area where block producers can observe pending trades and leverage this advance knowledge for profit.
 

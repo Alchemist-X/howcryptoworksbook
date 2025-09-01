@@ -52,7 +52,7 @@ Fork choice uses **LMD-GHOST** with **Casper FFG finality**; **inactivity leaks*
 
 **Maximal Extractable Value (MEV)** is profit from transaction ordering; Ethereum widely uses **Proposer-Builder Separation (PBS)** via **MEV-Boost** to separate building from proposing.
 
-*See Chapter 13 for the full roles, centralization pressures, and mitigation approaches.*
+*See Chapter 20 for the full roles, centralization pressures, and mitigation approaches.*
 
 MEV-Boost is off-protocol today; **enshrined PBS** and **inclusion lists** are active research to reduce builder centralization and censorship.
 
