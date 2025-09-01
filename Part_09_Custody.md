@@ -26,24 +26,24 @@ First principles are simple. Use layered controls so one mistake cannot cause a 
 
 ### Controls That Matter
 
-Everything starts at key generation. Use **HSMs** or attested secure enclaves and target **FIPS 140‑3 Level 3** for institutional settings. Enforce **split knowledge** and **dual control** so no single person can act alone. Back this with a **policy engine**: role‑based access, quorum approvals, velocity and value caps, allowlists, time‑locks, and change‑control with multi‑party approval.
+Everything starts at key generation. In institutional settings, best practice is to use **HSMs** or attested secure enclaves, often targeting **FIPS 140‑3 Level 3**. Custody programs generally implement **split knowledge** and **dual control** so no single person can act alone. These controls are typically backed by a **policy engine** providing role‑based access, quorum approvals, velocity and value caps, allowlists, time‑locks, and change‑control with multi‑party approval.
 
-Evidence is the difference between intention and reality. Keep **immutable logs (WORM)** with NTP‑synced timestamps, device attestations, signer participation, and complete approval trails exported to a **SIEM**. Disaster recovery should be routine: **geo‑distributed shards**, tested runbooks, defined **RTO/RPO**, and an **emergency freeze and expedited rotation**.
+Evidence is the difference between intention and reality. Industry practice emphasizes **immutable logs (WORM)** with NTP‑synced timestamps, device attestations, signer participation, and complete approval trails exported to a **SIEM**. Disaster‑recovery programs commonly include **geo‑distributed shards**, regularly tested runbooks, defined **RTO/RPO**, and an **emergency freeze and expedited rotation** capability.
 
-Practice **segregation and tiering** by value. A common target is cold ≥90%, warm ~5–10%, hot <5%. Enforce ceilings—not just targets—and reconcile continuously.
+**Segregation and tiering** by value are standard. Many programs target cold ≥90%, warm ~5–10%, hot <5%, enforce ceilings (not just targets), and reconcile continuously.
 
 > Controls callouts:
-> - Key ceremony & attestation: witnessed, recorded; device measured-boot; hash-chained logs anchored externally.
-> - Admin-plane dual control: JML (joiner–mover–leaver), two-person rule for policy changes, break-glass with timelock/duress.
-> - Production isolation: dedicated signing network, one-way data flow for cold paths, firmware pinning/SBOM.
-> - Provider exit plan: MPC share export/refresh, BYO-HSM option, independent escrowed recovery.
-> - Legal posture: bankruptcy remoteness/title, segregation model, sanctions/Travel Rule, key-location jurisdiction.
-> - Assurance & insurance: SOC2/ISO + red-team; crime/specie limits and exclusions (hot/warm/cold sub-limits).
-> - Independent reconciliation & proofs: daily reconcile to customer ledger; periodic proof-of-assets/liabilities (client-verifiable).
+> - Key ceremony & attestation: typically witnessed and recorded; devices use measured boot; logs are hash‑chained and anchored externally.
+> - Admin‑plane dual control: common patterns include JML (joiner–mover–leaver), two‑person rules for policy changes, and break‑glass with timelock/duress.
+> - Production isolation: many programs operate a dedicated signing network, one‑way data flow for cold paths, and firmware pinning with SBOM.
+> - Provider exit plan: mature setups support MPC share export/refresh, BYO‑HSM options, and independent escrowed recovery.
+> - Legal posture: frameworks address bankruptcy remoteness/title, segregation models, sanctions/Travel Rule, and key‑location jurisdiction.
+> - Assurance & insurance: auditor attestations (SOC 2/ISO) and red‑team exercises; crime/specie cover with sub‑limits across hot/warm/cold.
+> - Independent reconciliation & proofs: operations include daily reconciliation to customer ledgers and periodic proof‑of‑assets/liabilities (client‑verifiable).
 
-### Mnemonic Seed Phrases (12/18/24 words) vs Multisig
+### Mnemonic Seed Phrases vs Multisig
 
-Mnemonic seed phrases (BIP‑39) are human‑readable encodings of cryptographic entropy. Valid lengths are 12, 15, 18, 21, or 24 words—so 18‑word phrases are indeed supported. The words encode entropy plus a checksum; combined with an optional passphrase (the “25th word”), they are stretched (PBKDF2) into a master seed from which hierarchical wallets (BIP‑32/44) derive accounts and addresses. Anyone who learns the mnemonic and passphrase can deterministically recreate all derived keys and control funds.
+Mnemonic seed phrases (BIP‑39) are human‑readable encodings of cryptographic entropy. Valid lengths are 12, 15, 18, 21, or 24 words. The words encode entropy plus a checksum; combined with an optional passphrase (the “25th word”), they are stretched (PBKDF2) into a master seed from which hierarchical wallets (BIP‑32/44) derive accounts and addresses. Anyone who learns the mnemonic and passphrase can deterministically recreate all derived keys and control funds.
 
 Key implications:
 - Single‑signer root: a mnemonic is one secret. It is fast and portable but a single point of failure. Loss or exposure equals total loss of control.
