@@ -32,6 +32,36 @@ Evidence is the difference between intention and reality. Keep **immutable logs 
 
 Practice **segregation and tiering** by value. A common target is cold ≥90%, warm ~5–10%, hot <5%. Enforce ceilings—not just targets—and reconcile continuously.
 
+> Controls callouts:
+> - Key ceremony & attestation: witnessed, recorded; device measured-boot; hash-chained logs anchored externally.
+> - Admin-plane dual control: JML (joiner–mover–leaver), two-person rule for policy changes, break-glass with timelock/duress.
+> - Production isolation: dedicated signing network, one-way data flow for cold paths, firmware pinning/SBOM.
+> - Provider exit plan: MPC share export/refresh, BYO-HSM option, independent escrowed recovery.
+> - Legal posture: bankruptcy remoteness/title, segregation model, sanctions/Travel Rule, key-location jurisdiction.
+> - Assurance & insurance: SOC2/ISO + red-team; crime/specie limits and exclusions (hot/warm/cold sub-limits).
+> - Independent reconciliation & proofs: daily reconcile to customer ledger; periodic proof-of-assets/liabilities (client-verifiable).
+
+### Mnemonic Seed Phrases (12/18/24 words) vs Multisig
+
+Mnemonic seed phrases (BIP‑39) are human‑readable encodings of cryptographic entropy. Valid lengths are 12, 15, 18, 21, or 24 words—so 18‑word phrases are indeed supported. The words encode entropy plus a checksum; combined with an optional passphrase (the “25th word”), they are stretched (PBKDF2) into a master seed from which hierarchical wallets (BIP‑32/44) derive accounts and addresses. Anyone who learns the mnemonic and passphrase can deterministically recreate all derived keys and control funds.
+
+Key implications:
+- Single‑signer root: a mnemonic is one secret. It is fast and portable but a single point of failure. Loss or exposure equals total loss of control.
+- Hardening: generate and verify on hardware wallets/HSMs, consider a passphrase, store offline (e.g., metal backup), and periodically test restores. If removing single‑point risk is required, use multisig or Shamir backup.
+
+How this differs from multisig:
+- Policy location: a mnemonic encodes a single key; any “policy” is off‑chain and social. Multisig enforces policy on‑chain (Bitcoin/EVM) with M‑of‑N keys.
+- Failure domains: mnemonic = one secret to protect; multisig = several independent keys, requiring a quorum to spend.
+- Recovery: mnemonic restore needs the one phrase (and passphrase); multisig recovery requires the threshold number of distinct keys/seed backups.
+- On‑chain footprint: multisig is visible on‑chain (e.g., Bitcoin scripts, EVM contracts like Safe), while a single mnemonic signs normal single‑sig transactions.
+
+High‑level entropy and quantum context:
+- Word counts and entropy: 12, 15, 18, 21, and 24 words correspond to ~128, 160, 192, 224, and 256 bits of entropy. The BIP‑39 list has 2048 words (2^11), so each word carries 11 bits. A short checksum (ENT/32 bits; e.g., 4 bits for 12‑word) is appended to catch errors, yielding 12×11=132 total bits for a 12‑word phrase.
+- Today vs longevity: 128‑bit entropy is strong for today’s classical security. For multi‑decade or generational horizons, prefer 24 words (≈256‑bit entropy) and/or add a strong passphrase to materially raise brute‑force cost.
+- Quantum risk: Mnemonics protect against guessing. A future Grover‑style quadratic speedup would make brute‑forcing 128‑bit feel like ~64‑bit and 256‑bit like ~128‑bit—still astronomically hard at those levels. The bigger quantum risk is to signature schemes (e.g., ECDSA/EdDSA) via Shor’s algorithm, which could recover private keys from public keys once revealed on‑chain.
+- Practical guardrails: avoid address reuse so public keys are not exposed until spend; favor 24 words + high‑entropy passphrase for long‑term storage; plan to migrate to post‑quantum‑safe wallets when mature.
+- Multisig and quantum: multisig reduces single‑point and insider risk but does not eliminate Shor’s risk—each signer key is still ECDSA/EdDSA today. It remains valuable for operational resilience while the ecosystem transitions to post‑quantum primitives.
+
 ### DeFi and Asset Nuances
 
 DeFi approvals are the most common institutional trap. Avoid **infinite allowances**, simulate transactions before signing, maintain allowlists, and defend against **address poisoning**. On **Bitcoin**, UTXO consolidation improves operations but can reduce privacy; use **PSBT** workflows and consider **Taproot/muSig** for scalable multi‑party policies. On **Ethereum and L2s**, separate **validator** and **withdrawal** credentials, assess bridge trust assumptions, and consider private relays for sensitive flows.
@@ -45,14 +75,11 @@ DAO and protocol teams typically use **Safe** on EVM for transparent governance 
 Failures rhyme. **Mt. Gox** blurred hot and cold and lacked reconciliation. **Parity Multisig** revealed the risk of upgrade paths and shared libraries. **Ronin** concentrated validator control and missed anomaly detection. **FTX** commingled customer and proprietary assets. The lesson is consistent: enforce segregation, harden policy change, monitor for anomalies, and keep independent evidence.
 
 ## Key Takeaways
-- Keys are control; policy and evidence are the real safeguards.
-- Keep assets least‑hot: cold dominant, warm buffered, hot minimal.
-- Choose the model that matches your obligations and latency needs.
-- Engineer freeze and rotation before you need them.
-- If you can’t prove it, it didn’t happen.
-
-## Minimal Reading List
-- BIP‑32/39/44 (HD wallets, mnemonics), BIP‑174 (PSBT)
-- BIP‑340‑342 (Schnorr/Taproot), MuSig2 (multi‑signatures)
-- EIP‑4337 (Account Abstraction), EIP‑2333/2334 (BLS derivation)
-- FIPS 140‑3 (HSM certification), SOC 2 Type II, ISO/IEC 27001
+- Custody hinges on "keys = control"; losses often arise from policy/operations rather than cryptography.
+- Threats span external, insider, operational, and legal/jurisdictional categories.
+- Custody models: multisig (on‑chain policy), MPC (off‑chain quorum), qualified custodians, and smart‑contract wallets—each with distinct transparency, speed, regulatory, and composability trade‑offs.
+- Core controls: hardware‑backed key generation, split knowledge/dual control, policy engines (roles/quorums/limits), immutable evidence, and tested disaster recovery.
+- Segregation by value uses cold/warm/hot tiering with ceilings and continuous reconciliation concepts.
+- Mnemonics (BIP‑39): 12/15/18/21/24 words encode entropy plus checksum; optional passphrase; hierarchical derivation. Single‑seed wallets differ from multisig in policy location and failure domains.
+- Quantum context: Grover affects brute‑force search over seed space; Shor targets current signature schemes when public keys are exposed; long‑term posture involves migration to post‑quantum primitives at the ecosystem level.
+- Incident patterns: blurred segregation, fragile upgrade paths, concentrated control, and commingling emphasize segregation, change‑control rigor, anomaly detection, and independent evidence.
