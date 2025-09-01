@@ -48,7 +48,7 @@ This model enhances privacy by encouraging the use of new addresses for change o
 
 A Bitcoin transaction consists of **inputs** (the UTXOs being spent) and **outputs** (the new UTXOs being created). Once broadcast, a transaction enters the **mempool**, a waiting area for unconfirmed transactions. Miners select transactions from the mempool to build the next block.
 
-Because block space is limited, an economic, incentive-based **fee market** emerges for transaction ordering. Miners prioritize transactions based on the highest **fee rate**, measured in satoshis per vbyte (sats/vB). A high fee rate makes a transaction more likely to be included in the next block, ensuring block space is allocated to those who value it most.
+Because block space is limited, an economic, incentive-based **fee market** emerges for transaction ordering. Miners prioritize transactions based on the highest **fee rate**, measured in satoshis per vbyte (sats/vB; a satoshi is the smallest unit of bitcoin—1 BTC = 100,000,000 satoshis, often shortened to "sats"). A high fee rate makes a transaction more likely to be included in the next block, ensuring block space is allocated to those who value it most.
 
 Users can fee-bump with **Child-Pays-for-Parent (CPFP)**. Ongoing policy work on package relay improves relay of related transactions to make fee-bumping more reliable.
 
