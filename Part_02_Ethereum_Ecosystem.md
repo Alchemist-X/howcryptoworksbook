@@ -75,22 +75,7 @@ MEV-Boost is off-protocol today; **enshrined PBS** and **inclusion lists** are a
 Most rollups use a **centralized sequencer** today; decentralizing sequencers or adopting **shared-sequencer designs** is ongoing work. ZK systems vary (SNARKs vs STARKs) with distinct trust/performance trade-offs, while optimistic systems depend on robust, production-ready fault proofs.
 
 #### Practical Considerations
-- Sequencers: Centralized today; look for forced-inclusion/escape hatches and shared/decentralized designs.
-- Proofs: Fault/validity proofs vary in maturity and coverage; some systems still run with training wheels.
-- Bridges: Prefer canonical rollup bridges; watch upgrade/admin keys and paused-upgrade risks.
-- Finality & exits: L2 UI finality differs from L1 finality; optimistic exits ~7 days, ZK exits depend on proving latency.
-- Fees: Total cost = L2 execution gas + L1 DA (calldata/blobs) + L1 inclusion overhead.
-- Provers: SNARK vs STARK trade-offs; recursion and hardware costs drive latency/fees.
-- DA modes: Rollup (on-chain DA) vs validium/hybrid (off-chain DA) trade security for lower cost.
-- Censorship: Mitigations include inclusion lists, escrow/force transactions, and multi-sequencer failover.
-
-### Data Availability and Danksharding
-
-The primary cost for rollups is posting their transaction data to L1. **EIP-4844 (Proto-Danksharding)** dramatically reduced this cost by introducing a new transaction type: the **blob-carrying transaction**. **Blobs** are large packets of data that are made available on the consensus layer for a temporary period (~18 days) instead of being stored permanently in the execution layer's state.
-
-This creates a separate, cheaper data market specifically for rollups. EIP-4844 introduced blob-carrying transactions whose integrity is enforced by **KZG commitments**; blob availability is provided by protocol rules and data retention. Post-Pectra, the per-block blob maximum increased to 9 (from the original 6). This cryptographic technique is a cornerstone of **"full danksharding,"** as it allows light clients to verify that the data in a blob was made available simply by checking the commitment and a small proof, rather than having to download the entire blob themselves.
-
-Blob space has a separate base fee from normal gas, blobs are pruned after the retention window, and blob contents are not directly accessible to EVM contracts.
+Most sequencers are centralized today, so favor designs with forced inclusion/escape hatches and credible paths to shared or decentralized sequencing. Proof systems (fault or validity) vary in maturity and coverage, and some still operate with training wheels. Prefer canonical bridges and audit upgrade/admin keys and pause powers. UI “finality” on L2 differs from L1: optimistic exits take ~7 days, while ZK exits depend on proving latency. Total fees combine L2 execution gas with L1 data‑availability and inclusion costs. Prover choices (SNARK vs STARK), recursion, and hardware shape latency and fees. Data‑availability modes (on‑chain rollup vs validium/hybrid) trade cost against security. Censorship mitigations include inclusion lists, escrow/force mechanisms, and multi‑sequencer failover.
 
 ### High-Performance Rollup Approaches
 
@@ -99,6 +84,14 @@ While most rollups balance decentralization with performance, some projects prio
 MegaETH provides pre-confirmations (preconf) every ~10 ms through "miniblocks," giving users near-instant feedback before formal L1 finalization. The system achieves these extreme execution metrics while maintaining low network hardware requirements through specialized node types: sequencer nodes process transactions, replica nodes maintain state without re-execution, and the prover node network provides stateless validation of the sequencer's blocks, reporting valid results to the replica nodes for assurances.
 
 This architecture trades decentralization for performance, accepting risks like single points of failure and potential censorship. Planned mitigations include sequencer rotation systems, slashable stake, and forced inclusion, while security ultimately derives from Ethereum mainnet through the optimistic rollup design with ZK fraud proofs.
+
+### Data Availability and Danksharding
+
+The primary cost for rollups is posting their transaction data to L1. **EIP-4844 (Proto-Danksharding)** dramatically reduced this cost by introducing a new transaction type: the **blob-carrying transaction**. **Blobs** are large packets of data that are made available on the consensus layer for a temporary period (~18 days) instead of being stored permanently in the execution layer's state.
+
+This creates a separate, cheaper data market specifically for rollups. Integrity is enforced by **KZG commitments**; blob availability is provided by protocol rules and data retention. Post-Pectra, the per-block blob maximum increased to 9 (from the original 6). This cryptographic technique is a cornerstone of **"full danksharding,"** as it allows light clients to verify that the data in a blob was made available simply by checking the commitment and a small proof, rather than having to download the entire blob themselves.
+
+Blob space has a separate base fee from normal gas, blobs are pruned after the retention window, and blob contents are not directly accessible to EVM contracts.
 
 ---
 
