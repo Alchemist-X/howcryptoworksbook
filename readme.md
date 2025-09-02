@@ -40,6 +40,7 @@ This is an advanced study plan to take you from competent to expert in the parts
 ### Part IV — Layer 1 Blockchains
 - [Chapter 17: Blockchain Architecture Paradigms](./Part_04_Layer_1_Blockchains.md#chapter-17-blockchain-architecture-paradigms)
 - [Chapter 18: Layer 1 Landscape Survey](./Part_04_Layer_1_Blockchains.md#chapter-18-layer-1-landscape-survey)
+- [Chapter 19: Bridges and Cross-Chain Interoperability](./Part_04_Layer_1_Blockchains.md#chapter-19-bridges-and-cross-chain-interoperability)
 - [Key Takeaways](./Part_04_Layer_1_Blockchains.md#key-takeaways)
 
 ### Part V — Data Availability & MEV
@@ -70,11 +71,12 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Chapter 37: Tokenomics and Risk](./Part_07_Hyperliquid.md#chapter-37-tokenomics-and-risk)
 - [Key Takeaways](./Part_07_Hyperliquid.md#key-takeaways)
 
--### Part VIII — Stablecoins
-- [Chapter 38: Stablecoin Mechanisms](./Part_08_Stablecoins.md#chapter-38-stablecoin-mechanisms)
-- [Chapter 39: Stablecoin Failures and Lessons Learned](./Part_08_Stablecoins.md#chapter-39-stablecoin-failures-and-lessons-learned)
-- [Chapter 40: Stablecoin Adoption and Infrastructure](./Part_08_Stablecoins.md#chapter-40-stablecoin-adoption-and-infrastructure)
-- [Key Takeaways](./Part_08_Stablecoins.md#key-takeaways)
+### Part VIII — Stablecoins and Real World Assets
+- [Chapter 38: Stablecoin Mechanisms](./Part_08_Stablecoins_and_RWAs.md#chapter-38-stablecoin-mechanisms)
+- [Chapter 39: Stablecoin Failures and Lessons Learned](./Part_08_Stablecoins_and_RWAs.md#chapter-39-stablecoin-failures-and-lessons-learned)
+- [Chapter 40: Stablecoin Adoption and Infrastructure](./Part_08_Stablecoins_and_RWAs.md#chapter-40-stablecoin-adoption-and-infrastructure)
+- [Chapter 41: Real World Asset Tokenization](./Part_08_Stablecoins_and_RWAs.md#chapter-41-real-world-asset-tokenization)
+- [Key Takeaways](./Part_08_Stablecoins_and_RWAs.md#key-takeaways)
 
 ### Part IX — Custody Fundamentals
 - [Chapter 1: Custody Core Concepts](./Part_09_Custody.md#chapter-1-custody-core-concepts)
@@ -84,7 +86,7 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Chapter 5: Operations and Risk Management](./Part_09_Custody.md#chapter-5-operations-and-risk-management)
 - [Key Takeaways](./Part_09_Custody.md#key-takeaways)
 
--### Part X — Market Structure and Trading
+### Part X — Market Structure and Trading
 - [Chapter 42: Exchange Architecture and Core Products](./Part_10_Market_Structure_Trading.md#chapter-42-exchange-architecture-and-core-products)
 - [Chapter 43: Order Management and Market Microstructure](./Part_10_Market_Structure_Trading.md#chapter-43-order-management-and-market-microstructure)
 - [Chapter 44: Market Participants and Information Flow](./Part_10_Market_Structure_Trading.md#chapter-44-market-participants-and-information-flow)
@@ -93,6 +95,28 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Chapter 47: Advanced Analytics and Market Intelligence](./Part_10_Market_Structure_Trading.md#chapter-47-advanced-analytics-and-market-intelligence)
 - [Key Takeaways](./Part_10_Market_Structure_Trading.md#key-takeaways)
 
+### Part XI — Non-Fungible Token (NFT) Fundamentals
+- [Chapter 1: NFT Core Concepts](./Part_11_NFTs.md#chapter-1-nft-core-concepts)
+- [Chapter 2: NFT Technical Architecture](./Part_11_NFTs.md#chapter-2-nft-technical-architecture)
+- [Chapter 3: NFT Standards and Implementation](./Part_11_NFTs.md#chapter-3-nft-standards-and-implementation)
+- [Chapter 4: NFT Infrastructure and Marketplaces](./Part_11_NFTs.md#chapter-4-nft-infrastructure-and-marketplaces)
+- [Chapter 5: NFT Utility and Future Applications](./Part_11_NFTs.md#chapter-5-nft-utility-and-future-applications)
+- [Key Takeaways](./Part_11_NFTs.md#key-takeaways)
+
+### Part XII — Quantum Resistance and Cryptographic Security
+- [Chapter 1: Quantum Computing and Cryptographic Threats](./Part_12_Quantum_Resistance.md#chapter-1-quantum-computing-and-cryptographic-threats)
+- [Chapter 2: Blockchain Vulnerability Assessment](./Part_12_Quantum_Resistance.md#chapter-2-blockchain-vulnerability-assessment)
+- [Chapter 3: Risk Categories and Exposure Analysis](./Part_12_Quantum_Resistance.md#chapter-3-risk-categories-and-exposure-analysis)
+- [Chapter 4: Mitigation Strategies and Quantum-Resistant Solutions](./Part_12_Quantum_Resistance.md#chapter-4-mitigation-strategies-and-quantum-resistant-solutions)
+- [Chapter 5: Network Coordination and Future Preparations](./Part_12_Quantum_Resistance.md#chapter-5-network-coordination-and-future-preparations)
+- [Key Takeaways](./Part_12_Quantum_Resistance.md#key-takeaways)
+
+### Part XIII — Decentralized Physical Infrastructure Networks (DePIN)
+- [Chapter 54: DePIN Fundamentals and Architecture](./Part_13_DePIN.md#chapter-54-depin-fundamentals-and-architecture)
+- [Chapter 55: DePIN Categories and Use Cases](./Part_13_DePIN.md#chapter-55-depin-categories-and-use-cases)
+- [Chapter 56: Economic Models and Sustainability Challenges](./Part_13_DePIN.md#chapter-56-economic-models-and-sustainability-challenges)
+- [Key Takeaways](./Part_13_DePIN.md#key-takeaways)
+
 ## Very brief summary
-A concise, expert-oriented curriculum covering: Bitcoin's design and scaling; Ethereum's PoS, rollups, and account abstraction; Solana's high-performance architecture; L1 design trade-offs; data availability and MEV; Hyperliquid's vertically integrated perps stack; core DeFi mechanisms and yield strategies; stablecoin infrastructure; institutional custody; and practical market structure and trading. Read end-to-end to develop a systems-level understanding of how modern crypto actually works—and how to operate effectively within it.
+A concise, expert-oriented curriculum covering: Bitcoin's design and scaling; Ethereum's PoS, rollups, restaking, and account abstraction; Solana's high-performance architecture; L1 design trade-offs and cross-chain interoperability; data availability and MEV; Hyperliquid's vertically integrated perps stack; core DeFi mechanisms and yield strategies; stablecoin and RWA infrastructure; institutional custody; practical market structure and trading; NFT standards and utility; quantum resistance strategies; and decentralized physical infrastructure networks. Read end-to-end to develop a systems-level understanding of how modern crypto actually works—and how to operate effectively within it.
 

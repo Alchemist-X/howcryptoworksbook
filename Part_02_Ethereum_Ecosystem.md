@@ -46,6 +46,34 @@ To manage attestations from thousands of validators efficiently, Ethereum uses t
 
 Fork choice uses **LMD-GHOST** with **Casper FFG finality**; **inactivity leaks** penalize offline validators during major partitions. **Withdrawals** (partial and full) are enabled to the execution layer, and light clients follow the chain via **sync committees**.
 
+### Restaking and Shared Security
+
+**Restaking** represents a significant evolution in Ethereum's security model, allowing validators to reuse their staked ETH to secure additional protocols beyond Ethereum itself. **EigenLayer** pioneered this concept by enabling validators to "opt-in" to validate **Actively Validated Services (AVSs)**—external protocols that require cryptoeconomic security.
+
+The core mechanism works through **slashing contracts**: validators deposit their staked ETH (or liquid staking tokens) into EigenLayer and commit to follow the rules of chosen AVSs. If they violate these rules, they face additional slashing penalties beyond those imposed by Ethereum's consensus. This creates a **shared security** model where multiple protocols can leverage Ethereum's validator set and economic security.
+
+**AVS examples** include data availability layers (EigenDA), oracle networks, cross-chain bridges, sequencers for rollups, and keeper networks. Each AVS defines its own **slashing conditions**—specific rules that validators must follow to avoid penalties. These might include data availability requirements, oracle price feed accuracy thresholds, or bridge validation rules.
+
+**Liquid Restaking Tokens (LRTs)** like **EtherFi's eETH**, **Renzo's ezETH**, and **Kelp's rsETH** abstract the complexity of restaking for users. Instead of directly managing validator operations and AVS selection, users deposit ETH and receive tokens representing their restaked position plus accumulated rewards from both Ethereum staking and AVS participation.
+
+#### Risk Considerations
+
+Restaking introduces several new risk vectors that compound traditional staking risks:
+
+**Correlated slashing risk** emerges when multiple AVSs share validators. A single operator mistake or malicious action could trigger slashing across multiple services simultaneously, amplifying losses. **AVS risk assessment** becomes crucial—each service has different slashing conditions, upgrade mechanisms, and governance structures.
+
+**Operator selection** is critical, as restakers delegate validation duties to professional operators who must maintain infrastructure for multiple protocols. Poor operator performance or malicious behavior affects all delegated stake. **Withdrawal delays** can extend beyond Ethereum's standard periods when AVSs impose additional unbonding requirements.
+
+**Liquidity cascades** represent systemic risks where LRT depegging could force mass withdrawals, creating feedback loops across the restaking ecosystem. **Basis risk** between underlying ETH staking yields and LRT token prices adds complexity for users seeking predictable returns.
+
+#### Technical Implementation
+
+EigenLayer's architecture separates **strategy contracts** (managing deposits and withdrawals) from **slashing contracts** (enforcing AVS rules). **Delegation** allows non-operators to stake through professional validators while maintaining withdrawal control. **Veto committees** provide additional security layers for critical slashing decisions.
+
+**Proof systems** vary by AVS—some require **fraud proofs** (optimistic validation), others use **validity proofs** (ZK-based), and some rely on **committee signatures**. The security model depends on these proof mechanisms and their underlying assumptions.
+
+**Intersubjective slashing** handles cases where violations aren't algorithmically provable, relying on social consensus and governance processes. This introduces governance risk and potential for disputes over slashing decisions.
+
 ---
 
 ## Chapter 8: Ethereum Scaling and Layer 2 Solutions
@@ -129,6 +157,7 @@ With these primitives in place, the UX frontier is shifting from transactions to
 - ERC-20/721/1155 standards enabled interoperable tokens and NFTs; ENS and EIP-55 improve UX.
 - Post-Merge Ethereum uses PoS with slots/epochs, LMD-GHOST + Casper FFG, and BLS aggregation.
 - Finality is economic (~2 epochs); validators stake 32 ETH effective balance with slashing risks.
+- Restaking via EigenLayer enables shared security for AVSs; LRTs abstract complexity but add correlated risks.
 - MEV is handled via PBS/MEV-Boost today; research explores enshrined PBS and inclusion lists.
 - Rollups scale execution: optimistic (fraud proofs, 7d exits) vs ZK (validity proofs, fast exits).
 - EIP-4844 introduced blob transactions, cutting DA costs and paving the way to danksharding.
