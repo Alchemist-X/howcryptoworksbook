@@ -18,13 +18,15 @@ The **base fee** is algorithmically determined by network congestion and is burn
 
 EIP-1559 transactions specify `maxFeePerGas` and `maxPriorityFeePerGas`; the protocol burns the base fee and pays the priority fee to the proposer. Gas usage is affected by calldata byte costs and can be reduced with **access lists (EIP-2930)** that mark storage as warm.
 
+**Anecdote — The Burning Toll Booth**: Imagine a city toll road where the city sets a posted toll that rises when rush hour hits and falls when traffic eases. That posted toll is set on fire at the gate—no one pockets it—so drivers stop trying to outbid each other just to get in. If too many cars arrive, the next time window opens more lanes; if too few, it narrows. Only a small tip to the attendant changes your place in line. That is EIP‑1559: a burned base fee discovers the real price, elastic block size smooths shocks, and the tip preserves priority without waste.
+
 ### Address Format and Standards
 
 An **Ethereum address** is the public identifier for an account. It's a 40-character hexadecimal string (representing 20 bytes of data), which is derived from the last 20 bytes of the Keccak-256 hash of the account's public key (e.g., `0x742d35Cc6634C0532925a3b844Bc454e4438f44e`).
 
 Beyond the address format, standardization at the application layer has been crucial for Ethereum's growth, most notably with the **ERC-20 token standard**. This standard established a foundational blueprint for fungible tokens by defining a common list of rules and functions, such as `transfer()`, `approve()`, and `balanceOf()`. This interoperability means any wallet, exchange, or decentralized application can seamlessly interact with any ERC-20 token without custom code. This breakthrough was a key catalyst for the "Cambrian explosion" of **Decentralized Finance (DeFi)**, allowing for the effortless composition of services like swapping, lending, and pooling thousands of different tokens.
 
-Addresses use an **EIP-55 checksum** for mixed-case validation and human-readable names via **ENS**. Other key standards include **ERC-721/1155** (NFTs) and **ERC-2612 permit** (gasless approvals).
+Addresses use an **EIP-55 checksum** for mixed-case validation and human-readable names via **ENS**. Other key standards include **ERC-721/1155** (NFTs; see Part XI) and **ERC-2612 permit** (gasless approvals).
 
 ---
 
@@ -78,10 +80,6 @@ EigenLayer's architecture separates **strategy contracts** (managing deposits an
 
 ## Chapter 8: Ethereum Scaling and Layer 2 Solutions
 
-### MEV and Block Production
-
-Ethereum widely uses **Proposer-Builder Separation (PBS)** via **MEV-Boost**. See Part V, Chapter 20 for roles, centralization pressures, and mitigations. Enshrined PBS and inclusion lists remain active research.
-
 ### Rollup Technologies
 
 **Rollups** are Ethereum's primary scaling solution. They execute transactions on a separate **Layer 2 (L2)** chain and then post compressed transaction data back to the **Layer 1 (L1)** mainnet, inheriting its security while offering lower fees. There are two main types:
@@ -118,8 +116,29 @@ This architecture trades decentralization for performance, accepting risks like 
 The primary cost for rollups is posting their transaction data to L1. **EIP-4844 (Proto-Danksharding)** dramatically reduced this cost by introducing a new transaction type: the **blob-carrying transaction**. **Blobs** are large packets of data that are made available on the consensus layer for a temporary period (~18 days) instead of being stored permanently in the execution layer's state.
 
 This creates a separate, cheaper data market specifically for rollups. Integrity is enforced by **KZG commitments**; blob availability is provided by protocol rules and data retention. Post-Pectra, the per-block blob maximum increased to 9 (from the original 6) (as of 2025-05). This cryptographic technique is a cornerstone of **"full danksharding,"** as it allows light clients to verify that the data in a blob was made available simply by checking the commitment and a small proof, rather than having to download the entire blob themselves.
-
 Blob space has a separate base fee from normal gas, blobs are pruned after the retention window, and blob contents are not directly accessible to EVM contracts.
+
+**Anecdote — Time‑Limited Billboards and Sealed Posters**: Think of rollups renting billboard space on mainnet. They paste a huge poster (the blob) that stays up for roughly 18 days, then the city takes it down. The city keeps only a sealed, signed thumbnail that uniquely commits to the poster (the KZG commitment). Later, anyone can verify a specific square of that poster with a tiny receipt (a proof) without the city storing the full poster forever. Billboard rent clears in a separate market from road tolls—mirroring blob fees vs normal gas.
+
+#### The Data Availability Problem
+Rollups derive security by publishing their transaction data to a reliable layer so that anyone can independently verify state transitions, issue fraud proofs (for optimistic designs), or reconstruct the state if sequencers go offline. If data is withheld, security collapses. Historically, the DA component dominated rollup costs (often 80–95% pre‑4844). Post‑4844, costs fell substantially, but DA still drives a large share of L2 fees. Practical constraints remain: blobs are ~128 KiB each, kept for a temporary retention window (~18 days), and there are explicit per-block targets and maximums (as of Pectra, max 9). This bounded blobspace creates a real market for data and motivates both compression and alternative DA modes.
+
+#### External DA Options and Trade-offs
+Beyond Ethereum blobs, several DA systems exist with distinct assumptions and economics:
+- **Celestia**: A specialized chain providing consensus + data availability only. It uses **Data Availability Sampling (DAS)** with erasure coding and namespaced Merkle trees so even light clients gain high assurance that full block data was published. Fees are paid via PayForBlobs; security rests on staked TIA validators and sufficient independent sampling, with full nodes able to produce bad‑encoding fraud proofs.
+- **EigenDA**: Built on Ethereum’s restaking model. A disperser coordinates encoding and operator attestations; throughput can be high, while security depends on the value restaked and the operator/quorum assumptions.
+- **Validium and bonded/cryptoeconomic DA**: Data kept off‑chain under a committee or bonded set. This can be cheaper but weakens guarantees relative to on‑chain DA, since availability is not enforced by L1 protocol rules.
+- **Avail**: A DA-focused chain with namespaced commitments and DA sampling, backed by its own validator/security model.
+
+Choosing between native blobs vs. external DA depends on desired trust assumptions, throughput needs, cost targets, and how settlement/bridging is architected. Many rollups post state commitments to Ethereum while using external DA for data, or operate in hybrid modes that can switch depending on market conditions.
+
+#### Celestia in Focus
+
+Celestia is a modular blockchain that provides consensus and data availability only—not execution or settlement. It addresses the data availability problem for rollups: if transaction data is withheld, security collapses, and historically DA comprised the majority of L2 costs. By separating DA from execution, rollups can post their data to Celestia while settling on Ethereum or another settlement layer.
+
+Celestia uses Data Availability Sampling (DAS) so even light clients can verify that full block data was published by sampling small, random chunks. This is enabled by erasure coding and Namespaced Merkle Trees, allowing per‑namespace sampling and efficient proofs. Throughput scales with the number of samplers, improving capacity without burdening individual nodes. Fees are paid via PayForBlobs ("blob gas"), consensus is provided by CometBFT, and security rests on staked TIA validators plus an honest majority of samplers.
+
+In practice, a rollup submits blobs to Celestia and posts succinct state commitments to a settlement layer (often Ethereum), enabling fraud proofs and full state reconstruction when needed. Celestia also supports sovereign rollups that use it purely for DA. Compared with alternatives: Ethereum blobs (EIP‑4844) reduce DA costs natively but do not offer Celestia’s sampling‑driven scaling; EigenDA achieves high throughput with restaked quorums but with different trust assumptions; validiums are cheaper but rely on off‑chain committees; Avail provides a DA‑focused chain with its own validator/security model.
 
 ---
 
@@ -154,7 +173,7 @@ With these primitives in place, the UX frontier is shifting from transactions to
 
 ## Key Takeaways
 - Gas measures EVM work; fees = Gas Used × (Base Fee + Priority Fee) under EIP-1559.
-- ERC-20/721/1155 standards enabled interoperable tokens and NFTs; ENS and EIP-55 improve UX.
+- ERC-20/721/1155 standards enabled interoperable tokens and NFTs (see Part XI for NFTs); ENS and EIP-55 improve UX.
 - Post-Merge Ethereum uses PoS with slots/epochs, LMD-GHOST + Casper FFG, and BLS aggregation.
 - Finality is economic (~2 epochs); validators stake 32 ETH effective balance with slashing risks.
 - Restaking via EigenLayer enables shared security for AVSs; LRTs abstract complexity but add correlated risks.

@@ -16,13 +16,13 @@ The custodial model allows CEXs to offer leverage, sophisticated order types, an
 
 **Spot trading** represents the immediate exchange of one asset for another, such as converting USD to BTC. When you execute a spot trade, ownership transfers on the exchange's internal ledger, with the option to withdraw assets on-chain. This seemingly simple product serves multiple critical functions in the crypto ecosystem.
 
-Spot markets are used for portfolio rebalancing, treasury management, hedging basis exposure from derivatives positions, and settling profit and loss from complex trading strategies. The main risk is exchange and custody risk—your assets are held by the exchange rather than in your own wallet. However, spot trading carries no embedded leverage, making it the safest trading product from a liquidation perspective.
+Spot markets are used for portfolio rebalancing, treasury management, hedging basis exposure from derivatives positions, and settling profit and loss from complex trading strategies. The main risk is exchange and custody risk—your assets are held by the exchange rather than in your own wallet. Unlevered spot has no liquidation risk; margin spot does.
 
 ### Perpetual Futures: The Crypto Innovation
 
 **Perpetual futures (perps)** represent crypto's most significant contribution to financial markets. Unlike traditional futures that expire on specific dates, perps have no expiry and use an elegant mechanism to maintain price stability relative to the underlying asset.
 
-The key innovation is the **funding payment**—a periodic exchange of money between long and short positions that keeps the perp price anchored to an **index price**. When perps trade above the index, longs pay shorts; when below, shorts pay longs. This mechanism has made perps the dominant trading venue for crypto, often exceeding spot volume by 10x or more.
+The key innovation is the **funding payment**—a periodic exchange of money between long and short positions that keeps the perp price anchored to an **index price**. When perps trade above the index, longs pay shorts; when below, shorts pay longs. This mechanism has made perps the dominant trading venue for crypto, consistently exceeding spot volumes and sometimes by large multiples during volatile periods.
 
 Perps enable leverage, efficient delta hedging, basis trading opportunities, and sophisticated relative-value strategies. The primary risks include funding costs that can erode profits over time, liquidation risk when using leverage, and potential divergence in funding rates across different venues.
 
@@ -33,6 +33,26 @@ Perps enable leverage, efficient delta hedging, basis trading opportunities, and
 **Options** provide the right, but not obligation, to buy (calls) or sell (puts) at predetermined strikes before or at expiry. In crypto, options are primarily concentrated on major exchanges like Deribit, where they serve to hedge tail events, express volatility views, create structured payoffs, and generate yield through covered strategies.
 
 The options market exhibits strong **skew** patterns and liquidity concentration around popular strikes and expiries, creating both opportunities and risks for sophisticated traders.
+
+### Spot Bitcoin ETFs: Bridging TradFi and Crypto
+
+**Spot Bitcoin ETFs** hold actual BTC with qualified custodians and trade on traditional exchanges, giving investors regulated, brokerage-native exposure without handling wallets or exchanges directly. Their launch has had material market-structure effects:
+
+- **Access and distribution**: They open BTC exposure to retirement accounts, RIAs, and institutions constrained to ETFs, expanding the demand base.
+- **Liquidity & price discovery**: Primary market creations/redemptions convert cash to on-chain BTC (and vice versa), channeling flows through authorized participants (APs) and market makers that hedge across spot, futures, and perps.
+- **Basis and arbitrage**: ETF NAV tracking introduces cross‑venue basis relationships (ETF vs. spot index vs. futures), creating new arbitrage pathways and improving pricing efficiency.
+- **Custody demand & supply absorption**: Persistent ETF inflows migrate BTC to long-term custodial cold storage, reducing liquid float and potentially impacting scarcity dynamics.
+- **Operational considerations**: Tracking error, fee drag, and creation basket mechanics matter for execution; large creations can move order books and funding in the short run.
+
+As of July 2025, the SEC permits in-kind creations/redemptions for crypto ETFs. Early 2024 spot BTC ETFs launched cash-only; several issuers (e.g., IBIT, BITB, FBTC) have since enabled in-kind, though some funds may still use cash operationally.
+
+#### Largest U.S. Bitcoin spot ETFs (as of September 2025)
+
+- BlackRock iShares Bitcoin Trust (IBIT): ~$80B
+- Fidelity Wise Origin Bitcoin Fund (FBTC): ~$34B
+- Grayscale Bitcoin Trust ETF (GBTC): ~$19B
+- ARK 21Shares Bitcoin ETF (ARKB): ~$6B
+- Bitwise Bitcoin ETF (BITB): ~$5B
 
 ---
 

@@ -16,6 +16,8 @@ For a decentralized network to agree on the true history of transactions, it nee
 
 Think of finding a block as a lottery; chainwork is the total sum of "lottery tickets" (hashes) required to build the entire chain, a value calculated from the difficulty target (nBits) of each block. A shorter chain could have a higher cumulative difficulty, making it the valid one. This prevents an attacker from overwriting history with a long but easy-to-produce chain, as the sheer energy invested in the honest chain makes it prohibitively expensive to overcome.
 
+Imagine two climbers racing to the summit on different routes. One takes 1,000 easy steps up a gentle trail; the other takes 600 steps up a steep face where each step is worth more points because it’s harder. The judges don’t count steps; they total points. That’s chainwork: nodes sum per‑block work (from each block’s nBits) and choose the chain with the most total work—even if it has fewer blocks.
+
 ### Mining and Proof-of-Work
 
 Mining is the process that secures the network and creates new bitcoins through **Proof-of-Work**. Miners compete to solve a cryptographic puzzle by bundling transactions into a block and repeatedly hashing the block header using the double SHA-256 algorithm. The goal is to find a hash value below a specific target.
@@ -115,6 +117,8 @@ The **Lightning Network** is a Layer 2 protocol designed for instant, low-cost B
 Once the channel is established, the parties can transact an unlimited number of times by updating their channel's balance sheet off-chain. All state changes require mutual agreement and are secured by cryptography. When they are finished, they can close the channel by broadcasting the final state to the Bitcoin blockchain. The network can also route payments across multiple interconnected channels.
 
 Lightning uses **HTLCs** and **onion routing** for private, trust-minimized payments; **watchtowers** help penalize cheating. Channel liquidity is directional (inbound vs outbound) and affects routing success; rebalancing and swap services help manage liquidity for reliable routing.
+
+Think of Lightning as a canal system with locks. You can only send a boat if there’s enough water on your side (outbound capacity), and you can only receive if the other side has room to raise water to meet you (inbound capacity). Multi-hop routes work only when each lock along the path has water oriented the right way. Rebalancing is like shifting barges to move water back without closing the canal. HTLCs are sealed containers that either pass every lock intact or return unopened; onion routing means each lock‑keeper sees only the next hop, not the whole voyage.
 
 ---
 

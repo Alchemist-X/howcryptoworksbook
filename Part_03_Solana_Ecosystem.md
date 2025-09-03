@@ -8,6 +8,8 @@ Solana organizes state around an account model where programs are stateless BPF 
 
 Addresses are base58-encoded Ed25519 public keys. **Program Derived Addresses (PDAs)** are off curve—there is no private key—and allow programs to assert authority without custodial keys. Accounts can be made rent-exempt by holding a minimum lamport balance; most production accounts are provisioned as rent-exempt to avoid ongoing rent costs. For complex interactions, **versioned transactions** and **Address Lookup Tables (ALTs)** compress long account lists while keeping messages compact.
 
+Because each transaction declares its read/write accounts, the runtime works like a smart restaurant kitchen manager who can see every order's ingredient list upfront. Non-overlapping orders (different ingredients) get assigned to different stations and cook simultaneously, while overlapping orders (sharing the same rare ingredients) must wait in line. Priority fees work like rush charges—pay more and the kitchen prioritizes your order when stations are busy. Remove one popular ingredient that's causing a bottleneck, and suddenly the whole kitchen can work in parallel, serving orders at near-maximum speed.
+
 ## Chapter 11: Transactions, Fees, and UX
 
 Every transaction includes a message (account list, instructions, recent blockhash) and the required Ed25519 signatures. A small base fee is charged per signature. Users can optionally attach a **compute budget** and pay a **priority fee** per compute unit to improve inclusion under load, trading cost for latency. Compute units cap per transaction enforce fairness and help the scheduler bound execution.
@@ -20,13 +22,17 @@ Solana targets sub‑second slots with a deterministic leader schedule, enabling
 
 Ordering derives from **Proof of History (PoH)**, which provides a verifiable cryptographic clock. Finality uses **Tower BFT**, a stake‑weighted PBFT variant that votes on PoH slots. Leaders are pre-scheduled for short slots within an epoch (roughly 2–3 days), and staking governs leader selection, commissions, and warmup/cooldown. The networking stack runs over **QUIC** with stake‑weighted QoS; Turbine shards propagation to curb bandwidth spikes and spam.
 
+PoH acts like a printing press that stamps timestamps on blank newspaper pages at a steady rhythm; leaders fill those pages with stories (transactions) sent directly to their newsroom via private wire (Gulf Stream) rather than competing for space on a public bulletin board. The finished newspaper gets torn into sections and distributed through a network of neighborhood delivery captains (Turbine with erasure coding)—if a few sections get lost in transit, readers can still piece together the full story. Tower BFT works like editorial consensus: once most editors agree on a story across several editions, it becomes exponentially harder to retract, preserving the newspaper's credibility.
+
 ## Chapter 13: MEV and Block Building
 
-Block construction on Solana increasingly routes through **Jito**, which enables sidecar block building with bundle auctions. Searchers simulate bundles off-chain and pay tips for inclusion; validators integrate priority fees and bundle tips when constructing blocks. See also: Part V, Chapter 20 (MEV) for cross-ecosystem roles and mitigations.
+Canonical MEV concepts, roles, impacts, and mitigations are covered in Part V, Chapter 19. This chapter focuses on Solana-specific mechanics and design choices.
+
+Block construction on Solana increasingly routes through **Jito**, which enables sidecar block building with bundle auctions. Searchers simulate bundles off-chain and pay tips for inclusion; validators integrate priority fees and bundle tips when constructing blocks. See also: Part V, Chapter 19 (MEV) for cross-ecosystem roles and mitigations.
 
 ## Chapter 14: Developer Stack and Standards
 
-Developers typically write programs in Rust compiled to BPF. The **Anchor** framework provides IDLs, account validation, PDAs, and ergonomic cross‑program invocations. Token standards center on SPL tokens and token accounts, with **Associated Token Accounts** standardizing ownership. **Token‑2022** extends SPL with transfer hooks, interest‑bearing mints, metadata pointers, and permanent delegates, while confidential transfer features are under active development. Programs are deployed via the **Upgradeable Loader** with governed upgrade paths, and **sysvars** expose read‑only protocol state such as clock, rent, and instructions. **Metaplex** standards define NFT metadata and verified collections, and **state compression** uses concurrent Merkle trees with off‑chain storage to make large asset sets economical.
+Developers typically write programs in Rust compiled to BPF. The **Anchor** framework provides IDLs, account validation, PDAs, and ergonomic cross‑program invocations. Token standards center on SPL tokens and token accounts, with **Associated Token Accounts** standardizing ownership. **Token‑2022** extends SPL with transfer hooks, interest‑bearing mints, metadata pointers, and permanent delegates, while confidential transfer features are under active development. Programs are deployed via the **Upgradeable Loader** with governed upgrade paths, and **sysvars** expose read‑only protocol state such as clock, rent, and instructions. **Metaplex** standards define NFT metadata and verified collections (see Part XI for NFT background), and **state compression** uses concurrent Merkle trees with off‑chain storage to make large asset sets economical.
 
 ## Chapter 15: Performance, Clients, and Trade-offs
 

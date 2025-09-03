@@ -43,10 +43,11 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Chapter 19: Bridges and Cross-Chain Interoperability](./Part_04_Layer_1_Blockchains.md#chapter-19-bridges-and-cross-chain-interoperability)
 - [Key Takeaways](./Part_04_Layer_1_Blockchains.md#key-takeaways)
 
-### Part V — Data Availability & MEV
-- [Chapter 19: Celestia and the Data Availability Layer](./Part_05_Data_Availability_MEV.md#chapter-19-celestia-and-the-data-availability-layer)
-- [Chapter 20: The Complex World of MEV](./Part_05_Data_Availability_MEV.md#chapter-20-the-complex-world-of-mev)
-- [Key Takeaways](./Part_05_Data_Availability_MEV.md#key-takeaways)
+### Part V — MEV
+- [Chapter 19: The Complex World of MEV](./Part_05_MEV.md#chapter-19-the-complex-world-of-mev)
+- [Key Takeaways](./Part_05_MEV.md#key-takeaways)
+
+Note: Part V, Chapter 19 is the canonical deep-dive on MEV. Ethereum (Part II) and Solana (Part III) chapters reference it and focus on ecosystem-specific mechanics.
 
 - ### Part VI — DeFi Protocols and Mechanisms
 - [Chapter 21: Why DeFi?](./Part_06_DeFi_Protocols_Mechanisms.md#chapter-21-why-defi)

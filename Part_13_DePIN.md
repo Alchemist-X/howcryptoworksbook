@@ -17,6 +17,10 @@ The **core value proposition** lies in reducing capital requirements and operati
 - **Decentralized governance**: Network parameters and upgrades are managed through token-based voting
 - **Composable services**: Infrastructure can be programmatically accessed and integrated into applications
 
+### Historical Context: Protocol Monetization
+
+For most of the internet era, open protocols were not directly monetizable. Creators of foundational protocols like HTTP, SMTP, and BitTorrent captured little or no economic value from their widespread use; value accrued to companies building services on top. DePIN addresses this by embedding native tokens and on-chain metering into the protocol layer, enabling internet-native infrastructure to price services, collect revenue, and distribute it programmatically to creators, operators, and other contributors. This creates a path for protocol inventors and early builders to sustainably capture value while aligning incentives for network growth and quality.
+
 ### DePIN Architecture Components
 
 **Hardware requirements** vary significantly across DePIN categories. **Wireless networks** might require specialized radio equipment, **storage networks** need hard drives and networking equipment, while **sensor networks** use IoT devices and environmental monitoring equipment. The **barrier to entry** is typically much lower than traditional infrastructure deployment.
@@ -50,7 +54,6 @@ The **core value proposition** lies in reducing capital requirements and operati
 ### Computing and AI Networks
 
 **Render Network** enables distributed GPU rendering for 3D graphics, video processing, and AI workloads. **Node operators** contribute GPU resources and earn **RNDR tokens** based on completed rendering tasks. The network provides cost-effective access to high-performance computing for creative professionals and AI researchers.
-
 **Akash Network** creates a marketplace for general-purpose cloud computing using **Kubernetes** orchestration. **Providers** offer CPU, memory, and storage resources while **tenants** deploy applications at costs significantly below traditional cloud providers. **Reverse auctions** enable competitive pricing discovery.
 
 **Gensyn** focuses specifically on AI model training and inference, creating a decentralized alternative to centralized AI compute providers. **Proof-of-Learning** mechanisms verify that AI workloads are genuinely executed, while **federated learning** approaches enable privacy-preserving distributed AI training.

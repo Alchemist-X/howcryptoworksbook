@@ -16,6 +16,8 @@ Most blockchain networks depend on **ECDSA** for digital signatures, utilizing e
 
 **Hash functions** like SHA-256 and Keccak-256 demonstrate greater resistance but remain affected. Grover's algorithm reduces their effective security from 256 bits to 128 bits—still computationally infeasible but requiring larger hash outputs for equivalent security in a post-quantum world. For hash functions, it's important to distinguish between attack types: Grover provides quadratic speedup for preimage/second-preimage attacks (reducing SHA-256 to ~128-bit effective security), while the best-known quantum collision attack (BHT) scales around 2^(n/3), offering different and weaker speedup than Grover's preimage results.
 
+Shor is a master locksmith who, given the lock’s face (your public key), reverse-engineers the blueprint and cuts the matching key directly—catastrophic for RSA/ECDSA once his tools are good enough. Grover is a superhuman librarian who still must search the stacks, but runs the aisles twice as fast; a 256-bit shelf becomes effectively 128-bit, still vast but no longer overbuilt. One breaks structure, the other accelerates search.
+
 **Address generation** in most blockchains involves hashing public keys, providing some inherent protection through this additional layer. However, **address reuse** and **public key exposure** create vulnerabilities where quantum attackers could derive private keys from exposed public keys.
 
 ### Timeline and Standards Development
@@ -37,6 +39,8 @@ Risk assessment for quantum threats correlates primarily with **public key expos
 **Bitcoin's UTXO Model** provides some protection through address formats that hide public keys until spending occurs. **P2PKH (Pay-to-Public-Key-Hash)** and **P2WPKH** addresses only reveal public keys when creating spending transactions. **P2TR (Taproot)** offers enhanced privacy by making script-path spends indistinguishable from key-path spends until executed.
 
 **Ethereum's Account Model** creates different exposure dynamics. Every transaction from an Ethereum EOA (Externally Owned Account) exposes a recoverable public key through the `ecrecover` mechanism, making exposure more prevalent than in UTXO systems. However, EOAs that have never sent transactions maintain public key privacy until their first outbound transaction.
+
+A Bitcoin P2PKH address is a safe whose combination isn’t revealed until you open it; an Ethereum EOA is a safe in a room full of microphones that records your combination the first time you speak it. Even if no one can open safes today, an attacker can archive the recordings now and, when quantum tools arrive, rewind the tape and let themselves in—harvest-now, forge-later.
 
 ### Legacy Address Vulnerabilities
 
