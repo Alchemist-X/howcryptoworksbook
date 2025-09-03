@@ -207,9 +207,9 @@ The strategy has delivered notable results while maintaining structural protecti
 **Liquidation risk remains minimal** due to several factors:
 - Convertible notes are **senior unsecured** with no BTC collateral requirements
 - Outstanding maturities are 2028, 2030 (two tranches), 2031, and 2032; the 2027 notes were settled earlier in 2025 via conversion/redemption (the company received conversion requests for substantially all of the $1.05B before the Feb 24, 2025 redemption date)
-- Most converts are currently in‑the‑money at MSTR ≈ $341 (split‑adjusted after the 10‑for‑1 split on Aug 8, 2024): 2028 ~$183, 2030A ~$150, 2031 ~$233, 2032 ~$204; 2030B (~$433.43) is out‑of‑the‑money
-- Cash interest burden on the current stack is ~**$34.6M/year** (0.625%×$1.01B + 0.625%×$800M + 0.875%×$603.75M + 2.25%×$800M)
-- Authorized capacity includes a disclosed **$21B common‑stock ATM** and a separate **$21B preferred (STRK) ATM** (e.g., ~$4.3B remaining as of Feb 5, 2025 per disclosure)
+- Most converts are currently in‑the‑money at MSTR stock price being above $300
+- Cash interest burden on the current stack is about **$35M/year** 
+- Authorized capacity includes a disclosed **$21B common‑stock ATM** and a separate **$21B preferred (STRK) ATM**
 
 ### Strategic Risks and Limitations
 
