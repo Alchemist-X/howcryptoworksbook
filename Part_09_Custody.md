@@ -108,7 +108,7 @@ Testing is critical—disaster recovery procedures that haven't been tested in r
 
 ### Mnemonic Seed Phrases vs Multisig
 
-**Mnemonic seed phrases (BIP-39)** are human-readable encodings of cryptographic entropy. Valid lengths are 12, 15, 18, 21, or 24 words, corresponding to approximately 128, 160, 192, 224, or 256 bits of entropy respectively.
+**Mnemonic seed phrases (BIP-39)** are human-readable encodings of cryptographic entropy. The most common lengths are **12 words** (128 bits of entropy) and **24 words** (256 bits of entropy). While 15, 18, and 21-word phrases are technically valid per the BIP-39 specification, they are rarely used in practice.
 
 The words encode entropy plus a checksum designed to catch transcription errors. Combined with an optional passphrase (the "25th word"), they are stretched using PBKDF2 into a master seed from which **hierarchical deterministic wallets (BIP-32/44)** derive all accounts and addresses.
 
