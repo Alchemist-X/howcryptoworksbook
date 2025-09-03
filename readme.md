@@ -51,10 +51,13 @@ All links in this README navigate to their corresponding chapters and sections i
 - [Key Takeaways](./Chapter_04_Layer_1_Blockchains.md#key-takeaways)
 
 ### Chapter V — MEV
-- [Section 1: The Complex World of MEV](./Chapter_05_MEV.md#section-1-the-complex-world-of-mev)
+- [Section 1: MEV Fundamentals and Ecosystem Structure](./Chapter_05_MEV.md#section-1-mev-fundamentals-and-ecosystem-structure)
+- [Section 2: MEV Strategies and Market Impact](./Chapter_05_MEV.md#section-2-mev-strategies-and-market-impact)
+- [Section 3: Centralization Pressures and Mitigation Solutions](./Chapter_05_MEV.md#section-3-centralization-pressures-and-mitigation-solutions)
+- [Section 4: Cross-Domain MEV and Future Challenges](./Chapter_05_MEV.md#section-4-cross-domain-mev-and-future-challenges)
 - [Key Takeaways](./Chapter_05_MEV.md#key-takeaways)
 
-Note: Chapter V, Section 1 is the canonical deep-dive on MEV. Ethereum (Chapter II) and Solana (Chapter III) chapters reference it and focus on ecosystem-specific mechanics.
+Note: Chapter V provides the canonical deep-dive on MEV across all aspects. Ethereum (Chapter II) and Solana (Chapter III) chapters reference it and focus on ecosystem-specific mechanics.
 
 ### Chapter VI — DeFi Protocols and Mechanisms
 - [Section 1: Why DeFi?](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-1-why-defi)
