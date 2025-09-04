@@ -2,7 +2,7 @@
 
 *This section establishes the foundational concepts of non-fungible tokens, exploring their revolutionary approach to digital ownership, technical standards, and the evolving utility that extends far beyond digital collectibles into programmable assets and decentralized identity systems.*
 
-## Section 1: NFT Core Concepts
+## Section I: NFT Core Concepts
 
 ### Genesis and Philosophy
 
@@ -33,7 +33,7 @@ This separation enables new possibilities: you might own an NFT (token ownership
 
 ---
 
-## Section 2: NFT Technical Architecture
+## Section II: NFT Technical Architecture
 
 ### Metadata and Storage Architecture
 
@@ -69,7 +69,7 @@ Modern NFT implementations explore sophisticated programmable mechanics:
 
 ---
 
-## Section 3: NFT Standards and Implementation
+## Section III: NFT Standards and Implementation
 
 ### ERC-721: Foundation Standard
 
@@ -107,7 +107,7 @@ Key implementation considerations include **gas optimization** through batch min
 
 ---
 
-## Section 4: NFT Infrastructure and Marketplaces
+## Section IV: NFT Infrastructure and Marketplaces
 
 ### Marketplace Evolution and Competition
 
@@ -144,7 +144,7 @@ NFT markets exhibit unique liquidity characteristics compared to fungible tokens
 
 ---
 
-## Section 5: NFT Utility and Future Applications
+## Section V: NFT Utility and Future Applications
 
 ### Beyond Digital Collectibles
 
@@ -212,3 +212,14 @@ Successful NFT projects often develop into **ecosystem platforms** rather than s
 - **Expanding Utility**: Evolution from collectibles to gaming assets, identity credentials, real-world tokenization, and programmable membership with sustainable business models
 - **Cultural Impact**: PFP projects serve as digital status symbols and social coordination mechanisms; different blockchain ecosystems develop distinct communities and standards
 - **Valuation Complexity**: Multiple factors including rarity, utility, cultural significance, and network effects; market cycles driven by broader adoption and technological development
+
+### NFT Risk Checklist
+
+- Metadata permanence ensured (content-addressed URIs, multiple pinning providers, on-chain fallbacks)
+- Royalty and license terms explicit and enforced where applicable (marketplace behavior understood)
+- Approval safety reviewed (minimize setApprovalForAll exposure; revoke tooling and monitoring)
+- Contract upgrade paths audited (proxies, ownership, pause/kill switches)
+- Marketplace and aggregator dependencies assessed (listing security, phishing vectors)
+- Bridge and cross-chain representations validated (wrapped asset risks, custody model)
+- Randomness and mint mechanics audited (sybil resistance, fair distribution, bot protections)
+- Compliance and IP considerations reviewed (licenses, takedown risks, jurisdictional constraints)

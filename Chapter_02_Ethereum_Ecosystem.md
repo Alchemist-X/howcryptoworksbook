@@ -2,7 +2,7 @@
 
 *This section examines Ethereum's programmable blockchain platform, covering its virtual machine architecture, smart contract capabilities, scaling solutions, and the transition to proof-of-stake consensus.*
 
-## Section 1: Ethereum Core Concepts
+## Section I: Ethereum Core Concepts
 
 ### Gas and Transaction Mechanics
 
@@ -26,11 +26,11 @@ An **Ethereum address** is the public identifier for an account. It's a 40-chara
 
 Beyond the address format, standardization at the application layer has been crucial for Ethereum's growth, most notably with the **ERC-20 token standard**. This standard established a foundational blueprint for fungible tokens by defining a common list of rules and functions, such as `transfer()`, `approve()`, and `balanceOf()`. This interoperability means any wallet, exchange, or decentralized application can seamlessly interact with any ERC-20 token without custom code. This breakthrough was a key catalyst for the "Cambrian explosion" of **Decentralized Finance (DeFi)**, allowing for the effortless composition of services like swapping, lending, and pooling thousands of different tokens.
 
-Addresses use an **EIP-55 checksum** for mixed-case validation and human-readable names via **ENS**. Other key standards include **ERC-721/1155** (NFTs; see Chapter XI) and **ERC-2612 permit** (gasless approvals).
+Addresses use an **EIP-55 checksum** for mixed-case validation and human-readable names via **ENS**. Other key standards include **ERC-721/1155** (NFTs; See Chapter XI) and **ERC-2612 permit** (gasless approvals).
 
 ---
 
-## Section 2: Ethereum Consensus and Staking
+## Section II: Ethereum Consensus and Staking
 
 ### Proof-of-Stake Transition
 
@@ -78,7 +78,7 @@ EigenLayer's architecture separates **strategy contracts** (managing deposits an
 
 ---
 
-## Section 3: Ethereum Scaling and Layer 2 Solutions
+## Section III: Ethereum Scaling and Layer 2 Solutions
 
 ### Rollup Technologies
 
@@ -103,6 +103,23 @@ Most sequencers are centralized today, so favor designs with forced inclusion/es
 
 Against this backdrop, decentralizing the sequencing layer seeks to preserve fast confirmations while reducing single‑operator risk. Centralized sequencers deliver speed and a single inclusion queue, but they also concentrate power and introduce censorship risk. Emerging designs distribute ordering through shared sequencing networks, rotate sequencer sets, and enforce inclusion lists that proposers can check. Preconfirmations offer soft commitments to improve UX, while slashing, escrow, and bounded dispute windows curb griefing. For safety, favor canonical rollup bridges and scrutinize upgrade keys, pause powers, and escape hatches.
 
+#### Sequencer Decentralization Matrix (Major Rollups)
+
+| Rollup | Type | Sequencer today | Forced inclusion / escape | Preconfirmations / MEV policy | Data availability | Bridge model | Decentralization roadmap |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Arbitrum One | Optimistic | Centralized (single operator) | Yes – L1 delayed inbox | Limited; preconf UX varies | On-chain (calldata/blobs) | Canonical L1 rollup bridge | Fault proofs + shared/decentralized sequencing on roadmap |
+| Optimism Mainnet | Optimistic | Centralized | Yes – L1 inclusion mechanism | Limited; OFA/private orderflow via partners | On-chain | Canonical | Progressive fault proofs; shared sequencer research |
+| Base | OP Stack (Optimistic) | Centralized | Yes – via OP Stack | Limited; relies on OP Stack infra | On-chain | Canonical (OP Stack) | Aligns with OP Stack decentralization plan |
+| zkSync Era | ZK | Centralized | Yes – L1 escape hatches | Preconfs exist; policy evolving | On-chain | Canonical | Prover/seq decentralization planned |
+| Starknet | ZK (STARKs) | Centralized | Yes – escape mechanisms | Preconf UX emerging | On-chain | Canonical | Sequencer/prover decentralization in roadmap |
+| Scroll | ZK | Centralized | Yes | Limited | On-chain | Canonical | Decentralized sequencer planned |
+| Linea | ZK | Centralized | Yes | Limited | On-chain | Canonical | Roadmap toward decentralized sequencing |
+| Polygon zkEVM | ZK | Centralized | Yes | Limited | On-chain | Canonical | Toward shared/rotating sequencers |
+
+Notes:
+- "Centralized" reflects a single active sequencer today; most have emergency force-inclusion paths and published decentralization roadmaps.
+- Policies around preconfirmations, OFAs, and MEV vary by stack and are evolving; prefer canonical bridges and verify upgrade/admin key controls.
+
 ### High-Performance Rollup Approaches
 
 While most rollups balance decentralization with performance, some projects prioritize extreme performance by embracing centralized sequencers. MegaETH exemplifies this approach, deliberately using a single active sequencer to achieve Web2-level latency (sub-millisecond) and throughput (100,000+ TPS).
@@ -121,7 +138,7 @@ Blob space has a separate base fee from normal gas, blobs are pruned after the r
 Think of rollups renting billboard space on mainnet. They paste a huge poster (the blob) that stays up for roughly 18 days, then the city takes it down. The city keeps only a sealed, signed thumbnail that uniquely commits to the poster (the KZG commitment). Later, anyone can verify a specific square of that poster with a tiny receipt (a proof) without the city storing the full poster forever. Billboard rent clears in a separate market from road tolls—mirroring blob fees vs normal gas.
 
 #### The Data Availability Problem
-Rollups derive security by publishing their transaction data to a reliable layer so that anyone can independently verify state transitions, issue fraud proofs (for optimistic designs), or reconstruct the state if sequencers go offline. If data is withheld, security collapses. Historically, the DA component dominated rollup costs (often 80–95% pre‑4844). Post‑4844, costs fell substantially, but DA still drives a large share of L2 fees. Practical constraints remain: blobs are ~128 KiB each, kept for a temporary retention window (~18 days), and there are explicit per-block targets and maximums (as of Pectra, max 9). This bounded blobspace creates a real market for data and motivates both compression and alternative DA modes.
+Rollups derive security by publishing their transaction data to a reliable layer so that anyone can independently verify state transitions, issue fraud proofs (for optimistic designs), or reconstruct the state if sequencers go offline. If data is withheld, security collapses. Historically, the DA component dominated rollup costs (often 80–95% pre‑4844). Post‑4844, costs fell substantially, but DA still drives a large share of L2 fees. Practical constraints remain: blobs are ~128 KiB each, kept for a temporary retention window (~18 days), and there are explicit per-block targets and maximums (Post-Pectra, max 9). This bounded blobspace creates a real market for data and motivates both compression and alternative DA modes.
 
 #### External DA Options and Trade-offs
 Beyond Ethereum blobs, several DA systems exist with distinct assumptions and economics:
@@ -142,7 +159,7 @@ In practice, a rollup submits blobs to Celestia and posts succinct state commitm
 
 ---
 
-## Section 4: Account Abstraction and Future Upgrades
+## Section IV: Account Abstraction and Future Upgrades
 
 ### ERC-4337 Account Abstraction
 
@@ -173,7 +190,7 @@ With these primitives in place, the UX frontier is shifting from transactions to
 
 ## Key Takeaways
 - Gas measures EVM work; fees = Gas Used × (Base Fee + Priority Fee) under EIP-1559.
-- ERC-20/721/1155 standards enabled interoperable tokens and NFTs (see Chapter XI for NFTs); ENS and EIP-55 improve UX.
+- ERC-20/721/1155 standards enabled interoperable tokens and NFTs (See Chapter XI for NFTs); ENS and EIP-55 improve UX.
 - Post-Merge Ethereum uses PoS with slots/epochs, LMD-GHOST + Casper FFG, and BLS aggregation.
 - Finality is economic (~2 epochs); validators stake 32 ETH effective balance with slashing risks.
 - Restaking via EigenLayer enables shared security for AVSs; LRTs abstract complexity but add correlated risks.

@@ -2,7 +2,7 @@
 
 *This section introduces the core ideas behind institutional crypto custody. The goal is clarity: understand what controls actually prevent loss, how policy and evidence make custody professional, and how to choose the right model for your use case.*
 
-## Section 1: Custody Core Concepts
+## Section I: Custody Core Concepts
 
 ### Genesis and Philosophy
 
@@ -38,7 +38,7 @@ Produce **immutable evidence** through attestations, logs, and regular audits to
 
 ---
 
-## Section 2: Custody Models and Architecture
+## Section II: Custody Models and Architecture
 
 ### Multisig (On-Chain Rules)
 
@@ -72,7 +72,7 @@ The trade-offs include contract risk (bugs in wallet logic), evolving standards 
 
 ---
 
-## Section 3: Controls and Security Implementation
+## Section III: Controls and Security Implementation
 
 ### Key Generation and Hardware Security
 
@@ -104,7 +104,7 @@ Testing is critical—disaster recovery procedures that haven't been tested in r
 
 ---
 
-## Section 4: Technical Implementation Details
+## Section IV: Technical Implementation Details
 
 ### Mnemonic Seed Phrases vs Multisig
 
@@ -150,7 +150,7 @@ When assets sit on exchanges, custody operations inherit the exchange's solvency
 
 ---
 
-## Section 5: Operations and Risk Management
+## Section V: Operations and Risk Management
 
 ### Segregation and Tiering
 
@@ -205,3 +205,15 @@ Successful custody operations combine technical excellence with operational disc
 - DeFi risks: infinite approvals, address poisoning, and bridge risks require specialized controls and monitoring.
 - Exchange integration: understand custody plumbing, solvency risks, and demand comprehensive proof-of-reserves with independent verification.
 - Historical incidents emphasize segregation enforcement, change control rigor, anomaly detection, and independent evidence as critical success factors.
+
+### Custody Risk Checklist
+
+- Key generation under attested hardware (FIPS 140‑3 L3 or equivalent) with dual control
+- Temperature tier ceilings enforced (cold ≥90%, warm 5–10%, hot <5%) with alerts
+- Policy engine in place (RBAC, quorum approvals, velocity caps, allowlists, timelocks)
+- Admin‑plane dual control (JML, two‑person rule, break‑glass with delay/duress)
+- Immutable evidence (WORM logs, device attestation, signer participation records) and SIEM
+- Geo‑distributed shards and tested DR runbooks (RTO/RPO defined; regular exercises)
+- Vendor/platform risk assessed (MPC/TEE implementations, audits, SBOM, firmware pinning)
+- Legal posture reviewed (segregation, bankruptcy remoteness, sanctions/Travel Rule compliance)
+- Exchange integrations mapped (rehypothecation risk, margin flows, PoR quality)

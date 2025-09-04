@@ -2,7 +2,7 @@
 
 *This section examines the emerging threat of quantum computing to blockchain cryptography, exploring vulnerabilities in current systems, risk assessment frameworks, and practical mitigation strategies for protecting digital assets in the post-quantum era.*
 
-## Section 1: Quantum Computing and Cryptographic Threats
+## Section I: Quantum Computing and Cryptographic Threats
 
 ### Quantum Computing Fundamentals
 
@@ -30,7 +30,7 @@ Migration to quantum-resistant cryptography will require extensive coordination 
 
 ---
 
-## Section 2: Blockchain Vulnerability Assessment
+## Section II: Blockchain Vulnerability Assessment
 
 ### Public Key Exposure Models
 
@@ -62,7 +62,7 @@ A Bitcoin P2PKH address is a safe whose combination isn’t revealed until you o
 
 ---
 
-## Section 3: Risk Categories and Exposure Analysis
+## Section III: Risk Categories and Exposure Analysis
 
 ### Dormant and Potentially Lost Wallets
 
@@ -92,7 +92,7 @@ The fundamental challenge lies in distinguishing between **genuinely lost funds*
 
 ---
 
-## Section 4: Mitigation Strategies and Quantum-Resistant Solutions
+## Section IV: Mitigation Strategies and Quantum-Resistant Solutions
 
 ### Individual User Protection Strategies
 
@@ -132,7 +132,7 @@ The fundamental challenge lies in distinguishing between **genuinely lost funds*
 
 ---
 
-## Section 5: Network Coordination and Future Preparations
+## Section V: Network Coordination and Future Preparations
 
 ### Cross-Network Compatibility Challenges
 

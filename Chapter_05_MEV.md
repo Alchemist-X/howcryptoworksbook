@@ -2,7 +2,7 @@
 
 *This chapter examines Maximal Extractable Value: who extracts it, how it impacts users and markets, and the design space for mitigation across ecosystems.*
 
-## Section 1: MEV Fundamentals and Ecosystem Structure
+## Section I: MEV Fundamentals and Ecosystem Structure
 
 **Maximal Extractable Value (MEV)** is the profit block producers can capture by strategically ordering, including, or excluding transactions within the blocks they create. This concept, originally called **"Miner Extractable Value"** during Ethereum's proof-of-work era, represents revenue extracted beyond standard block rewards and transaction fees. The process begins when users submit transactions to a public **"mempool,"** a waiting area where block producers can observe pending trades and leverage this advance knowledge for profit.
 
@@ -18,7 +18,7 @@ So what is MEV? It's the value captured by controlling transaction visibility an
 
 In this context, Ethereum is often called a "dark forest": revealing a profitable transaction in the public mempool can summon "generalized frontrunner" bots that copy, mutate, and preempt it before inclusion. The takeaway is that visibility itself is risk, which motivates private order flow, order‑flow auctions, and PBS-style designs to reduce exposure and return value to originators.
 
-## Section 2: MEV Strategies and Market Impact
+## Section II: MEV Strategies and Market Impact
 
 ### Common MEV Strategies
 
@@ -33,7 +33,7 @@ In this context, Ethereum is often called a "dark forest": revealing a profitabl
 
 While MEV activities like arbitrage can enhance market efficiency and liquidations are a necessary function, the overall impact presents a fundamental tension between market mechanics and user fairness. MEV competition inflates gas prices for all users as bots bid aggressively for transaction priority. Furthermore, users often receive worse execution prices from front-running and sandwich attacks, effectively paying an **"invisible tax"** to sophisticated actors.
 
-## Section 3: Centralization Pressures and Mitigation Solutions
+## Section III: Centralization Pressures and Mitigation Solutions
 
 ### The Centralization Problem
 
@@ -45,11 +45,24 @@ To counter this, a decentralized block-building network called **BuilderNet** wa
 
 **Order flow auctions (OFAs)** and **private orderflow** (e.g., MEV-Share, SUAVE, private relays, encrypted mempools, private RPCs) seek to return value to users—often via rebates—with mixed results in practice. **Time-bandit attacks** (reorgs to capture MEV) are constrained by fast finality; research explores **MEV-smoothing** and **enshrined PBS**.
 
-## Section 4: Cross-Domain MEV and Future Challenges
+### MEV Mitigation Map (by Role)
+
+| Role | Primary tactics | Tools / examples | Key trade‑offs |
+| --- | --- | --- | --- |
+| Users | Hide orderflow; constrain execution | Private RPCs (MEV‑Share, CoWSwap RPC), RFQ/intent routers (CoW Swap, Uniswap X), tight slippage + fill‑or‑kill, batch auctions | Less immediate execution on long‑tail pairs; routing trust; failed txs if constraints too tight |
+| dApps / Protocols | Remove continuous‑time priority; internalize or rebate MEV | Frequent batch auctions, RFQ flows, intents + solver competitions, on‑chain hooks with anti‑sandwich checks, OFAs with rebates | Added complexity; potential latency; relies on robust solver markets and simulation guards |
+| Builders | Privacy + fairness; reduce censorship | PBS compliance, encrypted mempools/TEE builders, fair ordering within bundles, no‑sandwich policies, BuilderNet participation | Throughput/latency overhead; trust in TEEs/attestations; competitive pressure vs permissive builders |
+| Validators / Proposers | Safe inclusion + value sharing | Use reputable relays, inclusion lists/inclusion guarantees, OFA revenue‑sharing, MEV‑smoothing pools, enshrined PBS (research) | Relay trust; potential revenue variance; policy constraints vs profit maximization |
+
+Operational notes:
+- Prefer intent/batch‑auction settlement for retail orderflow to eliminate sandwich windows.
+- Enforce simulation, slippage bounds, and pause hooks at the protocol level to reduce exploit surfaces.
+
+## Section IV: Cross-Domain MEV and Future Challenges
 
 ### Emerging Challenges: Cross-Domain MEV
 
-A new frontier of value extraction, **Cross-Domain MEV**, is also emerging. This refers to arbitrage and other strategies executed across different blockchain networks, exploiting price differences between on-chain exchanges on separate chains. Researchers warn this could pose an **"existential risk"** to decentralization if sophisticated actors gain control over transaction ordering across multiple domains. The timing and latency of blockchain bridges are critical factors, enabling complex, multi-block MEV strategies that are even harder to mitigate. This highlights that as the blockchain ecosystem grows, the challenges of ensuring fair and decentralized value extraction will only become more complex. See also: Chapter II, Section 3 for PBS on Ethereum and rollup builder dynamics.
+A new frontier of value extraction, **Cross-Domain MEV**, is also emerging. This refers to arbitrage and other strategies executed across different blockchain networks, exploiting price differences between on-chain exchanges on separate chains. Researchers warn this could pose an **"existential risk"** to decentralization if sophisticated actors gain control over transaction ordering across multiple domains. The timing and latency of blockchain bridges are critical factors, enabling complex, multi-block MEV strategies that are even harder to mitigate. This highlights that as the blockchain ecosystem grows, the challenges of ensuring fair and decentralized value extraction will only become more complex. See Chapter II, Section III for PBS on Ethereum and rollup builder dynamics.
 
 Mitigations under study include **shared sequencing** across domains, **cross-domain batch auctions**, and **routing intents through OFAs**.
 

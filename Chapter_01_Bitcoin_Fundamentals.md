@@ -2,7 +2,7 @@
 
 *This section establishes the foundational concepts of Bitcoin, exploring its revolutionary approach to digital money, consensus mechanisms, and the philosophical principles that underpin the world's first successful cryptocurrency.*
 
-## Section 1: Bitcoin Core Concepts
+## Section I: Bitcoin Core Concepts
 
 ### Genesis and Philosophy
 
@@ -36,7 +36,7 @@ Due to integer rounding in halvings, the terminal supply converges to ~20,999,99
 
 ---
 
-## Section 2: Bitcoin Technical Architecture
+## Section II: Bitcoin Technical Architecture
 
 ### UTXO Model
 
@@ -68,7 +68,7 @@ Wallets standardize address derivation using BIP32/39/44 and output descriptors;
 
 ---
 
-## Section 3: Bitcoin Upgrades and Scaling
+## Section III: Bitcoin Upgrades and Scaling
 
 ### Segregated Witness (SegWit)
 
@@ -108,7 +108,7 @@ Taproot supports **key-path** (single-sig) and **script-path** spends under **Ta
 
 ---
 
-## Section 4: Bitcoin Layer 2 and Extensions
+## Section IV: Bitcoin Layer 2 and Extensions
 
 ### Lightning Network
 
@@ -122,7 +122,7 @@ Think of Lightning as a canal system with locks. You can only send a boat if the
 
 ---
 
-## Section 5: Bitcoin Network Operations and Security Model
+## Section V: Bitcoin Network Operations and Security Model
 
 ### Roles at a Glance
 
@@ -168,7 +168,7 @@ Common privacy practices include avoiding address reuse, using coin control, and
 
 ### Network Economics and Fee Markets
 
-The competition for Bitcoin's limited block space creates a **fee market**. During periods of high demand, users bid for inclusion in the next block, driving up transaction fees. This market mechanism is crucial for the network's long-term sustainability, as fee revenue is expected to replace the diminishing block subsidy as the primary incentive for miners. Mining economics are a dynamic balance between electricity costs, hardware efficiency, and the value of block rewards and fees. For transaction prioritization, fee rates, and fee-bumping mechanics, see Chapter 3 "Transaction Structure and Prioritization."
+The competition for Bitcoin's limited block space creates a **fee market**. During periods of high demand, users bid for inclusion in the next block, driving up transaction fees. This market mechanism is crucial for the network's long-term sustainability, as fee revenue is expected to replace the diminishing block subsidy as the primary incentive for miners. Mining economics are a dynamic balance between electricity costs, hardware efficiency, and the value of block rewards and fees. For transaction prioritization, fee rates, and fee-bumping mechanics, See Chapter III, Section II "Transaction Structure and Prioritization."
 
 ### Network Resilience and Antifragility
 
@@ -190,7 +190,7 @@ This process became practical thanks to two soft forks: SegWit, which provided a
 
 Relay and mining policies for large inscriptions can vary, affecting inclusion and propagation.
 
-## Section 6: Corporate Bitcoin Treasuries
+## Section VI: Corporate Bitcoin Treasuries
 
 ### The Corporate Treasury Trend
 
