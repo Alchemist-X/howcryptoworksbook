@@ -4,6 +4,8 @@
 
 ## Section I: DePIN Fundamentals and Architecture
 
+With a roadmap for quantum-safe cryptography in hand, we turn to systems that extend blockchains into the physical world. Decentralized Physical Infrastructure Networks coordinate storage, compute, bandwidth, sensors, maps, and energy using on-chain incentives and proofs of real-world work. This chapter connects cryptographic identity (including PQ-ready device keys) to mechanism design—supply bootstrapping, sybil resistance, slashing, proof-of-resource/placement—and the market mechanics of pricing these resources across spot, auction, and derivatives venues, using case studies to surface real-world failure modes.
+
 ### Defining Decentralized Physical Infrastructure
 
 **Decentralized Physical Infrastructure Networks (DePIN)** represent a paradigm shift from traditional centralized infrastructure deployment to community-driven, token-incentivized models. These networks leverage blockchain technology and cryptocurrency rewards to coordinate the deployment, operation, and maintenance of physical infrastructure by distributed participants rather than centralized corporations.

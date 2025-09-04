@@ -4,6 +4,8 @@
 
 ## Section I: Ethereum Core Concepts
 
+In Bitcoin we saw a minimal, UTXO‑based system optimized for credible monetary policy and simple programmable rules. Ethereum keeps Bitcoin’s core guarantees—public verifiability and permissionless access—but switches to an account model and a general‑purpose virtual machine (EVM) so that stateful applications (DEXs, lending, NFT markets) can run on‑chain. The trade‑off is more complexity in execution, fees (gas), and consensus design. This chapter explains those mechanics and how rollups extend Ethereum’s capacity.
+
 ### Gas and Transaction Mechanics
 
 In Ethereum, **gas** is the fundamental unit that measures the computational effort required to execute an operation on the **Ethereum Virtual Machine (EVM)**, which operates on a 256-bit word size. Every operation, from a simple transfer to a complex smart contract interaction, has a fixed gas cost. For example, the most basic transaction—a plain ETH transfer—has an intrinsic gas cost of 21,000.
@@ -20,6 +22,8 @@ EIP-1559 transactions specify `maxFeePerGas` and `maxPriorityFeePerGas`; the pro
 
 Imagine a city toll road where the city sets a posted toll that rises when rush hour hits and falls when traffic eases. That posted toll is set on fire at the gate—no one pockets it—so drivers stop trying to outbid each other just to get in. If too many cars arrive, the next time window opens more lanes; if too few, it narrows. Only a small tip to the attendant changes your place in line. That is EIP‑1559: a burned base fee discovers the real price, elastic block size smooths shocks, and the tip preserves priority without waste.
 
+Separately from fees, **inclusion lists** are a censorship‑mitigation tool: proposers (or sequencers) must include specified transactions within a bounded window; they do not alter EIP‑1559’s base‑fee burn or tip dynamics.
+
 ### Address Format and Standards
 
 An **Ethereum address** is the public identifier for an account. It's a 40-character hexadecimal string (representing 20 bytes of data), which is derived from the last 20 bytes of the Keccak-256 hash of the account's public key (e.g., `0x742d35Cc6634C0532925a3b844Bc454e4438f44e`).
@@ -34,19 +38,19 @@ Addresses use an **EIP-55 checksum** for mixed-case validation and human-readabl
 
 ### Proof-of-Stake Transition
 
-The culmination of years of research, **The Merge**, was the landmark hard fork that transitioned Ethereum from an energy-intensive Proof-of-Work (PoW) consensus mechanism to an efficient **Proof-of-Stake (PoS)** system. This event, which occurred with the **Paris upgrade** on September 15, 2022, formally combined the original execution layer (handling transactions) with the new consensus layer, the **Beacon Chain**.
+The culmination of years of research, **The Merge** (15 Sep 2022), was the landmark hard fork that transitioned Ethereum from an energy-intensive Proof-of-Work (PoW) consensus mechanism to an efficient **Proof-of-Stake (PoS)** system. This event, which occurred with the **Paris upgrade** on September 15, 2022, formally combined the original execution layer (handling transactions) with the new consensus layer, the **Beacon Chain**.
 
 This shift replaced energy-intensive mining with **staking**, where validators lock up ETH as collateral to secure the network. In exchange for proposing and validating blocks honestly, they earn rewards. This transition reduced Ethereum's energy consumption by over 99.9% and paved the way for future scalability upgrades.
 
 ### Finality and Validator Mechanics
 
-In Ethereum's PoS system, time is organized into **slots** (12 seconds) and **epochs** (32 slots, or ~6.4 minutes). In each slot, a validator is chosen to propose a block while others attest to its validity. A block achieves **economic finality**—meaning it's irreversible without a massive economic penalty—after approximately 2 epochs (~12.8 minutes), once a supermajority of validators has attested to it.
+In Ethereum's PoS system, time is organized into **slots** (12 seconds) and **epochs** (32 slots, or ~6.4 minutes). In each slot, a validator is chosen to propose a block while others attest to its validity. Checkpoints become **justified** when they receive a supermajority of attestations in an epoch, and become **finalized** in the subsequent epoch when a second supermajority confirms the justification. A block achieves **economic finality**—meaning it is irreversible without a massive economic penalty—after approximately 2 epochs (~12.8 minutes) under normal network conditions.
 
-To participate, a user must stake **32 ETH** to run a validator node. While more can be staked in a single address, rewards are calculated based on a max effective balance of 32 ETH per validator. This design encourages decentralization by motivating stakers to run multiple validators rather than consolidating stake into a single, oversized one.
+To participate, a user must stake **32 ETH** to run a validator node. While more can be staked in a single address, rewards are calculated based on a max effective balance of 32 ETH per validator. This design encourages decentralization by motivating stakers to run multiple validators rather than consolidating stake into a single, oversized one. Consensus-layer objects (blocks, attestations, state) use **SSZ** as the canonical serialization format, while the execution layer continues to use **RLP** for transactions and receipts.
 
 To manage attestations from thousands of validators efficiently, Ethereum uses the **BLS signature scheme**, which allows thousands of individual signatures to be aggregated into a single, compact signature that is cheap to verify on-chain. This system is secured by **slashing protection**, where validators who act maliciously (e.g., attest to conflicting blocks) face a severe penalty, potentially losing their entire stake.
 
-Fork choice uses **LMD-GHOST** with **Casper FFG finality**; **inactivity leaks** penalize offline validators during major partitions. **Withdrawals** (partial and full) are enabled to the execution layer, and light clients follow the chain via **sync committees**.
+Fork choice uses **LMD-GHOST** with **Casper FFG finality**. **Slashing** protects against provable safety violations (e.g., double proposals or conflicting attestations) by destroying a portion of a validator's stake and ejecting them. **Inactivity leaks** protect liveness during extended partitions or mass outages by gradually reducing the balances of inactive validators so that the active set can finalize. **Withdrawals** (partial and full) are enabled to the execution layer, and light clients follow the chain via **sync committees**.
 
 ### Restaking and Shared Security
 
@@ -103,23 +107,6 @@ Most sequencers are centralized today, so favor designs with forced inclusion/es
 
 Against this backdrop, decentralizing the sequencing layer seeks to preserve fast confirmations while reducing single‑operator risk. Centralized sequencers deliver speed and a single inclusion queue, but they also concentrate power and introduce censorship risk. Emerging designs distribute ordering through shared sequencing networks, rotate sequencer sets, and enforce inclusion lists that proposers can check. Preconfirmations offer soft commitments to improve UX, while slashing, escrow, and bounded dispute windows curb griefing. For safety, favor canonical rollup bridges and scrutinize upgrade keys, pause powers, and escape hatches.
 
-#### Sequencer Decentralization Matrix (Major Rollups)
-
-| Rollup | Type | Sequencer today | Forced inclusion / escape | Preconfirmations / MEV policy | Data availability | Bridge model | Decentralization roadmap |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Arbitrum One | Optimistic | Centralized (single operator) | Yes – L1 delayed inbox | Limited; preconf UX varies | On-chain (calldata/blobs) | Canonical L1 rollup bridge | Fault proofs + shared/decentralized sequencing on roadmap |
-| Optimism Mainnet | Optimistic | Centralized | Yes – L1 inclusion mechanism | Limited; OFA/private orderflow via partners | On-chain | Canonical | Progressive fault proofs; shared sequencer research |
-| Base | OP Stack (Optimistic) | Centralized | Yes – via OP Stack | Limited; relies on OP Stack infra | On-chain | Canonical (OP Stack) | Aligns with OP Stack decentralization plan |
-| zkSync Era | ZK | Centralized | Yes – L1 escape hatches | Preconfs exist; policy evolving | On-chain | Canonical | Prover/seq decentralization planned |
-| Starknet | ZK (STARKs) | Centralized | Yes – escape mechanisms | Preconf UX emerging | On-chain | Canonical | Sequencer/prover decentralization in roadmap |
-| Scroll | ZK | Centralized | Yes | Limited | On-chain | Canonical | Decentralized sequencer planned |
-| Linea | ZK | Centralized | Yes | Limited | On-chain | Canonical | Roadmap toward decentralized sequencing |
-| Polygon zkEVM | ZK | Centralized | Yes | Limited | On-chain | Canonical | Toward shared/rotating sequencers |
-
-Notes:
-- "Centralized" reflects a single active sequencer today; most have emergency force-inclusion paths and published decentralization roadmaps.
-- Policies around preconfirmations, OFAs, and MEV vary by stack and are evolving; prefer canonical bridges and verify upgrade/admin key controls.
-
 ### High-Performance Rollup Approaches
 
 While most rollups balance decentralization with performance, some projects prioritize extreme performance by embracing centralized sequencers. MegaETH exemplifies this approach, deliberately using a single active sequencer to achieve Web2-level latency (sub-millisecond) and throughput (100,000+ TPS).
@@ -130,7 +117,7 @@ This architecture trades decentralization for performance, accepting risks like 
 
 ### Data Availability and Danksharding
 
-The primary cost for rollups is posting their transaction data to L1. **EIP-4844 (Proto-Danksharding)** dramatically reduced this cost by introducing a new transaction type: the **blob-carrying transaction**. **Blobs** are large packets of data that are made available on the consensus layer for a temporary period (~18 days) instead of being stored permanently in the execution layer's state.
+The primary cost for rollups is posting their transaction data to L1. **EIP-4844 (Proto-Danksharding)**, activated in the **Dencun** upgrade on 4 Mar 2024, dramatically reduced this cost by introducing a new transaction type: the **blob-carrying transaction**. **Blobs** are large packets of data that are made available on the consensus layer for a temporary period (~18 days) instead of being stored permanently in the execution layer's state.
 
 This creates a separate, cheaper data market specifically for rollups. Integrity is enforced by **KZG commitments**; blob availability is provided by protocol rules and data retention. Post-Pectra, the per-block blob maximum increased to 9 (from the original 6) (as of 2025-05). This cryptographic technique is a cornerstone of **"full danksharding,"** as it allows light clients to verify that the data in a blob was made available simply by checking the commitment and a small proof, rather than having to download the entire blob themselves.
 Blob space has a separate base fee from normal gas, blobs are pruned after the retention window, and blob contents are not directly accessible to EVM contracts.

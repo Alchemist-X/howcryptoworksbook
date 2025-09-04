@@ -112,3 +112,12 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section III: Economic Models and Sustainability Challenges](./Chapter_13_DePIN.md#section-iii-economic-models-and-sustainability-challenges)
 - [Key Takeaways](./Chapter_13_DePIN.md#key-takeaways)
 
+### Chapter XIV — Governance, Token Economics & DAO Operations
+- [Section I: DAO Core Concepts](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-i-dao-core-concepts)
+- [Section II: Token Economics and Distribution](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-ii-token-economics-and-distribution)
+- [Section III: DAO Operational Architecture](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-iii-dao-operational-architecture)
+- [Section IV: Advanced Governance Mechanisms](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-iv-advanced-governance-mechanisms)
+- [Section V: DAO Types and Specializations](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-v-dao-types-and-specializations)
+- [Section VI: Legal Framework and Compliance](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-vi-legal-framework-and-compliance)
+- [Key Takeaways](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#key-takeaways)
+

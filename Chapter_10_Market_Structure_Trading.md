@@ -6,6 +6,8 @@
 
 ## Section I: Exchange Architecture and Core Products
 
+With assets secured and protocols understood, we conclude with market plumbing: exchange architectures, execution, risk, and analytics—bringing together every concept from the previous chapters into a trader’s and researcher’s playbook.
+
 ### The Centralized Exchange Model
 
 **Centralized exchanges (CEXs)** form the backbone of institutional crypto trading. Unlike their decentralized counterparts (DEXs), CEXs operate as custodial trading venues that maintain internal order books, run sophisticated matching engines, and hold client collateral. This architecture enables the complex financial products and high-frequency trading that characterizes modern crypto markets.
@@ -22,7 +24,15 @@ Spot markets are used for portfolio rebalancing, treasury management, hedging ba
 
 **Perpetual futures (perps)** represent crypto's most significant contribution to financial markets. Unlike traditional futures that expire on specific dates, perps have no expiry and use an elegant mechanism to maintain price stability relative to the underlying asset.
 
-The key innovation is the **funding payment**—a periodic exchange of money between long and short positions that keeps the perp price anchored to an **index price**. When perps trade above the index, longs pay shorts; when below, shorts pay longs. This mechanism has made perps the dominant trading venue for crypto, consistently exceeding spot volumes and sometimes by large multiples during volatile periods.
+The key innovation is the **funding payment**—a periodic exchange of money between long and short positions that keeps the perp price anchored to an **index price**. When perps trade above the index, longs pay shorts; when below, shorts pay longs. In symbols, with position size `Q` (positive for longs), index price `S_t`, and funding rate per interval `f_t`, the funding cash flow over one interval is:
+
+\[ \\Delta \\text{Funding} = f_t \\cdot Q \\cdot S_t \]
+
+Venues typically derive `f_t` from the perp premium relative to the index:
+
+\[ f_t \\approx \\operatorname{clip}\\Big( \\kappa \\cdot \\frac{P_t - S_t}{S_t} + b, \\ f_{\\min}, \\ f_{\\max} \\Big) \]
+
+This mechanism has made perps the dominant trading venue for crypto, consistently exceeding spot volumes and sometimes by large multiples during volatile periods.
 
 Perps enable leverage, efficient delta hedging, basis trading opportunities, and sophisticated relative-value strategies. The primary risks include funding costs that can erode profits over time, liquidation risk when using leverage, and potential divergence in funding rates across different venues.
 

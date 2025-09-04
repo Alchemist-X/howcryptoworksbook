@@ -4,6 +4,8 @@
 
 ## Section I: Why DeFi?
 
+Many MEV flows arise from DeFi’s microstructure—AMM invariants, oracle updates, liquidations, funding payments. We now dive into those protocols quantitatively so you can model risk and execution at a professional level.
+
 ### Motivation and Core Properties
 
 DeFi brings financial services on‑chain with self‑custody, transparency, and programmable settlement. Protocols are open to anyone with an internet connection, operate 24/7, and settle atomically on public ledgers. Composability lets applications snap together like "money legos," enabling products that are difficult to replicate in siloed, intermediary‑driven systems. Users can participate globally without approvals, keep control of keys instead of relying on intermediaries, and benefit from assets and rules encoded in software.
@@ -55,7 +57,7 @@ Liquid staking frees staked capital by issuing **Liquid Staking Tokens (LSTs)** 
 
 ### Restaking and Actively‑Validated Services (AVSs)
 
-Building on liquid staking, restaking repurposes ETH’s security to back external services such as oracles, data availability layers, sequencers, and bridges. Shared‑security markets introduce correlated slashing risk and make operator selection a first‑order concern. Liquid Restaking Tokens package yield but also stack risk, add withdrawal latency, and can amplify liquidity cascades under stress. Practical diligence focuses on an AVS’s slashing conditions, operator set composition, upgrade keys, and the guarantees behind its data availability.
+For a full treatment of restaking and AVSs, see the canonical section in Chapter II — Ethereum Ecosystem: [Restaking and Shared Security](./Chapter_02_Ethereum_Ecosystem.md#restaking-and-shared-security).
 
 ## Section VI: Yield Optimization and Aggregation
 
