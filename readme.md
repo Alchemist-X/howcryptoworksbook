@@ -32,32 +32,26 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section II: Layer 1 Landscape Survey](./Chapter_04_Layer_1_Blockchains.md#section-ii-layer-1-landscape-survey)
 - [Section III: Bridges and Cross-Chain Interoperability](./Chapter_04_Layer_1_Blockchains.md#section-iii-bridges-and-cross-chain-interoperability)
 
-### Chapter V — MEV
-- [Section I: MEV Fundamentals and Ecosystem Structure](./Chapter_05_MEV.md#section-i-mev-fundamentals-and-ecosystem-structure)
-- [Section II: MEV Strategies and Market Impact](./Chapter_05_MEV.md#section-ii-mev-strategies-and-market-impact)
-- [Section III: Centralization Pressures and Mitigation Solutions](./Chapter_05_MEV.md#section-iii-centralization-pressures-and-mitigation-solutions)
-- [Section IV: Cross-Domain MEV and Future Challenges](./Chapter_05_MEV.md#section-iv-cross-domain-mev-and-future-challenges)
+### Chapter V — Custody Fundamentals
+- [Section I: Custody Core Concepts](./Chapter_05_Custody.md#section-i-custody-core-concepts)
+- [Section II: Custody Models and Architecture](./Chapter_05_Custody.md#section-ii-custody-models-and-architecture)
+- [Section III: Controls and Security Implementation](./Chapter_05_Custody.md#section-iii-controls-and-security-implementation)
+- [Section IV: Technical Implementation Details](./Chapter_05_Custody.md#section-iv-technical-implementation-details)
+- [Section V: Operations and Risk Management](./Chapter_05_Custody.md#section-v-operations-and-risk-management)
 
-### Chapter VI — DeFi Protocols and Mechanisms
-- [Section I: Why DeFi?](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-i-why-defi)
-- [Section II: Lending and Borrowing Platforms](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-ii-lending-and-borrowing-platforms)
-- [Section III: Decentralized Exchange Innovation](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-iii-decentralized-exchange-innovation)
-- [Section IV: Yield Generation Mechanisms](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-iv-yield-generation-mechanisms)
-- [Section V: Liquid Staking Infrastructure](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-v-liquid-staking-infrastructure)
-- [Section VI: Yield Optimization and Aggregation](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-vi-yield-optimization-and-aggregation)
-- [Section VII: Advanced Yield Generation Strategies](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-vii-advanced-yield-generation-strategies)
-- [Section VIII: Oracle Networks and Price Feeds](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-viii-oracle-networks-and-price-feeds)
-- [Section IX: Cross‑Chain Infrastructure and Interoperability](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-ix-cross‑chain-infrastructure-and-interoperability)
-- [Section X: Bridge and Oracle Security](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-x-bridge-and-oracle-security)
-- [Section XI: Flash Loans and Atomic Transactions](./Chapter_06_DeFi_Protocols_Mechanisms.md#section-xi-flash-loans-and-atomic-transactions)
+### Chapter VI — Market Structure and Trading
+- [Section I: Exchange Architecture and Core Products](./Chapter_06_Market_Structure_Trading.md#section-i-exchange-architecture-and-core-products)
+- [Section II: Order Management and Market Microstructure](./Chapter_06_Market_Structure_Trading.md#section-ii-order-management-and-market-microstructure)
+- [Section III: Market Participants and Information Flow](./Chapter_06_Market_Structure_Trading.md#section-iii-market-participants-and-information-flow)
+- [Section IV: Risk Management and Margining Systems](./Chapter_06_Market_Structure_Trading.md#section-iv-risk-management-and-margining-systems)
+- [Section V: Pricing Mechanisms and Market Signals](./Chapter_06_Market_Structure_Trading.md#section-v-pricing-mechanisms-and-market-signals)
+- [Section VI: Advanced Analytics and Market Intelligence](./Chapter_06_Market_Structure_Trading.md#section-vi-advanced-analytics-and-market-intelligence)
 
-### Chapter VII — Hyperliquid
-- [Section I: The Hyperliquid Ecosystem](./Chapter_07_Hyperliquid.md#section-i-the-hyperliquid-ecosystem)
-- [Section II: Platform Architecture & Consensus](./Chapter_07_Hyperliquid.md#section-ii-platform-architecture--consensus)
-- [Section III: Trading Infrastructure & Liquidity](./Chapter_07_Hyperliquid.md#section-iii-trading-infrastructure--liquidity)
-- [Section IV: Bridging and Asset Support](./Chapter_07_Hyperliquid.md#section-iv-bridging-and-asset-support)
-- [Section V: Governance and Permissionless Innovation](./Chapter_07_Hyperliquid.md#section-v-governance-and-permissionless-innovation)
-- [Section VI: Tokenomics and Risk](./Chapter_07_Hyperliquid.md#section-vi-tokenomics-and-risk)
+### Chapter VII — MEV
+- [Section I: MEV Fundamentals and Ecosystem Structure](./Chapter_07_MEV.md#section-i-mev-fundamentals-and-ecosystem-structure)
+- [Section II: MEV Strategies and Market Impact](./Chapter_07_MEV.md#section-ii-mev-strategies-and-market-impact)
+- [Section III: Centralization Pressures and Mitigation Solutions](./Chapter_07_MEV.md#section-iii-centralization-pressures-and-mitigation-solutions)
+- [Section IV: Cross-Domain MEV and Future Challenges](./Chapter_07_MEV.md#section-iv-cross-domain-mev-and-future-challenges)
 
 ### Chapter VIII — Stablecoins and Real World Assets
 - [Section I: Stablecoin Mechanisms](./Chapter_08_Stablecoins_and_RWAs.md#section-i-stablecoin-mechanisms)
@@ -65,20 +59,26 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section III: Stablecoin Adoption and Infrastructure](./Chapter_08_Stablecoins_and_RWAs.md#section-iii-stablecoin-adoption-and-infrastructure)
 - [Section IV: Real World Asset Tokenization](./Chapter_08_Stablecoins_and_RWAs.md#section-iv-real-world-asset-tokenization)
 
-### Chapter IX — Custody Fundamentals
-- [Section I: Custody Core Concepts](./Chapter_09_Custody.md#section-i-custody-core-concepts)
-- [Section II: Custody Models and Architecture](./Chapter_09_Custody.md#section-ii-custody-models-and-architecture)
-- [Section III: Controls and Security Implementation](./Chapter_09_Custody.md#section-iii-controls-and-security-implementation)
-- [Section IV: Technical Implementation Details](./Chapter_09_Custody.md#section-iv-technical-implementation-details)
-- [Section V: Operations and Risk Management](./Chapter_09_Custody.md#section-v-operations-and-risk-management)
+### Chapter IX — DeFi Protocols and Mechanisms
+- [Section I: Why DeFi?](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-i-why-defi)
+- [Section II: Lending and Borrowing Platforms](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-ii-lending-and-borrowing-platforms)
+- [Section III: Decentralized Exchange Innovation](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-iii-decentralized-exchange-innovation)
+- [Section IV: Yield Generation Mechanisms](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-iv-yield-generation-mechanisms)
+- [Section V: Liquid Staking Infrastructure](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-v-liquid-staking-infrastructure)
+- [Section VI: Yield Optimization and Aggregation](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-vi-yield-optimization-and-aggregation)
+- [Section VII: Advanced Yield Generation Strategies](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-vii-advanced-yield-generation-strategies)
+- [Section VIII: Oracle Networks and Price Feeds](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-viii-oracle-networks-and-price-feeds)
+- [Section IX: Cross‑Chain Infrastructure and Interoperability](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-ix-cross‑chain-infrastructure-and-interoperability)
+- [Section X: Bridge and Oracle Security](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-x-bridge-and-oracle-security)
+- [Section XI: Flash Loans and Atomic Transactions](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-xi-flash-loans-and-atomic-transactions)
 
-### Chapter X — Market Structure and Trading
-- [Section I: Exchange Architecture and Core Products](./Chapter_10_Market_Structure_Trading.md#section-i-exchange-architecture-and-core-products)
-- [Section II: Order Management and Market Microstructure](./Chapter_10_Market_Structure_Trading.md#section-ii-order-management-and-market-microstructure)
-- [Section III: Market Participants and Information Flow](./Chapter_10_Market_Structure_Trading.md#section-iii-market-participants-and-information-flow)
-- [Section IV: Risk Management and Margining Systems](./Chapter_10_Market_Structure_Trading.md#section-iv-risk-management-and-margining-systems)
-- [Section V: Pricing Mechanisms and Market Signals](./Chapter_10_Market_Structure_Trading.md#section-v-pricing-mechanisms-and-market-signals)
-- [Section VI: Advanced Analytics and Market Intelligence](./Chapter_10_Market_Structure_Trading.md#section-vi-advanced-analytics-and-market-intelligence)
+### Chapter X — Hyperliquid
+- [Section I: The Hyperliquid Ecosystem](./Chapter_10_Hyperliquid.md#section-i-the-hyperliquid-ecosystem)
+- [Section II: Platform Architecture & Consensus](./Chapter_10_Hyperliquid.md#section-ii-platform-architecture--consensus)
+- [Section III: Trading Infrastructure & Liquidity](./Chapter_10_Hyperliquid.md#section-iii-trading-infrastructure--liquidity)
+- [Section IV: Bridging and Asset Support](./Chapter_10_Hyperliquid.md#section-iv-bridging-and-asset-support)
+- [Section V: Governance and Permissionless Innovation](./Chapter_10_Hyperliquid.md#section-v-governance-and-permissionless-innovation)
+- [Section VI: Tokenomics and Risk](./Chapter_10_Hyperliquid.md#section-vi-tokenomics-and-risk)
 
 ### Chapter XI — Non-Fungible Token (NFT) Fundamentals
 - [Section I: NFT Core Concepts](./Chapter_11_NFTs.md#section-i-nft-core-concepts)
@@ -87,22 +87,22 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section IV: NFT Infrastructure and Marketplaces](./Chapter_11_NFTs.md#section-iv-nft-infrastructure-and-marketplaces)
 - [Section V: NFT Utility and Future Applications](./Chapter_11_NFTs.md#section-v-nft-utility-and-future-applications)
 
-### Chapter XII — Quantum Resistance and Cryptographic Security
-- [Section I: Quantum Computing and Cryptographic Threats](./Chapter_12_Quantum_Resistance.md#section-i-quantum-computing-and-cryptographic-threats)
-- [Section II: Blockchain Vulnerability Assessment](./Chapter_12_Quantum_Resistance.md#section-ii-blockchain-vulnerability-assessment)
-- [Section III: Risk Categories and Exposure Analysis](./Chapter_12_Quantum_Resistance.md#section-iii-risk-categories-and-exposure-analysis)
-- [Section IV: Mitigation Strategies and Quantum-Resistant Solutions](./Chapter_12_Quantum_Resistance.md#section-iv-mitigation-strategies-and-quantum-resistant-solutions)
-- [Section V: Network Coordination and Future Preparations](./Chapter_12_Quantum_Resistance.md#section-v-network-coordination-and-future-preparations)
+### Chapter XII — Governance, Token Economics & DAO Operations
+- [Section I: DAO Core Concepts](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-i-dao-core-concepts)
+- [Section II: Token Economics and Distribution](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-ii-token-economics-and-distribution)
+- [Section III: DAO Operational Architecture](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-iii-dao-operational-architecture)
+- [Section IV: Advanced Governance Mechanisms](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-iv-advanced-governance-mechanisms)
+- [Section V: DAO Types and Specializations](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-v-dao-types-and-specializations)
+- [Section VI: Legal Framework and Compliance](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-vi-legal-framework-and-compliance)
 
 ### Chapter XIII — Decentralized Physical Infrastructure Networks (DePIN)
 - [Section I: DePIN Fundamentals and Architecture](./Chapter_13_DePIN.md#section-i-depin-fundamentals-and-architecture)
 - [Section II: DePIN Categories and Use Cases](./Chapter_13_DePIN.md#section-ii-depin-categories-and-use-cases)
 - [Section III: Economic Models and Sustainability Challenges](./Chapter_13_DePIN.md#section-iii-economic-models-and-sustainability-challenges)
 
-### Chapter XIV — Governance, Token Economics & DAO Operations
-- [Section I: DAO Core Concepts](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-i-dao-core-concepts)
-- [Section II: Token Economics and Distribution](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-ii-token-economics-and-distribution)
-- [Section III: DAO Operational Architecture](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-iii-dao-operational-architecture)
-- [Section IV: Advanced Governance Mechanisms](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-iv-advanced-governance-mechanisms)
-- [Section V: DAO Types and Specializations](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-v-dao-types-and-specializations)
-- [Section VI: Legal Framework and Compliance](./Chapter_14_Governance_Token_Economics_DAO_Operations.md#section-vi-legal-framework-and-compliance)
+### Chapter XIV — Quantum Resistance and Cryptographic Security
+- [Section I: Quantum Computing and Cryptographic Threats](./Chapter_14_Quantum_Resistance.md#section-i-quantum-computing-and-cryptographic-threats)
+- [Section II: Blockchain Vulnerability Assessment](./Chapter_14_Quantum_Resistance.md#section-ii-blockchain-vulnerability-assessment)
+- [Section III: Risk Categories and Exposure Analysis](./Chapter_14_Quantum_Resistance.md#section-iii-risk-categories-and-exposure-analysis)
+- [Section IV: Mitigation Strategies and Quantum-Resistant Solutions](./Chapter_14_Quantum_Resistance.md#section-iv-mitigation-strategies-and-quantum-resistant-solutions)
+- [Section V: Network Coordination and Future Preparations](./Chapter_14_Quantum_Resistance.md#section-v-network-coordination-and-future-preparations)

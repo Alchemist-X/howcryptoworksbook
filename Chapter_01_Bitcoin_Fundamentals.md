@@ -1,7 +1,5 @@
 # Chapter I: Bitcoin Fundamentals
 
-*This section establishes the foundational concepts of Bitcoin, exploring its revolutionary approach to digital money, consensus mechanisms, and the philosophical principles that underpin the world's first successful cryptocurrency.*
-
 ## Section I: Bitcoin Core Concepts
 
 ### Genesis and Philosophy
@@ -10,9 +8,11 @@ Bitcoin's creation was a direct response to the 2008 global financial crisis. On
 
 This act highlights Bitcoin's mission: to be an alternative to the traditional banking system. Its philosophy is rooted in the cypherpunk belief in using strong cryptography to achieve individual sovereignty over one's finances. To accomplish this, Bitcoin operates as a peer-to-peer electronic cash system without trusted third parties. Its monetary policy is predictable and enforced by code, featuring a fixed, immutable supply cap of 21 million BTC. This creates digital scarcity, standing in stark contrast to fiat currencies that central banks can print at will.
 
+But creating a decentralized alternative to traditional banking raises a fundamental challenge: how do you get thousands of computers around the world to agree on who owns what, without a central authority to settle disputes? This is where Bitcoin's consensus mechanism becomes crucial.
+
 ### Consensus and Chain Selection
 
-For a decentralized network to agree on the true history of transactions, it needs a robust consensus mechanism. Bitcoin uses **Nakamoto Consensus**, which is often simplified as the "longest chain rule" but is more accurately described as the "heaviest chain rule." The canonical chain is the one with the most accumulated computational work (chainwork) invested in it, not necessarily the one with the most blocks. (Difficulty relates to the target via difficulty ≈ target₀/target; chainwork sums per-block work across the chain.)
+When there's no central bank or clearinghouse, the network itself must agree on the true history of transactions. Bitcoin solves this through a robust consensus mechanism. Bitcoin uses **Nakamoto Consensus**, which is often simplified as the "longest chain rule" but is more accurately described as the "heaviest chain rule." The canonical chain is the one with the most accumulated computational work invested in it, not necessarily the one with the most blocks.
 
 Think of finding a block as a lottery; chainwork is the total sum of "lottery tickets" (hashes) required to build the entire chain, a value calculated from the difficulty target (nBits) of each block. A shorter chain could have a higher cumulative difficulty, making it the valid one. This prevents an attacker from overwriting history with a long but easy-to-produce chain, as the sheer energy invested in the honest chain makes it prohibitively expensive to overcome.
 
@@ -20,7 +20,9 @@ Imagine two climbers racing to the summit on different routes. One takes 1,000 e
 
 ### Mining and Proof-of-Work
 
-Mining is the process that secures the network and creates new bitcoins through **Proof-of-Work**. Miners compete to solve a cryptographic puzzle by bundling transactions into a block and repeatedly hashing the block header using the double SHA-256 algorithm. The goal is to find a hash value below a specific target.
+What if you needed to prove you'd done a lot of work, but couldn't trust anyone to verify it? Bitcoin solves this through **Proof-of-Work**—a system where miners compete to solve cryptographic puzzles that require enormous computational effort but can be instantly verified by anyone.
+
+Here's how it works: Miners bundle transactions into a block and repeatedly hash the block header using the double SHA-256 algorithm. They're searching for a hash value below a specific target—like rolling dice until you get a number lower than a certain threshold, except they're "rolling" trillions of times per second.
 
 To do this, miners primarily vary a field in the header called the **nonce**, a 32-bit number offering about 4 billion guesses. When those are exhausted, miners can alter the **extranonce** within the coinbase transaction, which changes the block's Merkle root and provides a new range of hashes to test. To keep the average block time at approximately 10 minutes, the network performs a **difficulty retarget** every 2,016 blocks (about two weeks). If blocks are found too quickly, the difficulty increases; if too slowly, it decreases.
 
@@ -40,19 +42,25 @@ Due to integer rounding in halvings, the terminal supply converges to ~20,999,99
 
 ### UTXO Model
 
-Bitcoin uses an **Unspent Transaction Output (UTXO) model** rather than an account-based system like a traditional bank. Instead of a single balance, a user's wallet holds a collection of UTXOs, which are like individual digital coins of varying amounts. When a user sends bitcoin, their wallet selects UTXOs as inputs, consumes them, and creates new UTXOs as outputs—one for the recipient and another as "change" back to the sender.
+How do you track ownership in a system without accounts? Bitcoin takes a radically different approach from traditional banking by using an **Unspent Transaction Output (UTXO) model**.
+
+Think of it like physical cash in your wallet. Instead of having a single account balance, you have individual bills of different denominations—a $20, two $5s, and some $1s. When you buy something for $7, you might use a $5 and two $1s, getting back change if needed.
+
+Bitcoin works similarly. Instead of a single balance, your wallet holds a collection of UTXOs—individual digital "coins" of varying amounts. When you send bitcoin, your wallet selects UTXOs as inputs, consumes them entirely, and creates new UTXOs as outputs: one for the recipient and another as "change" back to you.
 
 This model enhances privacy by encouraging the use of new addresses for change outputs and offers potential scalability benefits by allowing parallel transaction processing. Full nodes are responsible for tracking the entire network's **UTXO set**, which is the complete collection of all spendable outputs available for future transactions.
 
-**Bitcoin Script** locks and unlocks UTXOs with a simple, stack-based language (e.g., P2PKH, P2WPKH, P2TR). **Timelocks** (nLockTime, nSequence/CSV) and CLTV enable contracts like Lightning channels, vaults, and escrow. [BIP65/68/112/113]
+**Bitcoin Script** is a simple programming language that locks and unlocks UTXOs using different address types. **Timelocks** allow transactions to be delayed until a specific time or block height, enabling more complex contracts like Lightning channels, vaults, and escrow arrangements.
 
 ### Transaction Structure and Prioritization
 
-A Bitcoin transaction consists of **inputs** (the UTXOs being spent) and **outputs** (the new UTXOs being created). Once broadcast, a transaction enters the **mempool**, a waiting area for unconfirmed transactions. Miners select transactions from the mempool to build the next block.
+Once you understand how UTXOs work, the next question is: how do transactions actually get processed? A Bitcoin transaction consists of **inputs** (the UTXOs being spent) and **outputs** (the new UTXOs being created). Once broadcast, transactions enter the **mempool**—think of it as a waiting room for unconfirmed transactions.
 
-Because block space is limited, an economic, incentive-based **fee market** emerges for transaction ordering. Miners prioritize transactions based on the highest **fee rate**, measured in satoshis per vbyte (sats/vB; a satoshi is the smallest unit of bitcoin—1 BTC = 100,000,000 satoshis, often shortened to "sats"). A high fee rate makes a transaction more likely to be included in the next block, ensuring block space is allocated to those who value it most.
+Here's where economics comes into play. Since each block has limited space, miners must choose which transactions to include. They naturally prioritize transactions that pay the highest **fee rate**, measured in satoshis per virtual byte (sats/vB). A satoshi is the smallest unit of bitcoin—there are 100 million satoshis in one bitcoin.
 
-Users can fee-bump with **Child-Pays-for-Parent (CPFP)**. Ongoing policy work on package relay improves relay of related transactions to make fee-bumping more reliable.
+This creates a **fee market** where users essentially bid for block space. Need your transaction confirmed quickly during network congestion? Pay a higher fee rate. Can wait? Pay less and wait for a quieter period.
+
+Users can also use **Child-Pays-for-Parent (CPFP)** to boost stuck transactions by creating a new transaction that spends from the unconfirmed one with a higher fee rate, incentivizing miners to include both.
 
 ### Address Types and Formats
 
@@ -72,19 +80,31 @@ Wallets standardize address derivation using BIP32/39/44 and output descriptors;
 
 ### Segregated Witness (SegWit)
 
-Activated in 2017, **Segregated Witness (SegWit)** was a landmark upgrade implemented as a backward-compatible soft fork. Its primary achievement was fixing **transaction malleability**, a bug that allowed a third party to alter a transaction's signature and change its ID (TXID) before confirmation.
+Activated in 2017, **Segregated Witness (SegWit)** was a landmark upgrade that solved a critical problem while paving the way for future innovations.
 
-SegWit solved this by removing the witness (signature) data from the part of the transaction used to calculate the TXID and moving it to a separate structure. This also introduced the concept of **block weight**, replacing the 1MB size limit with a 4,000,000 weight unit maximum. This change effectively increased block capacity and incentivized the adoption of SegWit addresses. Weight = base_bytes×4 + witness_bytes; vbytes = weight/4. Fee (sats) = fee_rate (sats/vB) × vbytes.
+**The Problem: Transaction Malleability**
+Before SegWit, Bitcoin had a bug called **transaction malleability**. A third party could alter a transaction's signature and change its ID (TXID) before confirmation, without affecting the transaction's validity. This made it risky to build dependent transactions or second-layer protocols.
 
-Weight discounts witness bytes by 75% (1 WU per witness byte vs 4 WU per non-witness byte). Fees are commonly quoted in **virtual bytes (vB)**, where 1 vB = 4 weight units.
+**The Solution: Separating Witness Data**
+SegWit solved this by removing the witness (signature) data from the part of the transaction used to calculate the TXID. The signatures were moved to a separate structure, making transaction IDs immutable once created.
+
+**The Bonus: Increased Capacity**
+This architectural change also introduced **block weight**, a new way of measuring transaction size. Instead of a simple 1MB limit, Bitcoin now uses a 4,000,000 weight unit maximum. This effectively increased block capacity while incentivizing users to adopt the more efficient SegWit addresses.
+
+The weight system gives witness data a 75% discount compared to other transaction data. Fees are commonly quoted in **virtual bytes (vB)**, which account for this discount and provide a simpler way to calculate transaction costs.
 
 ### Soft Forks
 
-A **soft fork** is a backward-compatible protocol upgrade that works by tightening the consensus rules. Because new rules are a subset of the old ones, non-upgraded nodes still see new blocks as valid; they simply don't enforce the stricter rules themselves. This allows the network to upgrade without splitting. An early example was the disabling of the OP_CAT opcode in 2010 to mitigate a potential denial-of-service vulnerability.
+How do you upgrade a decentralized network where no one's in charge? Bitcoin uses **soft forks**—backward-compatible protocol upgrades that tighten consensus rules without breaking the network.
 
-Common activation methods include **BIP9 version bits**, **Speedy Trial**, and **user-activated soft forks (UASF)**.
+Think of it like adding a new traffic law. If the speed limit changes from 65 mph to 55 mph, older cars that don't know about the change can still drive on the road—they just might unknowingly break the new rule. Similarly, non-upgraded Bitcoin nodes still see new blocks as valid; they simply don't enforce the stricter rules themselves. This allows the network to upgrade without splitting into incompatible versions.
 
-Even with backward compatibility, getting any soft fork into Bitcoin is intentionally hard. Many maintainers and long‑time contributors prioritize simplicity and protocol ossification, viewing change—even small, well‑scoped changes—as sources of implementation and game‑theoretic uncertainty. As a result, proposals undergo lengthy review, testing, and community consensus‑building, and nearly every soft‑fork discussion (including SegWit, Taproot, and newer covenant designs) has sparked controversy over activation methods, safety assumptions, and long‑term precedent.
+An early example was disabling the OP_CAT opcode in 2010 to prevent potential denial-of-service attacks. More recent upgrades like SegWit and Taproot followed this same pattern.
+
+**The Challenge of Change**
+Despite backward compatibility, getting any soft fork into Bitcoin is intentionally difficult. Many developers prioritize simplicity and **protocol ossification**—the idea that Bitcoin should become increasingly resistant to change as it matures. They view even small modifications as sources of uncertainty and risk.
+
+This conservative approach means proposals undergo years of review, testing, and community debate. Nearly every soft fork discussion—including SegWit, Taproot, and newer proposals—generates controversy over activation methods, safety assumptions, and long-term precedent.
 
 ### Replace-by-Fee and Standards
 
@@ -104,7 +124,7 @@ The **Taproot upgrade**, activated in 2021, significantly improved privacy, effi
 
 Together, these features make complex transactions indistinguishable from simple payments, providing a major boost to privacy and scalability.
 
-Taproot supports **key-path** (single-sig) and **script-path** spends under **Tapscript**, and introduced **SIGHASH_DEFAULT** for simpler signature hashing. [BIP340/341/342]
+Taproot supports both simple single-signature payments and complex script-based conditions, making them indistinguishable on the blockchain for enhanced privacy.
 
 ---
 
@@ -112,7 +132,9 @@ Taproot supports **key-path** (single-sig) and **script-path** spends under **Ta
 
 ### Lightning Network
 
-The **Lightning Network** is a Layer 2 protocol designed for instant, low-cost Bitcoin payments. It functions by creating off-chain payment channels between users. To open a channel, two parties lock funds in an on-chain 2-of-2 P2WSH multisig output (SegWit v0).
+What if you could make instant Bitcoin payments without waiting for block confirmations or paying high fees? The **Lightning Network** makes this possible through a clever Layer 2 protocol that moves most transactions off the main blockchain.
+
+The concept is elegantly simple: instead of broadcasting every payment to the entire network, two parties can open a private **payment channel** by locking funds in a shared on-chain account (technically a 2-of-2 multisig output).
 
 Once the channel is established, the parties can transact an unlimited number of times by updating their channel's balance sheet off-chain. All state changes require mutual agreement and are secured by cryptography. When they are finished, they can close the channel by broadcasting the final state to the Bitcoin blockchain. The network can also route payments across multiple interconnected channels.
 
@@ -168,7 +190,7 @@ Common privacy practices include avoiding address reuse, using coin control, and
 
 ### Network Economics and Fee Markets
 
-The competition for Bitcoin's limited block space creates a **fee market**. During periods of high demand, users bid for inclusion in the next block, driving up transaction fees. This market mechanism is crucial for the network's long-term sustainability, as fee revenue is expected to replace the diminishing block subsidy as the primary incentive for miners. Mining economics are a dynamic balance between electricity costs, hardware efficiency, and the value of block rewards and fees. For transaction prioritization, fee rates, and fee-bumping mechanics, See Chapter III, Section II "Transaction Structure and Prioritization."
+As we discussed in the transaction prioritization section, Bitcoin's limited block space creates a competitive fee market. This economic dynamic becomes increasingly important over time, as fee revenue must eventually replace the diminishing block subsidy as the primary incentive for miners.
 
 At a system level, the miner **security budget** is total revenue paid to block producers over time: subsidy + fees (per block, per day, or per epoch). Expressed in BTC this is straightforward, but for gauging attack resistance the relevant unit is typically **USD per unit time**, since both miners and potential attackers procure hardware, facilities, and energy in fiat terms. As specialized hardware improves, the cost per hash declines; holding "hashes" constant does not hold attacker cost constant. What matters economically is the dollar cost to acquire and operate enough hashpower for long enough to reliably reorganize the chain.
 
@@ -194,11 +216,15 @@ This process became practical thanks to two soft forks: SegWit, which provided a
 
 Relay and mining policies for large inscriptions can vary, affecting inclusion and propagation.
 
-## Section VI: Corporate Bitcoin Treasuries
+## Section VI: Bitcoin in Practice - Corporate Adoption
+
+How do Bitcoin's fundamental properties translate into real-world adoption? One of the most visible examples has been corporate treasuries adding Bitcoin to their balance sheets.
 
 ### The Corporate Treasury Trend
 
-Beginning in 2020, a handful of public companies allocated portions of corporate cash to Bitcoin as a long‑duration, non‑sovereign monetary asset. Motivations included diversification, inflation hedging, and brand alignment with digital‑native finance. Adoption has been cyclical and remains limited relative to total corporate cash balances.
+Beginning in 2020, a handful of public companies began allocating portions of their corporate cash reserves to Bitcoin. They viewed it as a long-duration, non-sovereign monetary asset that could serve multiple purposes: portfolio diversification, inflation hedging, and brand alignment with digital-native finance.
+
+This trend reflects Bitcoin's evolution from a niche digital experiment to an asset class that major corporations consider suitable for treasury management, though adoption remains limited relative to total corporate cash balances.
 
 ### The Strategy Playbook
 
