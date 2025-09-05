@@ -38,7 +38,11 @@ Bitcoin has a predictable, algorithmic monetary policy with a fixed issuance sch
 
 This mechanism makes Bitcoin a **disinflationary asset**, as its inflation rate trends toward zero. Around the year 2140, the subsidy will cease, and miners will be compensated solely by transaction fees. Due to integer rounding in halvings, the terminal supply converges to ~20,999,999.9769 BTC.
 
-This predictable scarcity is a cornerstone of Bitcoin's value proposition as a store of value, though scarcity alone doesn't guarantee price appreciation—that requires sustained demand to accompany the diminishing supply. Over time, miner security budgets shift from subsidy to fees, making a healthy fee market important for long-term incentives.
+The miner **security budget**—total revenue paid to block producers from subsidy plus fees—presents both current stability and future challenges. While this budget is straightforward to calculate in BTC terms, the relevant metric for gauging attack resistance is **USD per unit time**, since both miners and potential attackers procure hardware, facilities, and energy in fiat terms. As specialized hardware improves and the cost per hash declines, what matters economically is the dollar cost to acquire and operate enough hash rate for long enough to reliably reorganize the chain.
+
+This framing reveals a critical long-term concern: if transaction fees and BTC price do not rise sufficiently to offset successive halvings, the USD-denominated security budget will trend lower. A materially smaller budget can lead to miner exits, weaker competition for blocks, and reduced costs for would-be attackers to acquire majority hash rate. As the subsidy approaches zero around 2140, durable **fee demand** must carry the entire security budget through payments, L2 settlements, inscriptions, batched rollup data, and other valuable uses of block space.
+
+Bitcoin's predictable scarcity forms a cornerstone of its store-of-value proposition, though this mechanical constraint must be paired with sustained adoption and usage to drive long-term value accrual.
 
 ## Section II: Bitcoin Technical Architecture
 
@@ -165,7 +169,7 @@ Bitcoin addresses have evolved to improve efficiency and enable new features: Le
 
 ### Lightning Network
 
-The **Lightning Network** attempts to enable faster Bitcoin payments through a Layer 2 protocol that moves many day-to-day payments off the main blockchain. Rather than broadcasting every payment to the entire network, two parties can open a private **payment channel** by locking funds in a shared on-chain account—technically a **2-of-2 multisig output**. Once established, both parties can transact by updating their channel's balance sheet off-chain, with all state changes requiring mutual agreement and secured by cryptography.
+The **Lightning Network** attempts to enable faster Bitcoin payments through a Layer 2 protocol that moves small (sub $20) day-to-day payments off the main blockchain. Rather than broadcasting every payment to the entire network, two parties can open a private **payment channel** by locking funds in a shared on-chain account—technically a **2-of-2 multisig output**. Once established, both parties can transact by updating their channel's balance sheet off-chain, with all state changes requiring mutual agreement and secured by cryptography.
 
 The network can theoretically route payments across multiple interconnected channels using **HTLCs** (Hash Time-Locked Contracts) and **onion routing** for privacy, while **watchtowers** monitor for cheating attempts. However, Lightning faces significant **liquidity constraints** that limit its practical utility. Users need **outbound liquidity** to send payments and **inbound liquidity** to receive them. When channels lack sufficient liquidity, it results in **payment failures** or forces users to split larger payments across multiple routes.
 
@@ -173,91 +177,86 @@ Think of Lightning as a canal system with locks—you can only send if there's e
 
 This approach addresses Bitcoin's base layer limitations for small payments. Bitcoin is optimized for **high-assurance settlement**, making "coffee payments" economically inefficient due to high fees and block space constraints. Lightning attempts to shift low-value, high-frequency activity off-chain while preserving the option to settle back to Layer 1 when needed.
 
-Yet Lightning suffers from notable **centralization issues**. Among publicly reachable (non-Tor) Lightning nodes, roughly 45% are hosted on major cloud providers like AWS and Google Cloud. This infrastructure centralization creates potential points of failure and contradicts blockchain's decentralized principles. The network also faces **security vulnerabilities** including **hot wallet** exposure, **channel breaches**, **replacement cycling attacks** (mitigated in current implementations), **route correlation** privacy risks, **time-dilation/eclipse attacks**, and **channel jamming**.
-
 **Adoption challenges** have proven substantial. **Merchant adoption** faces challenges from integration complexities and Bitcoin's price volatility, though major exchanges like Coinbase and Kraken now support Lightning with notable transaction volumes. **User experience** barriers persist, as managing Lightning channels is complex for non-technical users. Users must **pre-deploy liquidity** in channels and navigate the separation between Layer 1 and Layer 2, adding operational complexity.
 
-**Regulatory uncertainty** compounds these issues. Lightning node operators face potential scrutiny regarding **AML and KYC compliance**, with jurisdiction-dependent and evolving interpretations of whether non-custodial routing constitutes money transmission. Tax treatment of Lightning transactions varies significantly across jurisdictions.
-
-Higher base-layer fees create additional stress by increasing **channel opening and closing costs**. While fee spikes can endanger on-chain enforcement, the ecosystem has developed solutions like **anchor outputs** and **package relay** rather than simply requiring longer timelocks. Fee spikes can trigger **forced expiration scenarios** when many channels must settle on-chain simultaneously. These constraints suggest Lightning may function better as a **settlement fabric** between custodians and other Layer 2 solutions rather than as a universal payment network for everyday users.
+Higher base-layer fees create additional stress by increasing **channel opening and closing costs**. While fee spikes can endanger on-chain enforcement, the ecosystem has developed solutions like **anchor outputs** and **package relay** rather than simply requiring longer timelocks. Fee spikes can trigger **forced expiration scenarios** when many channels must settle on-chain simultaneously.
 
 ---
 
 ## Section V: Bitcoin Network Operations and Security Model
 
-### Roles at a Glance
+**Roles at a Glance**
 
-**Users/wallets** create and sign transactions, then broadcast them to the network (you can do this without running your own node). **Full nodes** independently validate and relay transactions and blocks, enforcing consensus rules for themselves (running a node is not the same as mining). **Miners** assemble validated transactions into candidate blocks and perform Proof‑of‑Work to win block production (miners typically run a full node, but mining is the energy‑intensive block creation role).
+The Bitcoin network operates through distinct but interconnected roles that each serve essential functions. **Users and wallets** create and sign transactions before broadcasting them to the network, and importantly, they can do this without running their own node.
 
-#### What Miners Do—and Don't—Control
+**Full nodes** independently validate and relay both transactions and blocks while enforcing **consensus rules** for themselves, though running a node is distinctly different from **mining**. **Miners** take on the energy-intensive role of assembling validated transactions into candidate blocks and performing **Proof-of-Work** to compete for block production rights. Most miners run full nodes, but their core job is **block creation**.
 
-- **Control:** transaction inclusion and ordering; which valid fork they mine on; the possibility of short-term reorganizations and censorship within the rules.
-- **Do not control:** the validity rules themselves (as established earlier, full nodes enforce validity rules; hash rate does not). Miners cannot make invalid blocks or rule changes "valid" without the consent of the nodes that verify and the market that values the coin; attempting to do so just creates a different chain that users can ignore.
+Miners wield significant but limited influence within the Bitcoin ecosystem. They control **transaction inclusion and ordering** decisions, determine which **valid fork** they choose to mine on, and possess the ability to create short-term **reorganizations** and implement **censorship** within the existing rules. However, their power has clear boundaries. Miners cannot control the **validity rules** themselves, as **full nodes enforce these rules** regardless of **hash rate**. They cannot make invalid blocks or rule changes "valid" without gaining consent from the nodes that verify transactions and the broader **market** that values the coin. Any attempt to override these constraints simply creates a **different chain** that users can choose to ignore.
 
-#### Economic Majority and Social Choice
+The **market** ultimately determines what constitutes "Bitcoin" through the collective choices of users, exchanges, custodians, merchants, and wallets regarding which coin they value and transact with. Since miners receive payment in that coin, they face strong **economic incentives** to mine the chain that these key actors accept and support. This influence operates through **social and economic mechanisms** rather than formal protocol roles. Users still require some aligned **hash rate** to ensure **liveness and security** under their chosen rules, though coordinating a true **"economic majority"** remains challenging in practice.
 
-What the market calls “Bitcoin” is whatever coin users, exchanges, custodians, merchants, and wallets choose to value and transact. Miners are paid in that coin, so they’re strongly incentivized to mine the chain those actors accept. That influence is social/economic, not a protocol role: users still require some aligned hashrate for liveness and security on their chosen rules, and coordinating a true “economic majority” is hard in practice.
+**Full nodes** form the network's backbone by storing the complete **blockchain** and independently **validating** all transactions and blocks against **consensus rules**. **Pruned nodes** provide the same validation security as full nodes but conserve disk space by discarding old block data after verification. **SPV (Simplified Payment Verification) clients**, which are commonly found in mobile wallets, take a lighter approach by downloading only **block headers** and relying on full nodes for transaction validation.
 
-### Node Types and Network Topology
-
-The Bitcoin network is a decentralized system composed of different participants:
-
-- **Full nodes** form the network's backbone, storing the complete blockchain and independently validating all transactions and blocks against consensus rules.
-- **Pruned nodes** offer the same validation security but discard old block data to save disk space.
-- **SPV (Simplified Payment Verification) clients**, common in mobile wallets, download only block headers and trust full nodes for transaction validation.
-
-To maintain its decentralized topology, the network relies on **DNS seeds** and peer-to-peer exchange for discovering other nodes.
+To find each other, the network maintains its **decentralized topology** through **peer-to-peer discovery** mechanisms, primarily using **DNS seeds** and direct peer-to-peer exchange to help nodes find and connect with other participants in the network.
 
 ### Block Propagation and Network Synchronization
 
-When a new node joins, it performs an **Initial Block Download (IBD)** to sync the entire blockchain from its peers. To ensure new blocks propagate quickly and efficiently, the network uses optimized protocols like **Compact Block Relay**, which minimizes bandwidth by only sending information that nodes don't already have. Nodes also engage in **mempool synchronization** to share unconfirmed transactions. The network is resilient to partitions (temporary splits), which self-heal once connectivity is restored.
-
-Additional efforts like **FIBRE** (fast relay) and **Erlay** (proposed mempool gossip reduction) improve propagation latency and bandwidth efficiency.
+When a new node joins, it performs an **Initial Block Download (IBD)** to sync the entire blockchain from its peers. To ensure new blocks propagate quickly and efficiently, the network uses optimized protocols like **Compact Block Relay**, which minimizes bandwidth by only sending information that nodes don't already have. Nodes also engage in **mempool synchronization** to share unconfirmed transactions. The network is resilient to partitions (temporary splits), which self-heal once connectivity is restored. The network also uses additional protocols like **FIBRE** (fast relay) and **Erlay** (proposed mempool gossip reduction) to improve propagation latency and bandwidth efficiency.
 
 ### Attack Vectors and Economic Security
 
-Bitcoin's security is economic and probabilistic. The most cited threat is a **51% attack**, where an entity controlling a majority of the network's hashpower could attempt to rewrite history. However, the immense cost of acquiring and running this hardware, combined with the fact that a successful attack would devalue the asset, makes it economically irrational.
+Bitcoin's security depends on making attacks too expensive to be profitable. The most cited threat is a **51% attack**, where an entity controlling a majority of the network's hashpower could attempt to rewrite history. However, the immense cost of acquiring and running this hardware, combined with the fact that a successful attack would devalue the asset, makes it economically irrational.
 
 Security is achieved through **confirmation depth**; each subsequent block exponentially increases the work required to alter a transaction. This leads to **probabilistic finality**, where after a certain number of confirmations (e.g., six), a transaction is considered irreversible. The system is designed so that economic incentives strongly reward miners for honest behavior.
 
-Other threats include **eclipse attacks** (peer isolation) and **selfish mining**; diversity of peers, network-level protections, and monitoring help mitigate these risks.
+Bitcoin is designed to be **antifragile**—it grows stronger from stress and attacks. Its resilience stems from several factors: geographic distribution of nodes and miners resists localized disruptions, **protocol ossification** or resistance to change enhances stability and predictability, and its design assumes an adversarial environment, built to function despite malicious actors. The network has survived numerous technical, political, and economic challenges, demonstrating its robust and self-healing nature.
 
-### Key Management and Wallet Security
+#### Chain Reorganizations (Reorgs)
 
-The foundational principle of self-custody is **"Not your keys, not your coins."** Securely managing private keys is paramount:
+Chain reorganizations are a normal and expected part of Bitcoin's operation. When two miners find valid blocks around the same time, the network can briefly have competing tips. Nodes follow the chain with the most accumulated work; blocks on the losing tip become stale. One-block reorgs occur occasionally; two-block reorgs are rare; three or more are extremely rare absent an attack or severe network partition. This probabilistic behavior is why confirmations matter: the probability that a transaction is affected by a reorg falls exponentially with each additional block.
 
-- **Hierarchical Deterministic (HD) wallets** generate a nearly infinite number of addresses from a single backup seed phrase.
-- **Multi-signature wallets** require multiple keys to authorize a transaction, distributing trust and securing funds.
-- **Hardware wallets** provide the highest level of security by keeping private keys completely offline, isolated from internet-connected devices.
+Other threats include **eclipse attacks** (peer isolation, where an attacker monopolizes a node's peers to feed it a distorted view of the network) and **selfish mining** (withholding found blocks to mine privately and publish strategically for a revenue advantage); diversity of peers, network-level protections, and monitoring help mitigate these risks.
 
 ### Privacy Model
 
-How private are your Bitcoin transactions? Bitcoin is **pseudonymous**, not anonymous. While your addresses are not directly linked to your real-world identity, transaction graph analysis can be used to cluster addresses and track the flow of funds. This risk is significantly increased by address reuse. Furthermore, **KYC/AML** (Know Your Customer/Anti-Money Laundering) regulations at exchanges create links between your on-chain activity and real-world identity, creating privacy gaps.
+How private are Bitcoin transactions? Bitcoin is **pseudonymous**, not anonymous. While addresses are not directly linked to real-world identity, transaction graph analysis can be used to cluster addresses and track the flow of funds. This risk is significantly increased by address reuse. Furthermore, **KYC/AML** regulations at crypto exchanges create links between on-chain activity and real-world identity, creating privacy gaps. Companies like Chainalysis have built billion dollar businesses on de-anonymizing blockchains.
 
-Common privacy practices include avoiding address reuse and optionally leveraging **CoinJoin-style tools** to reduce heuristic linking.
+Common privacy practices include avoiding address reuse and optionally leveraging **CoinJoin-style tools** to reduce heuristic linking. CoinJoin combines inputs from many users into a single transaction that produces many outputs of identical (or near-identical) denominations. Because all inputs sign the same transaction, on-chain observers cannot reliably determine which input funded which output. This breaks common heuristics like "multi-inputs belong to the same owner" and "change output detection," creating an anonymity set where each coin could plausibly belong to any participant. Modern implementations add features like input registration over Tor, output blinding, equal-output denominations, and multi-round mixing to further resist clustering and improve plausible deniability.
 
-### Network Economics
+---
 
-At a system level, the miner **security budget** is total revenue paid to block producers over time: subsidy + fees (per block, per day, or per epoch). Expressed in BTC this is straightforward, but for gauging attack resistance the relevant unit is typically **USD per unit time**, since both miners and potential attackers procure hardware, facilities, and energy in fiat terms. As specialized hardware improves, the cost per hash declines; holding "hashes" constant does not hold attacker cost constant. What matters economically is the dollar cost to acquire and operate enough hash rate for long enough to reliably reorg the chain.
+## Section VI: Bitcoin Ordinals and Digital Artifacts
 
-This framing underscores a long‑run concern: the subsidy halves roughly every four years (see Monetary Policy above). If transaction fees and/or BTC price do not rise sufficiently to offset successive halvings, the USD‑denominated security budget trends lower. A materially smaller budget can lead to miner exits, weaker competition for blocks, and a lower dollar cost for would‑be attackers to rent or acquire a majority share of hash rate for a window of time. In the limit (around 2140) the subsidy falls to ~0, so durable **fee demand** must carry the full security budget—via payments, L2 settlements, inscriptions, batched rollup data, and other valuable uses of block space. Healthy fee markets over the cycle are therefore not a cosmetic metric; they are the funding mechanism for Bitcoin’s long‑term security.
+### Ordinal Theory 
 
-### Network Resilience and Antifragility
+**Ordinal theory** assigns every individual **satoshi** a unique serial number that allows it to be tracked as a distinct unit of bitcoin as it moves through transactions. This numbering system enables users to attach arbitrary data to specific satoshis, creating what are known as **inscriptions**—turning individual sats into carriers of digital content.
 
-Bitcoin is designed to be **antifragile**—it grows stronger from stress and attacks. Its resilience stems from several factors:
+The technical implementation of inscriptions follows a **two-step process** called "commit → reveal." First, a **commit transaction** creates a Taproot output that commits to the inscription script. Then, a **reveal transaction** spends that output and discloses the actual bytes of the inscription. The data itself lives in the **taproot script-path witness** of a Bitcoin transaction, using SegWit and Taproot's witness space to store content directly on-chain. This design makes Ordinals different from schemes like **Bitcoin STAMPS**, which embed data in UTXOs to resist pruning. Ordinals prioritize **on-chain provenance** with flexibility and lower overhead. Archival and indexer nodes retain inscription media, while pruned nodes may delete older witness data after validating it.
 
-- Geographic distribution of nodes and miners resists localized disruptions.
-- **Protocol ossification**, or resistance to change, enhances stability and predictability.
-- Its design assumes an adversarial environment, built to function despite malicious actors.
+### Bitcoin-Native NFTs
 
-The network has survived numerous technical, political, and economic challenges, demonstrating its robust and self-healing nature.
+An **inscribed sat** functions like a Bitcoin-native NFT—a unique token with on-chain content and provenance that transfers by moving a specific unit. The architectural difference from Ethereum's NFTs is notable: while Ethereum relies on **smart-contract standards** like ERC-721/1155 with often off-chain media storage, Bitcoin achieves uniqueness through **ordinal numbering** of sats, with media bytes embedded directly in the blockchain's witness data. The result is an NFT-like **digital artifact** whose rules are enforced by Bitcoin's transaction model combined with **off-chain indexers** that follow Ordinal conventions.
 
-### Bitcoin Inscriptions and Ordinals
+Transferring an inscription requires **sat control**—careful coin selection to ensure the input and output ordering moves the target sat and not surrounding ones. Purpose-built wallets and the reference **`ord` tooling** provide this precise sat selection capability. Many practitioners recommend keeping inscribed sats in separate **Taproot addresses** to avoid accidental merges or spends, while marketplaces often use **PSBTs** (Partially Signed Bitcoin Transactions) so users can verify exactly which inscription is being transferred before signing.
 
-**Ordinal Theory** is a social convention that assigns a unique serial number to every satoshi, allowing individual sats to be tracked and transferred. **Inscriptions** use this method to embed arbitrary data, like images or text, into the witness portion of a Bitcoin transaction.
+### BRC-20: Experimental Fungible Tokens
 
-This process became practical thanks to two soft forks: SegWit, which provided a block space discount for witness data, and Taproot, which enabled more flexible and larger script paths.
+**BRC-20** is an experimental convention for fungible tokens on Bitcoin that uses Ordinal inscriptions. Rather than relying on smart contracts, BRC-20 uses small **JSON inscriptions** that describe three fundamental actions: **deploy**, **mint**, and **transfer**. Community **indexers** reconstruct balances by reading the ordered history of these inscriptions, creating a system of "rules by convention" rather than enforcement by Bitcoin Script.
 
-**BRC-20 tokens** are an experimental standard built on this technology, using JSON text inscriptions to signal "deploy," "mint," and "transfer" functions. An important limitation is that BRC-20s have no native token logic in consensus. Their state is not enforced by the Bitcoin protocol itself but is tracked by off-chain indexers that interpret the inscribed data.
+The BRC-20 system works through specific inscription types: a **deploy inscription** initializes a ticker (typically four letters) and parameters like maximum supply and optional decimals; **mint inscriptions** credit balances to the first owner of each mint inscription (not the deployer unless they own the mint); and **transfer inscriptions** earmark amounts to send. This framework operates as a **consensus by indexers** model, where validity and ordering depend on community agreement rather than cryptographic enforcement.
 
-Relay and mining policies for large inscriptions can vary, affecting inclusion and propagation.
+### The Transfer Process
+
+A **BRC-20 transfer** follows a two-step process layered over Bitcoin's UTXO model. First, users must inscribe a JSON object declaring their intent to transfer a specific number of tokens, receiving this **transfer inscription** in the same wallet that holds their BRC-20 balance. This step moves tokens from an "**available**" balance to a "**transferable**" pool in the eyes of indexers. Second, the transfer inscription itself must be sent to the recipient's address; when that transaction confirms, indexers debit the sender's balance and credit the recipient.
+
+This process creates a distinction in user experience: sending a single **inscribed artifact** resembles moving a unique object—you select the exact UTXO containing that specific sat and deliver it. **BRC-20 transfers** operate more like managing ledger entries with a paper trail: you create a signed note (the transfer inscription) that locks an amount for sending, then send that note to the recipient. Both approaches require normal Bitcoin fees and **Taproot-compatible addresses**, but their bookkeeping mechanisms differ.
+
+### Strengths and Limitations
+
+Ordinals provide a path to **digital artifacts** on Bitcoin without requiring new opcodes or smart contracts, using the existing capabilities of Taproot and SegWit's witness space. This simplicity means that certain behaviors—such as **collection-wide rules**, **royalties**, or **token supply enforcement**—exist outside Bitcoin Script and depend on indexers and community conventions.
+
+**BRC-20** extends the Ordinal concept to fungible tokens while remaining explicitly experimental. Even its original creator points to alternative asset systems as more purpose-built solutions. Both Ordinals and BRC-20 work across multiple wallets and marketplaces today, but they're best understood as **conventions anchored to real Bitcoin transactions** rather than contract-enforced protocols.
+
+To understand this ecosystem: imagine Bitcoin as a railway where every satoshi represents a seat, and every transaction moves seats between carriages. **Ordinal inscriptions** are like attaching small artworks to specific seats—wherever that seat travels, the artwork goes with it, and you must control that exact seat to transfer the artwork. **BRC-20** operates like a ticketing system built on the railway's record-keeping: people leave signed notes declaring "move 100 units from me to Alice," and clerks monitoring the system (**indexers**) adjust everyone's balances when they observe the note traveling from sender to recipient.
+
+The trains, tracks, and carriages remain standard Bitcoin infrastructure; the artworks and ticketing systems represent conventions layered on top. This architecture demonstrates how Bitcoin's base layer can support digital asset systems through creative use of existing features, enabling new use cases while maintaining the network's fundamental properties.
