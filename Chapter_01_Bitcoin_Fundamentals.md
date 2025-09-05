@@ -62,11 +62,21 @@ Once you understand how UTXOs work, the next question is: how do transactions ac
 
 Here's where economics comes into play. Since blocks are limited to 4,000,000 weight units (~1,000,000 vB), miners must choose which transactions to include from their own mempools. They naturally prioritize transactions that pay the highest **fee rate**, measured in satoshis per virtual byte (sats/vB), where virtual bytes are derived from transaction weight. A satoshi is the smallest unit of bitcoin—there are 100 million satoshis in one bitcoin.
 
-This creates a **fee market** where users essentially bid for block space. Need your transaction confirmed quickly during network congestion? Pay a higher fee rate. Can wait? Pay less and wait for a quieter period. If your transaction gets stuck, you can use **Replace-by-Fee (RBF)** to broadcast a higher-fee replacement, or **Child-Pays-for-Parent (CPFP)** to create a high-fee child transaction that incentivizes miners to include the parent.
+This creates a **fee market** where users essentially bid for block space. Need your transaction confirmed quickly during network congestion? Pay a higher fee rate. Can wait? Pay less and wait for a quieter period. If your transaction gets stuck, you can use **Replace-by-Fee (RBF)** to broadcast a higher-fee replacement, or **Child-Pays-for-Parent (CPFP)** to create a high-fee child transaction that incentivizes miners to include the parent. Use CPFP when you can’t (or don’t want to) replace the parent but control one of its outputs (sender’s change or the recipient’s output). Use RBF when you control the original tx and it can be replaced.
 
 ---
 
 ## Section III: Bitcoin Upgrades and Scaling
+
+### Bitcoin Core: The Reference Implementation
+
+**Bitcoin Core** is the predominant implementation of the Bitcoin protocol and the de facto standard most nodes use. It doesn't *control* Bitcoin or unilaterally define the rules, but because there's no formal spec, Core's consensus code effectively serves as the common reference most of the economy follows. Originally developed by Satoshi Nakamoto and now maintained by a global community of developers, Bitcoin Core is the software that most Bitcoin nodes run to participate in the network.
+
+Proposals for changes are documented as **BIPs** (Bitcoin Improvement Proposals); when adopted, Core typically ships the implementation. Most releases adjust **policy** (mempool/relay) defaults, while **consensus** changes are rare and only take effect through soft-fork activation mechanisms (e.g., BIP9 or Speedy Trial). For example, recent versions have focused on mempool policy improvements rather than consensus rule changes.
+
+In practice, Bitcoin Core's careful development process, extensive testing, and broad adoption make it the standard that other implementations follow. Major upgrades such as SegWit and Taproot were implemented in Core and activated by the network through specific soft-fork mechanisms—demonstrating how protocol evolution works through this reference implementation.
+
+As a concrete example of a policy (not consensus) change: the historical ~80‑byte relay cap on **OP_RETURN** outputs is slated to be removed by default in Bitcoin Core v30. This doesn’t change what’s valid on-chain; it changes default relay/mempool behavior, and operators can still run stricter policies. The takeaway is that many Core releases adjust node policy rather than consensus rules.
 
 ### Understanding Fork Types
 
@@ -141,22 +151,9 @@ While SegWit technically activated via the original miner signaling mechanism (B
 
 #### Taproot (2021)
 
-The **Taproot upgrade** significantly improved privacy, efficiency, and smart contract capabilities by combining two key technologies. Taproot locked in June 2021 and activated at **block 709,632** on **November 14, 2021 (05:15 UTC)**. **Schnorr Signatures** enable key and signature aggregation through schemes like MuSig2, allowing complex multi-party transactions to appear as single signatures on-chain. **Merkleized Abstract Syntax Trees (MAST)** structure complex spending conditions efficiently, where only the condition that's met needs to be revealed.
+The **Taproot upgrade** significantly improved programmability and confidentiality. Taproot locked in June 2021 and activated in November 2021. **Schnorr Signatures** enable key and signature aggregation through schemes like MuSig2, allowing complex multi-party transactions to appear as single signatures on-chain. **Merkleized Abstract Syntax Trees (MAST)** structure complex spending conditions efficiently, where only the condition that's met needs to be revealed.
 
 Together, these features provide major benefits: complex transactions become indistinguishable from simple payments for key-path spends, delivering significant privacy and scalability improvements. When script-path spends are used, only the revealed branch is disclosed, maintaining privacy for unused conditions.
-
-### Network Standards and Features
-
-#### Child-Pays-for-Parent (CPFP)
-Create a new child transaction that spends an output from the stuck parent with a high fee rate, so miners include the package (parent + child) because the combined/ancestor feerate is attractive. Use CPFP when you can’t (or don’t want to) replace the parent but control one of its outputs (sender’s change or the recipient’s output).
-
-#### Replace-by-Fee (RBF)
-Sender rebroadcasts a higher-fee replacement of an unconfirmed transaction. Opt-in RBF is defined by BIP-125 (wallets signal replaceability); as of **Bitcoin Core v29**, **full-RBF is the default relay policy** in Core (the `mempoolfullrbf` option was removed). Use RBF when you control the original tx and it can be replaced.
-
-RBF is a sender-driven replacement while CPFP is a child-driven package mining. Either party with a spendable output can do CPFP. They’re compatible and can be used together if needed.
-
-#### OP_RETURN Data Embedding
-The **OP_RETURN opcode** allows embedding small amounts of arbitrary data in transactions. The OP_RETURN relay cap (historically ~80 bytes) is slated to be removed **by default in Bitcoin Core v30** (policy, not consensus), effectively permitting much larger OP_RETURN data subject to transaction size/weight limits; operators can still run stricter policies.
 
 ### Address Types and Formats
 
@@ -168,15 +165,21 @@ Bitcoin addresses have evolved to improve efficiency and enable new features: Le
 
 ### Lightning Network
 
-What if you could make instant Bitcoin payments without waiting for block confirmations or paying high fees? The **Lightning Network** makes this possible through a clever Layer 2 protocol that moves most transactions off the main blockchain.
+The **Lightning Network** attempts to enable faster Bitcoin payments through a Layer 2 protocol that moves many day-to-day payments off the main blockchain. Rather than broadcasting every payment to the entire network, two parties can open a private **payment channel** by locking funds in a shared on-chain account—technically a **2-of-2 multisig output**. Once established, both parties can transact by updating their channel's balance sheet off-chain, with all state changes requiring mutual agreement and secured by cryptography.
 
-The concept is elegantly simple: instead of broadcasting every payment to the entire network, two parties can open a private **payment channel** by locking funds in a shared on-chain account (technically a 2-of-2 multisig output).
+The network can theoretically route payments across multiple interconnected channels using **HTLCs** (Hash Time-Locked Contracts) and **onion routing** for privacy, while **watchtowers** monitor for cheating attempts. However, Lightning faces significant **liquidity constraints** that limit its practical utility. Users need **outbound liquidity** to send payments and **inbound liquidity** to receive them. When channels lack sufficient liquidity, it results in **payment failures** or forces users to split larger payments across multiple routes.
 
-Once the channel is established, you and your counterparty can transact an unlimited number of times by updating your channel's balance sheet off-chain. All state changes require mutual agreement and are secured by cryptography. When you're finished, you can close the channel by broadcasting the final state to the Bitcoin blockchain. The network can also route your payments across multiple interconnected channels.
+Think of Lightning as a canal system with locks—you can only send if there's enough water on your side (outbound capacity) and only receive if the other side has room (inbound capacity). **Channel rebalancing** helps redistribute liquidity but incurs fees and takes time. Multi-hop routes only work when each channel along the path has liquidity flowing the right direction.
 
-Lightning uses **HTLCs** and **onion routing** for private, trust-minimized payments; **watchtowers** help penalize cheating. Channel liquidity is directional (inbound vs outbound) and affects routing success; rebalancing and swap services help manage liquidity for reliable routing.
+This approach addresses Bitcoin's base layer limitations for small payments. Bitcoin is optimized for **high-assurance settlement**, making "coffee payments" economically inefficient due to high fees and block space constraints. Lightning attempts to shift low-value, high-frequency activity off-chain while preserving the option to settle back to Layer 1 when needed.
 
-Think of Lightning as a canal system with locks. You can only send a boat if there’s enough water on your side (outbound capacity), and you can only receive if the other side has room to raise water to meet you (inbound capacity). Multi-hop routes work only when each lock along the path has water oriented the right way. Rebalancing is like shifting barges to move water back without closing the canal. HTLCs are sealed containers that either pass every lock intact or return unopened; onion routing means each lock‑keeper sees only the next hop, not the whole voyage.
+Yet Lightning suffers from notable **centralization issues**. Among publicly reachable (non-Tor) Lightning nodes, roughly 45% are hosted on major cloud providers like AWS and Google Cloud. This infrastructure centralization creates potential points of failure and contradicts blockchain's decentralized principles. The network also faces **security vulnerabilities** including **hot wallet** exposure, **channel breaches**, **replacement cycling attacks** (mitigated in current implementations), **route correlation** privacy risks, **time-dilation/eclipse attacks**, and **channel jamming**.
+
+**Adoption challenges** have proven substantial. **Merchant adoption** faces challenges from integration complexities and Bitcoin's price volatility, though major exchanges like Coinbase and Kraken now support Lightning with notable transaction volumes. **User experience** barriers persist, as managing Lightning channels is complex for non-technical users. Users must **pre-deploy liquidity** in channels and navigate the separation between Layer 1 and Layer 2, adding operational complexity.
+
+**Regulatory uncertainty** compounds these issues. Lightning node operators face potential scrutiny regarding **AML and KYC compliance**, with jurisdiction-dependent and evolving interpretations of whether non-custodial routing constitutes money transmission. Tax treatment of Lightning transactions varies significantly across jurisdictions.
+
+Higher base-layer fees create additional stress by increasing **channel opening and closing costs**. While fee spikes can endanger on-chain enforcement, the ecosystem has developed solutions like **anchor outputs** and **package relay** rather than simply requiring longer timelocks. Fee spikes can trigger **forced expiration scenarios** when many channels must settle on-chain simultaneously. These constraints suggest Lightning may function better as a **settlement fabric** between custodians and other Layer 2 solutions rather than as a universal payment network for everyday users.
 
 ---
 
