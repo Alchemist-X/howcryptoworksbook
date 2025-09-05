@@ -24,7 +24,11 @@ Users set `maxFeePerGas` and `maxPriorityFeePerGas` when submitting transactions
 
 Here's where it gets interesting. The **base fee** is set algorithmically based on network congestion—when blocks are full, it rises; when they're empty, it falls. But here's the crucial part: of the total fee paid, `gasUsed × baseFee` gets burned, destroyed forever, creating deflationary pressure on ETH itself. The remainder (priority fees plus any inclusion rewards) goes to validators, giving users a way to jump ahead in line during busy periods.
 
-Imagine a city toll road where the city sets a posted toll that rises during rush hour and falls when traffic eases. That posted toll gets set on fire at the gate—no one pockets it—so drivers stop trying to outbid each other just to get in. The road has a target capacity, but can temporarily handle up to twice that target when demand spikes—the toll adjusts up or down each period based on how full the previous period was. Only a small tip to the attendant changes your place in line. That's EIP-1559: a burned base fee that discovers the real price of block space, elastic block sizes (up to 2× the target) that smooth out demand spikes, and tips that preserve priority without waste.
+During periods of sustained demand, the base-fee burn can exceed new ETH issuance, making supply net-deflationary; this creates reflexive dynamics where higher usage increases burn, tightening supply growth and potentially reinforcing demand for ETH as blockspace.
+
+Imagine a popular bridge where tolls used to work like a frenzied auction—drivers would literally shout increasingly desperate bids at the toll booth, trying to outprice each other just to cross. Then came a revolutionary new system: the bridge installed smart tolls that automatically adjust their base price every few minutes based on traffic flow—climbing when cars back up, dropping when the bridge empties out. Drivers can now simply pay this posted price, or add a "tip" to jump into an express lane when they're in a hurry. 
+
+But here's the twist: instead of the base toll money going into some bureaucrat's pocket or government coffers, it gets loaded onto a barge and literally burned at sea every week—permanently removing currency from circulation and making everyone's remaining dollars slightly more valuable. Only the express lane tips go to the bridge operators, keeping them motivated to process traffic efficiently. This transformed a chaotic, anxiety-inducing crossing into a predictable system where the bridge practically manages itself, while mysteriously making everyone a bit richer with every toll paid.
 
 These changes reduced fee volatility and improved UX without changing the **consensus mechanism** (PoW/PoS), though EIP-1559 did add new consensus rules including the `baseFee` field and burning mechanism. It didn't introduce censorship-resistance mechanisms like inclusion lists (a separate, still-evolving proposal).
 
@@ -32,7 +36,9 @@ These changes reduced fee volatility and improved UX without changing the **cons
 
 While understanding gas helps users manage transaction costs, knowing how Ethereum identifies accounts and assets is equally fundamental to navigating the ecosystem effectively.
 
-Ethereum has two types of accounts: **Externally Owned Accounts (EOAs)** are regular user wallets controlled by private keys (like MetaMask or hardware wallets), while **smart contract accounts** are programmable accounts that execute code. Every participant in Ethereum—whether a person or a smart contract—has a unique **address** that serves as their public identifier. These addresses look like cryptographic gibberish: a 40-character string of numbers and letters such as `0x742d35Cc6634C0532925a3b844Bc454e4438f44e`. Behind this seemingly random sequence lies elegant mathematics. For **Externally Owned Accounts (EOAs)**, the address represents the last 20 bytes of a cryptographic hash of the account's public key. For **smart contracts**, addresses are derived differently: `CREATE` uses `keccak256(rlp(sender, nonce))` while `CREATE2` uses `keccak256(0xff || sender || salt || keccak256(init_code))`—both taking the last 20 bytes.
+Ethereum has two types of accounts: **Externally Owned Accounts (EOAs)** are regular user wallets controlled by private keys (like MetaMask or hardware wallets), while **smart contract accounts** are programmable accounts that execute code. Every participant in Ethereum—whether a person or a smart contract—has a unique **address** that serves as their public identifier. 
+
+These addresses look like cryptographic gibberish: a 40-character string of numbers and letters such as `0x742d35Cc6634C0532925a3b844Bc454e4438f44e`. Behind this seemingly random sequence lies mathematics. For **Externally Owned Accounts (EOAs)**, the address represents the last 20 bytes of a cryptographic hash of the account's public key. For **smart contracts**, addresses are derived differently: `CREATE` uses `keccak256(rlp(sender, nonce))` while `CREATE2` uses `keccak256(0xff || sender || salt || keccak256(init_code))`—both taking the last 20 bytes.
 
 But Ethereum's real breakthrough was establishing standards that allowed different applications to work together seamlessly. The most important of these is the **ERC-20 token standard**, which created a universal language for digital assets.
 
@@ -40,9 +46,9 @@ Before ERC-20, every new token was essentially a unique snowflake, requiring cus
 
 Suddenly, developers could build applications that worked with thousands of different tokens without writing custom code for each one. A decentralized exchange could list any ERC-20 token, a lending protocol could accept any ERC-20 as collateral, and users could seamlessly move assets between different applications. This composability—the ability for different protocols to work together like Lego blocks—became one of Ethereum's defining characteristics.
 
-The ecosystem continued to evolve with additional standards: **ERC-721** and **ERC-1155** for non-fungible tokens (which we'll explore in Chapter XI), **ERC-2612** for permit-based approvals (where token holders sign approvals off-chain so they don't spend gas, though someone still pays gas to submit the permit), and the **Ethereum Name Service (ENS)** which allows users to replace those cryptographic addresses with human-readable names like "alice.eth". These standards, combined with **EIP-55 checksums** that help prevent address typos, make Ethereum increasingly user-friendly while maintaining its technical rigor.
+The ecosystem continued to evolve with additional standards: **ERC-721** and **ERC-1155** for non-fungible tokens (which we'll explore in Chapter XI), **ERC-2612** for permit-based approvals (where token holders sign approvals off-chain so they don't spend gas, though someone still pays gas to submit the permit), and the **Ethereum Name Service (ENS)** which allows users to replace those cryptographic addresses with human-readable names like "larry.eth". These standards, combined with **EIP-55 checksums** that help prevent address typos, make Ethereum increasingly user-friendly while maintaining its technical rigor.
 
-Understanding how Ethereum processes transactions and maintains standards is just the beginning. The real magic happens in how the network reaches consensus about what transactions are valid and in what order they should be processed. This brings us to one of Ethereum's most significant transformations: its evolution from an energy-intensive mining system to an elegant proof-of-stake mechanism.
+Understanding how Ethereum processes transactions and maintains standards is just the beginning. The real magic happens in how the network reaches consensus about what transactions are valid and in what order they should be processed. This brings us to one of Ethereum's most significant transformations: its evolution from an energy-intensive system to a proof-of-stake mechanism.
 
 ---
 
@@ -50,7 +56,7 @@ Understanding how Ethereum processes transactions and maintains standards is jus
 
 ### The Great Transition: From Mining to Staking
 
-September 15, 2022, marked a watershed moment in Ethereum history. On that day, it completed **The Merge**—a years-long engineering effort that transitioned the network from energy-intensive mining to an elegant **proof-of-stake** system. This wasn't just a technical upgrade; it was a fundamental reimagining of how a global computer could secure itself.
+September 15, 2022, marked a watershed moment in Ethereum history. On that day, **The Merge** was completed—a years-long engineering effort that transitioned the network from energy-intensive mining to a **proof-of-stake** system. This wasn't just a technical upgrade; it was a reimagining of how a global computer will secure itself.
 
 The transformation was remarkable in its scope. Where Bitcoin miners race to solve computational puzzles using massive amounts of electricity, Ethereum's new system relies on **validators** who lock up their own ETH as collateral. These validators earn rewards for honest behavior and face severe penalties for malicious actions. The result? Ethereum reduced its energy consumption by over 99.9% while maintaining security guarantees.
 
@@ -58,51 +64,17 @@ But The Merge accomplished something even more significant: it separated Ethereu
 
 ### How Ethereum Achieves Consensus
 
-Ethereum's proof-of-stake system operates like a carefully choreographed dance, with thousands of validators working together to maintain network security. Understanding this choreography reveals the elegant engineering behind Ethereum's consensus mechanism.
+Ethereum's proof-of-stake system operates like a carefully choreographed dance, with thousands of validators working together to maintain network security. Understanding this choreography reveals the engineering behind Ethereum's consensus mechanism.
 
 Time in Ethereum moves in precise intervals: every 12 seconds marks a **slot**, and every 32 slots (about 6.4 minutes) forms an **epoch**. In each slot, the protocol randomly selects one validator to propose a new block while hundreds of others **attest** to its validity. This isn't just voting—it's cryptographic testimony that the proposed block follows all the rules.
 
 The path to **finality**—the point where a transaction becomes irreversible—follows a two-step process. First, a block becomes **justified** when it receives attestations from at least two-thirds of validators. Then, in the following epoch, if another supermajority confirms that justification, the block becomes **finalized**. This process typically takes about 12.8 minutes, after which reversing a transaction would require extremely costly correlated slashing penalties that could reach the full effective balance of participating validators.
 
-Becoming a validator requires staking a **minimum of 32 ETH** to activate. Since the Pectra hard fork (EIP-7251), however, a validator's maximum effective balance was raised to **2048 ETH**, allowing operators to concentrate stake on fewer validators and changing the prior incentive to spin up many 32 ETH validators.
+Becoming a validator requires staking a minimum of 32 ETH to activate, but since the Pectra hard fork (EIP-7251), validators can now scale their effective balance up to 2048 ETH, fundamentally changing the staking landscape. While 32 ETH remains the activation threshold per validator key, operators can now attach additional ETH to a single validator to increase its attestation weight, rewards, and penalties proportionally—reducing operational overhead through fewer keys and attestations but concentrating stake and potential slashing risk per validator. This shift moves away from the previous incentive to spin up many 32 ETH validators, allowing larger operators to consolidate into fewer, heavier validators while solo stakers can continue running traditional 32-ETH setups.
 
 The system's efficiency comes from clever cryptographic techniques. Ethereum uses **BLS signatures**, which allow thousands of individual validator signatures to be compressed into a single, compact proof. Instead of processing thousands of separate attestations, the network can verify the collective opinion of all validators with minimal computational overhead.
 
 Security comes through **slashing**—the system's way of punishing malicious behavior. Validators who break the rules (like proposing conflicting blocks or making contradictory attestations) face severe penalties, potentially losing their entire stake. This creates powerful economic incentives for honest behavior. The system also includes **inactivity leaks** that gradually reduce the stake of offline validators during network partitions, ensuring that the active portion of the network can continue reaching consensus even during major outages.
-
-### Restaking: Multiplying Ethereum's Security
-
-While Ethereum's proof-of-stake system secures the network itself, an innovative concept called **restaking** allows that same security to protect additional protocols. Think of it as getting double duty from your security deposit—validators can use their staked ETH to secure not just Ethereum, but also other applications that need cryptoeconomic guarantees.
-
-**EigenLayer** pioneered this approach by creating a system where validators can "opt in" to secure **Actively Validated Services (AVSs)**—external protocols that need the kind of security that only comes from having real money at stake. The mechanism is elegantly simple: for native restaking, validators point their withdrawal credentials to an EigenPod and delegate to an operator, while liquid staking token holders can deposit their tokens into EigenLayer strategies. In both cases, participants commit to follow the rules of their chosen AVSs. If they break those rules, they face additional slashing penalties on top of any Ethereum-level punishments.
-
-This creates what's known as **shared security**—multiple protocols can tap into Ethereum's massive validator set and the billions of dollars they have at stake, rather than bootstrapping their own security from scratch. AVSs span a wide range of applications: data availability layers like EigenDA, oracle networks that provide price feeds, cross-chain bridges, rollup sequencers, and automated keeper networks that maintain DeFi protocols.
-
-Each AVS defines its own **slashing conditions**—the specific rules validators must follow to avoid penalties. A data availability service might require validators to prove they're storing certain data, while an oracle network might slash validators who submit price feeds that deviate too far from consensus. This flexibility allows different types of applications to leverage Ethereum's security while maintaining their own operational requirements.
-
-For users who want exposure to restaking rewards without the complexity of running validators, **Liquid Restaking Tokens (LRTs)** provide an elegant solution. Protocols like **EtherFi**, **Renzo**, and **Kelp** allow users to deposit ETH and receive tokens (eETH, ezETH, rsETH respectively) that represent their restaked position. These tokens accrue rewards from both Ethereum staking and AVS participation while remaining liquid and tradeable.
-
-#### Understanding the Risks
-
-However, this shared security model isn't without risks. Like a trapeze artist performing without a net, validators who choose to restake accept additional dangers in exchange for higher potential rewards.
-
-The most significant concern is **correlated slashing risk**. When validators secure multiple AVSs simultaneously, a single mistake or malicious action can trigger slashing penalties across all services at once, amplifying potential losses far beyond what traditional Ethereum staking would impose. This makes **AVS risk assessment** crucial—each service brings its own slashing conditions, upgrade mechanisms, and governance structures that validators must understand and trust.
-
-**Operator selection** becomes critical in this environment, as most restakers delegate their validation duties to professional operators who must maintain infrastructure for multiple protocols simultaneously. Poor operator performance or malicious behavior doesn't just affect one service—it impacts all delegated stake across every AVS that operator supports. Additionally, **withdrawal delays** can extend well beyond Ethereum's standard unbonding periods—EigenLayer adds its own escrow period (currently 7 days, moving to 14 days after slashing upgrades) that stacks with Beacon Chain exit timing, and individual AVSs or LRT protocols may impose additional withdrawal restrictions.
-
-The liquid restaking ecosystem introduces its own systemic risks. **Liquidity cascades** could emerge if LRT tokens lose their peg to underlying ETH, potentially forcing mass withdrawals that create destructive feedback loops across the entire restaking ecosystem. There's also **basis risk** between the underlying ETH staking yields and LRT token prices, adding complexity for users who expect predictable returns from their staked positions.
-
-#### Technical Architecture
-
-EigenLayer's technical design reflects careful consideration of the complex interactions between multiple protocols and validators. The architecture separates **strategy contracts**, which handle the mechanics of deposits and withdrawals, from **slashing contracts** that enforce each AVS's specific rules. This separation allows for flexible composition while maintaining clear boundaries between different types of operations.
-
-The system enables **delegation**, allowing users who don't want to run validator infrastructure to stake through professional operators while retaining control over their withdrawal rights. **Veto committees** provide additional security layers for critical slashing decisions, creating checks and balances that prevent hasty or incorrect penalty enforcement.
-
-Different AVSs employ varying **proof systems** depending on their security needs. Some rely on **fraud proofs** that assume honest behavior unless challenged, others use **validity proofs** based on zero-knowledge cryptography that mathematically guarantee correctness, and still others depend on **committee signatures** from trusted parties. Each approach brings different trade-offs between efficiency, decentralization, and security assumptions.
-
-Perhaps most intriguingly, EigenLayer introduces **intersubjective slashing** for cases where violations can't be algorithmically proven. These situations rely on social consensus and governance processes to determine whether slashing should occur, introducing governance risk but enabling the system to handle complex, real-world scenarios that pure algorithmic approaches might miss.
-
-While Ethereum's consensus mechanism provides unparalleled security, it comes with limitations. The network can only process about 15 transactions per second—fine for a settlement layer, but insufficient for the global computer vision that Ethereum represents. This constraint led to the development of **Layer 2 solutions**, which preserve Ethereum's security while dramatically increasing its capacity.
 
 ---
 
@@ -110,7 +82,7 @@ While Ethereum's consensus mechanism provides unparalleled security, it comes wi
 
 ### The Rollup Revolution
 
-**Rollups** represent Ethereum's most successful scaling approach, and understanding them is key to grasping how Ethereum can serve billions of users without sacrificing its core principles. The concept is elegantly simple: execute transactions on a separate **Layer 2 (L2)** chain that operates much faster and cheaper than mainnet, then post compressed summaries of those transactions back to **Layer 1 (L1)** for security and finality.
+**Rollups** represent Ethereum's most successful scaling approach, and understanding them is key to grasping how Ethereum can serve billions of users without sacrificing its core principles. The concept is simple: execute transactions on a separate **Layer 2 (L2)** chain that operates much faster and cheaper than mainnet, then post compressed summaries of those transactions back to **Layer 1 (L1)** for security and finality.
 
 This approach allows rollups to inherit Ethereum's security—the most valuable property of the base layer—while offering dramatically lower fees and higher throughput. However, this security inheritance only applies fully when data availability is on Ethereum itself; rollups using external data availability (validiums) require additional trust assumptions. It's like having a busy restaurant with a single, highly secure cash register: instead of every customer waiting in line to pay individually, tables submit their bills in batches, with the cashier processing dozens of payments at once while maintaining the same security standards.
 
@@ -198,7 +170,7 @@ While scaling solutions address Ethereum's capacity constraints, another frontie
 
 ### Reimagining User Accounts
 
-**Account Abstraction** represents one of Ethereum's most ambitious user experience improvements. The goal is elegantly simple: make every Ethereum account function like a smart contract, enabling features that users expect from modern applications—social recovery when you lose access, multi-factor authentication for security, and the ability to pay transaction fees with any token rather than just ETH.
+**Account Abstraction** represents one of Ethereum's most ambitious user experience improvements. The goal is simple: make every Ethereum account function like a smart contract, enabling features that users expect from modern applications—social recovery when you lose access, multi-factor authentication for security, and the ability to pay transaction fees with any token rather than just ETH.
 
 **ERC-4337** achieves this transformation without requiring changes to Ethereum's core protocol. Instead, it implements account abstraction at a higher layer through an ingenious system that separates user intentions from the technical details of blockchain execution.
 
@@ -214,7 +186,7 @@ Security relies on thorough simulation and validation by the EntryPoint contract
 
 ### Bridging Traditional and Smart Accounts
 
-While ERC-4337 offers powerful capabilities, it requires users to migrate from traditional **Externally Owned Accounts (EOAs)** to new smart contract wallets—a significant barrier for the millions of existing Ethereum users. **EIP-7702**, implemented in the **Pectra hard fork** (May 7, 2025), provides an elegant solution to this migration challenge.
+While ERC-4337 offers powerful capabilities, it requires users to migrate from traditional **Externally Owned Accounts (EOAs)** to new smart contract wallets—a significant barrier for the millions of existing Ethereum users. **EIP-7702**, implemented in the **Pectra hard fork** (May 7, 2025), provides a solution to this migration challenge.
 
 EIP-7702 allows traditional EOAs to set a **delegation pointer** as account code via a new Type-4 transaction, enabling them to "become" smart accounts. Users can delegate their account's authority to a smart wallet implementation, access advanced features like batched operations or gas sponsorship, with the delegation persisting until changed or cleared by another transaction. While applications can build temporary experiences by clearing the delegation afterward, the protocol itself maintains persistent delegation rather than inherently ephemeral behavior.
 
@@ -227,3 +199,37 @@ With account abstraction primitives in place, Ethereum's user experience frontie
 This evolution combines with other UX improvements to create increasingly seamless experiences. **Session keys** provide scoped, time-bound permissions that eliminate the need for constant transaction signing. **Passkeys** and **social recovery** mechanisms reduce reliance on traditional seed phrases that users often lose or mismanage. **Paymasters** can sponsor gas fees, though popular **verifying paymasters** may rely on off-chain approval services and business rules that introduce trust and availability assumptions, while thorough simulation, sensible limits, and human-readable transaction prompts help users understand exactly what they're authorizing.
 
 The result is an ecosystem moving toward the usability standards users expect from modern applications while preserving the security and decentralization properties that make Ethereum valuable. As these technologies mature and combine, the distinction between "crypto" and "normal" applications will likely disappear for end users.
+
+## Section V: Restaking
+
+While Ethereum's proof-of-stake system secures the network itself, an innovative concept called **restaking** allows that same security to protect additional protocols. Think of it as getting double duty from your security deposit—validators can use their staked ETH to secure not just Ethereum, but also other applications that need cryptoeconomic guarantees.
+
+**EigenLayer** pioneered this approach by creating a system where validators can "opt in" to secure **Actively Validated Services (AVSs)**—external protocols that need the kind of security that only comes from having real money at stake. The mechanism is simple: for native restaking, validators point their withdrawal credentials to an EigenPod and delegate to an operator, while liquid staking token holders can deposit their tokens into EigenLayer strategies. In both cases, participants commit to follow the rules of their chosen AVSs. If they break those rules, they face additional slashing penalties on top of any Ethereum-level punishments.
+
+This creates what's known as **shared security**—multiple protocols can tap into Ethereum's massive validator set and the billions of dollars they have at stake, rather than bootstrapping their own security from scratch. AVSs span a wide range of applications: data availability layers like EigenDA, oracle networks that provide price feeds, cross-chain bridges, rollup sequencers, and automated keeper networks that maintain DeFi protocols.
+
+Each AVS defines its own **slashing conditions**—the specific rules validators must follow to avoid penalties. A data availability service might require validators to prove they're storing certain data, while an oracle network might slash validators who submit price feeds that deviate too far from consensus. This flexibility allows different types of applications to leverage Ethereum's security while maintaining their own operational requirements.
+
+For users who want exposure to restaking rewards without the complexity of running validators, **Liquid Restaking Tokens (LRTs)** provide a solution. Protocols like **EtherFi**, **Renzo**, and **Kelp** allow users to deposit ETH and receive tokens (eETH, ezETH, rsETH respectively) that represent their restaked position. These tokens accrue rewards from both Ethereum staking and AVS participation while remaining liquid and tradeable.
+
+### Understanding the Risks
+
+However, this shared security model isn't without risks. Like a trapeze artist performing without a net, validators who choose to restake accept additional dangers in exchange for higher potential rewards.
+
+The most significant concern is **correlated slashing risk**. When validators secure multiple AVSs simultaneously, a single mistake or malicious action can trigger slashing penalties across all services at once, amplifying potential losses far beyond what traditional Ethereum staking would impose. This makes **AVS risk assessment** crucial—each service brings its own slashing conditions, upgrade mechanisms, and governance structures that validators must understand and trust.
+
+**Operator selection** becomes critical in this environment, as most restakers delegate their validation duties to professional operators who must maintain infrastructure for multiple protocols simultaneously. Poor operator performance or malicious behavior doesn't just affect one service—it impacts all delegated stake across every AVS that operator supports. Additionally, **withdrawal delays** can extend well beyond Ethereum's standard unbonding periods—EigenLayer adds its own escrow period (currently 7 days, moving to 14 days after slashing upgrades) that stacks with Beacon Chain exit timing, and individual AVSs or LRT protocols may impose additional withdrawal restrictions.
+
+The liquid restaking ecosystem introduces its own systemic risks. **Liquidity cascades** could emerge if LRT tokens lose their peg to underlying ETH, potentially forcing mass withdrawals that create destructive feedback loops across the entire restaking ecosystem. There's also **basis risk** between the underlying ETH staking yields and LRT token prices, adding complexity for users who expect predictable returns from their staked positions.
+
+### Technical Architecture
+
+EigenLayer's technical design reflects careful consideration of the complex interactions between multiple protocols and validators. The architecture separates **strategy contracts**, which handle the mechanics of deposits and withdrawals, from **slashing contracts** that enforce each AVS's specific rules. This separation allows for flexible composition while maintaining clear boundaries between different types of operations.
+
+The system enables **delegation**, allowing users who don't want to run validator infrastructure to stake through professional operators while retaining control over their withdrawal rights. **Veto committees** provide additional security layers for critical slashing decisions, creating checks and balances that prevent hasty or incorrect penalty enforcement.
+
+Different AVSs employ varying **proof systems** depending on their security needs. Some rely on **fraud proofs** that assume honest behavior unless challenged, others use **validity proofs** based on zero-knowledge cryptography that mathematically guarantee correctness, and still others depend on **committee signatures** from trusted parties. Each approach brings different trade-offs between efficiency, decentralization, and security assumptions.
+
+Perhaps most intriguingly, EigenLayer introduces **intersubjective slashing** for cases where violations can't be algorithmically proven. These situations rely on social consensus and governance processes to determine whether slashing should occur, introducing governance risk but enabling the system to handle complex, real-world scenarios that pure algorithmic approaches might miss.
+
+While Ethereum's consensus mechanism provides unparalleled security, it comes with limitations. The network can only process about 15 transactions per second—fine for a settlement layer, but insufficient for the global computer vision that Ethereum represents. This constraint led to the development of **Layer 2 solutions**, which preserve Ethereum's security while dramatically increasing its capacity.

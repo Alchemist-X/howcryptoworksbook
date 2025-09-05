@@ -17,6 +17,7 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section II: Ethereum Consensus and Staking](./Chapter_02_Ethereum_Ecosystem.md#section-ii-ethereum-consensus-and-staking)
 - [Section III: Ethereum Scaling and Layer 2 Solutions](./Chapter_02_Ethereum_Ecosystem.md#section-iii-ethereum-scaling-and-layer-2-solutions)
 - [Section IV: Account Abstraction and Future Upgrades](./Chapter_02_Ethereum_Ecosystem.md#section-iv-account-abstraction-and-future-upgrades)
+ - [Section V: Restaking: Multiplying Ethereum's Security](./Chapter_02_Ethereum_Ecosystem.md#section-v-restaking-multiplying-ethereums-security)
 
 ### Chapter III — The Solana Ecosystem
 - [Section I: Architecture and Execution](./Chapter_03_Solana_Ecosystem.md#section-i-architecture-and-execution)
