@@ -12,51 +12,57 @@ But creating a decentralized alternative to traditional banking raises a fundame
 
 ### Consensus and Chain Selection 
 
-Bitcoin solves this through a robust consensus mechanism. Bitcoin uses **Nakamoto Consensus**, which is often simplified as the "longest chain rule" but is more accurately described as the "heaviest chain rule." The canonical chain is the one with the most accumulated computational work invested in it, not necessarily the one with the most blocks.
-
-Imagine two climbers racing to the summit on different routes. One takes 1,000 easy steps up a gentle trail; the other takes 600 steps up a steep face where each step is worth more points because it's harder. The judges don't count steps; they total points. That's chainwork: nodes sum per-block work (from each block's nBits) and choose the chain with the most total work—even if it has fewer blocks. This prevents an attacker from overwriting history with a long but easy-to-produce chain, as the sheer energy invested in the honest chain makes it prohibitively expensive to overcome.
-
-**Full nodes enforce validity rules; hash rate does not.** Miners assemble blocks and add Proof-of-Work (PoW), but each node independently accepts a block only if it follows the node's rules (supply cap, signature/script validity, etc.). PoW provides Sybil-resistance and serves as a tie-breaker among chains that already pass validation on that node. Invalid blocks are rejected regardless of how much hash rate produced them.
+Bitcoin solves this through a robust consensus mechanism. Bitcoin uses **Nakamoto Consensus**, which is often simplified as the "longest chain rule" but is more accurately described as the "heaviest chain rule." Nodes choose the valid chain with the greatest accumulated proof-of-work, computed from each block’s target (nBits). Think of two hikers taking different routes: one logs 1,000 easy steps, the other 600 hard steps. We don’t score by steps (block count) but by calories—a stand-in for work—so the steeper, harder route can “weigh” more even with fewer steps. Likewise, nodes sum each block’s work and follow the chain with the most total work. You can’t win by making a long, low-effort chain because difficulty rules are enforced; to rewrite history you must produce at least as much cumulative work as the honest chain (and more, if you’re behind).
 
 ### Mining and Proof-of-Work
 
-What if you needed to prove you'd done a lot of work, but couldn't trust anyone to verify it? Bitcoin solves this through **Proof-of-Work**—a system where miners compete to solve cryptographic puzzles that require enormous computational effort but can be instantly verified by anyone.
+What if you needed to prove you'd done a lot of work, but couldn't trust anyone to verify it? Bitcoin solves this through **Proof-of-Work**—a system where miners compete to solve cryptographic puzzles that require enormous computational effort but can be quickly verified by anyone.
 
 Here's how it works: Miners bundle transactions into a block and repeatedly hash the block header using the double SHA-256 algorithm. They're searching for a hash value below a specific target—like rolling dice until you get a number lower than a certain threshold, except they're "rolling" trillions of times per second.
 
-To do this, miners primarily vary a field in the header called the **nonce**, a 32-bit number offering about 4 billion guesses. When those are exhausted, miners can alter the **extranonce** within the coinbase transaction, which changes the block's Merkle root and provides a new range of hashes to test. To keep the average block time at approximately 10 minutes, the network performs a **difficulty retarget** every 2,016 blocks (about two weeks). If blocks are found too quickly, the difficulty increases; if too slowly, it decreases.
+**Hash rate** is the speed of this guessing process: how many hashes a miner—or the entire network—can try each second while searching for a valid block. More hash rate means more chances per second to find a block. It's measured in hashes per second (H/s), commonly shown as TH/s (terahashes), PH/s (petahashes), or EH/s (exahashes). Importantly, higher total network hash rate doesn't make blocks come faster on average—difficulty adjusts to maintain the ~10 minute target.
 
-Most hashpower is coordinated through mining pools using specialized ASIC hardware. Pools distribute work via the **Stratum protocol** (v2 improves security and job negotiation). Stale blocks and short-lived chain reorganizations are normal; confidence increases with confirmation depth.
+To generate different guesses, miners vary several fields: the **nonce** (a 32-bit number offering about 4 billion attempts), the timestamp, and sometimes the version field. When the nonce space is exhausted, miners modify arbitrary data in the coinbase transaction—often called an **extra nonce**—which changes the block's Merkle root and effectively gives them a fresh header space to search.
+
+To keep the average block time at approximately 10 minutes, the network performs a **difficulty retarget** every 2,016 blocks (about two weeks). The algorithm measures the actual time taken for those 2,016 blocks and adjusts difficulty accordingly, though it clamps extreme changes between ¼× and 4× to prevent wild swings.
+
+Hash rate comes from **ASIC hardware**—specialized computer chips designed solely for Bitcoin mining that are thousands of times more efficient than regular computers. These ASICs are typically organized into mining pools, where thousands of miners combine their computing power and share rewards proportionally. Pools coordinate this work using the **Stratum protocol**, which gives each miner a unique coinbase and job template so everyone searches distinct header space while avoiding duplicate work.
+
+Miners use pools because finding a block is like a huge lottery. With one home ASIC, your chance on any given day is tiny—you could wait years and still never hit one. Pools let miners combine their hash rate so blocks are found regularly, and rewards are split by each miner's share of work. That means steadier, more predictable payouts instead of long dry spells.
+
+Occasionally, two miners find valid blocks at nearly the same time, creating temporary forks in the blockchain. These **stale blocks** and brief **chain reorganizations** are normal—the network automatically settles on the chain with more accumulated work. This is why merchants typically wait for multiple **confirmations** (additional blocks built on top) before considering large payments final.
 
 ### Monetary Policy
 
 Bitcoin has a predictable, algorithmic monetary policy with a fixed issuance schedule. The **block reward**, or subsidy, is cut in half every 210,000 blocks, an event known as the **"halving"** that occurs roughly every four years. The subsidy began at 50 BTC and has since been reduced to 25, 12.5, 6.25, and most recently to 3.125 BTC after the 2024 halving.
 
-This mechanism makes Bitcoin a **disinflationary asset**, as its inflation rate trends toward zero. Around the year 2140, the subsidy will cease, and miners will be compensated solely by transaction fees. This predictable scarcity is a cornerstone of Bitcoin's value proposition as a store of value, though scarcity alone doesn't guarantee price appreciation—that requires sustained demand to accompany the diminishing supply.
+This mechanism makes Bitcoin a **disinflationary asset**, as its inflation rate trends toward zero. Around the year 2140, the subsidy will cease, and miners will be compensated solely by transaction fees. Due to integer rounding in halvings, the terminal supply converges to ~20,999,999.9769 BTC.
 
-Due to integer rounding in halvings, the terminal supply converges to ~20,999,999.9769 BTC. Over time, miner security budgets shift from subsidy to fees, making a healthy fee market important for long-term incentives.
+This predictable scarcity is a cornerstone of Bitcoin's value proposition as a store of value, though scarcity alone doesn't guarantee price appreciation—that requires sustained demand to accompany the diminishing supply. Over time, miner security budgets shift from subsidy to fees, making a healthy fee market important for long-term incentives.
 
 ## Section II: Bitcoin Technical Architecture
 
 ### UTXO Model
 
-How do you track ownership in a system without accounts? Bitcoin takes a radically different approach from traditional banking by using an **Unspent Transaction Output (UTXO) model**.
+How do you track ownership in a system without accounts? Bitcoin takes a different approach from traditional banking by using an **Unspent Transaction Output (UTXO) model**.
 
 Think of it like physical cash in your wallet. Instead of having a single account balance, you have individual bills of different denominations—a $20, two $5s, and some $1s. When you buy something for $7, you might use a $5 and two $1s, getting back change if needed.
 
-Bitcoin works similarly. Instead of a single balance, your wallet holds a collection of UTXOs—individual digital "coins" of varying amounts. When you send bitcoin, your wallet selects UTXOs as inputs, consumes them entirely, and creates new UTXOs as outputs: one for the recipient and another as "change" back to you.
+Bitcoin works similarly. Instead of a single balance, your wallet holds a collection of UTXOs—individual digital "coins" of varying amounts. When you send bitcoin, your wallet performs **coin selection** (choosing which UTXOs to spend, with privacy and fee trade-offs), consumes them entirely, and creates new UTXOs as outputs: one for the recipient and another as "change" back to you. This elegant design prevents double spending: once a UTXO is spent in a confirmed transaction, it's permanently removed from the UTXO set and can never be spent again.
 
-Full nodes are responsible for tracking the entire network's **UTXO set**, which is the complete collection of all spendable outputs available for future transactions.
+Each full node maintains its own view of the global **UTXO set**—the complete collection of all spendable outputs—derived from the validated blockchain.
 
-**Bitcoin Script** is a simple programming language that locks and unlocks UTXOs using different address types. **Timelocks** allow transactions to be delayed until a specific time or block height, enabling more complex contracts like Lightning channels, vaults, and escrow arrangements.
+**Bitcoin Script** is a simple programming language that defines spending conditions. Each output carries a **locking script** (scriptPubKey), and inputs provide **unlocking data** (scriptSig and/or witness for SegWit) that must satisfy that script. Addresses are just encodings of common script templates like P2PKH, P2SH, P2WPKH, and P2TR (Taproot).
+
+**Timelocks** make transactions invalid until a specified time or block height—either **absolute** timelocks (nLockTime or OP_CHECKLOCKTIMEVERIFY) or **relative** timelocks (nSequence with OP_CHECKSEQUENCEVERIFY). These enable more complex contracts like Lightning channels, vaults, and escrow arrangements.
 
 ### Transaction Structure and Prioritization
 
-Once you understand how UTXOs work, the next question is: how do transactions actually get processed? A Bitcoin transaction consists of **inputs** (the UTXOs being spent) and **outputs** (the new UTXOs being created). Once broadcast, transactions enter the **mempool**—think of it as a waiting room for unconfirmed transactions.
+Once you understand how UTXOs work, the next question is: how do transactions actually get processed? A Bitcoin transaction consists of **inputs** (the UTXOs being spent) and **outputs** (the new UTXOs being created). The transaction **fee** equals the sum of inputs minus the sum of outputs. Once broadcast, transactions enter each node's **mempool**—a pool of unconfirmed transactions.
 
-Here's where economics comes into play. Since each block has limited space, miners must choose which transactions to include. They naturally prioritize transactions that pay the highest **fee rate**, measured in satoshis per virtual byte (sats/vB). A satoshi is the smallest unit of bitcoin—there are 100 million satoshis in one bitcoin.
+Here's where economics comes into play. Since blocks are limited to 4,000,000 weight units (~1,000,000 vB), miners must choose which transactions to include from their own mempools. They naturally prioritize transactions that pay the highest **fee rate**, measured in satoshis per virtual byte (sats/vB), where virtual bytes are derived from transaction weight. A satoshi is the smallest unit of bitcoin—there are 100 million satoshis in one bitcoin.
 
-This creates a **fee market** where users essentially bid for block space. Need your transaction confirmed quickly during network congestion? Pay a higher fee rate. Can wait? Pay less and wait for a quieter period.
+This creates a **fee market** where users essentially bid for block space. Need your transaction confirmed quickly during network congestion? Pay a higher fee rate. Can wait? Pay less and wait for a quieter period. If your transaction gets stuck, you can use **Replace-by-Fee (RBF)** to broadcast a higher-fee replacement, or **Child-Pays-for-Parent (CPFP)** to create a high-fee child transaction that incentivizes miners to include the parent.
 
 ---
 
@@ -66,13 +72,15 @@ This creates a **fee market** where users essentially bid for block space. Need 
 
 How do you upgrade a decentralized network where no one's in charge? Bitcoin has two main upgrade mechanisms that allow the protocol to evolve while maintaining consensus.
 
-#### Soft Forks
-
-**Soft forks** are backward-compatible protocol upgrades that tighten consensus rules without breaking the network. Think of it like adding a new traffic law—if the speed limit changes from 65 mph to 55 mph, older cars that don't know about the change can still drive on the road, they just might unknowingly break the new rule. Non-upgraded Bitcoin nodes still see new blocks as valid but don't enforce the stricter rules themselves, allowing the network to upgrade without splitting into incompatible versions. They require majority support to avoid chain splits, with examples including SegWit, Taproot, and the disabling of OP_CAT.
-
 #### Hard Forks
 
-**Hard forks** are incompatible upgrades that loosen or change consensus rules. All nodes must upgrade or they'll be left on a separate chain. Hard forks are extremely rare in Bitcoin due to coordination challenges and the risk of permanent network splits.
+**Hard forks** are incompatible upgrades that loosen or change consensus rules. Think of it like changing the width of train tracks.If your train (node) doesn’t switch to the new wheel size, it simply can’t run on the new tracks.Everyone has to upgrade or they’ll keep running on the old line, which becomes a different railway. Bitcoin avoids this because coordinating a whole railway swap is risky and can split passengers and schedules for good. Hard forks are extremely rare in Bitcoin due to coordination challenges and the risk of permanent network splits. 
+
+A notable example is Bitcoin Cash (BCH), created in 2017 by changing rules (notably much larger blocks). In practice, that approach fractured liquidity and community mindshare; over time BCH has retained only a small fraction of Bitcoin’s adoption, hashpower, and market value. Critically, though, deciding what’s the “real Bitcoin” isn’t something the code can decree—there’s no central authority. It’s a messy blend of social consensus (what users, exchanges, wallets, and merchants run), economic gravity (where liquidity settles), and security assumptions (what most full nodes enforce). Markets have decidedly treated BTC as the Schelling point, but that outcome is ultimately social, not ordained.
+
+#### Soft Forks
+
+**Soft forks** are backward-compatible protocol upgrades that tighten consensus rules without breaking the network. Think of it like a club tightening its dress code from “no beachwear” to “collared shirts only.”  People who didn’t hear about the new rule can still walk in and think everything’s fine, because the club still looks and works the same to them. The upgraded bouncers enforce the stricter rule; the non-upgraded ones don’t, but they still recognize everyone as legitimate club members. Non-upgraded Bitcoin nodes still see new blocks as valid but don't enforce the stricter rules themselves, allowing the network to upgrade without splitting into incompatible versions. They require majority support to avoid chain splits, with examples including SegWit, Taproot, and the disabling of OP_CAT.
 
 #### Activation Mechanisms
 
@@ -80,7 +88,7 @@ How do you upgrade a decentralized network where no one's in charge? Bitcoin has
 
 **User Activated Soft Forks (UASF)** represent an alternative where economic nodes coordinate a "flag day" to start enforcing tighter rules—potentially regardless of miner signaling. If enough economic nodes and service providers participate, miners face a simple incentive: follow the new rules to get paid, or mine a chain most users won't accept.
 
-**Speedy Trial** combines both approaches with a shorter signaling window and lower activation threshold, followed by a mandatory activation date. This method was successfully used for Taproot activation in 2021.
+**Speedy Trial** is a short BIP9-style miner-signaling trial with a **90%** threshold over 2,016-block windows. If it locks in, activation occurs later at a preset block height; if it times out, no activation occurs and other mechanisms can be considered. This method was successfully used for Taproot activation in 2021.
 
 #### The Challenge of Change
 
@@ -125,18 +133,15 @@ Faced with the credible threat that many economic nodes would enforce SegWit act
 The SegWit activation demonstrates several crucial principles:
 
 1. **Economic nodes can influence protocol rules** when there's sufficient coordination. Miners must produce blocks that the economic majority will accept and value.
-
 2. **Soft forks can be enforced by users** when there's sufficient economic coordination, even against miner resistance.
-
 3. **Credible threats matter more than actual deployment**. BIP 148 succeeded largely because the threat was believable, not because a majority of nodes actually ran it.
-
 4. **Bitcoin's governance is antifragile**. The system found a way to route around the blockade and activate beneficial upgrades despite coordinated resistance.
 
 While SegWit technically activated via the original miner signaling mechanism (BIP 141), the credible UASF threat (BIP 148) was a significant catalyst that helped resolve the impasse. This demonstrated that Bitcoin users and economic nodes can coordinate to influence protocol governance, even when facing miner resistance.
 
 #### Taproot (2021)
 
-The **Taproot upgrade** significantly improved privacy, efficiency, and smart contract capabilities by combining two key technologies. **Schnorr Signatures** enable key and signature aggregation through schemes like MuSig2, allowing complex multi-party transactions to appear as single signatures on-chain. **Merkleized Abstract Syntax Trees (MAST)** structure complex spending conditions efficiently, where only the condition that's met needs to be revealed.
+The **Taproot upgrade** significantly improved privacy, efficiency, and smart contract capabilities by combining two key technologies. Taproot locked in June 2021 and activated at **block 709,632** on **November 14, 2021 (05:15 UTC)**. **Schnorr Signatures** enable key and signature aggregation through schemes like MuSig2, allowing complex multi-party transactions to appear as single signatures on-chain. **Merkleized Abstract Syntax Trees (MAST)** structure complex spending conditions efficiently, where only the condition that's met needs to be revealed.
 
 Together, these features provide major benefits: complex transactions become indistinguishable from simple payments for key-path spends, delivering significant privacy and scalability improvements. When script-path spends are used, only the revealed branch is disclosed, maintaining privacy for unused conditions.
 
@@ -146,12 +151,12 @@ Together, these features provide major benefits: complex transactions become ind
 Create a new child transaction that spends an output from the stuck parent with a high fee rate, so miners include the package (parent + child) because the combined/ancestor feerate is attractive. Use CPFP when you can’t (or don’t want to) replace the parent but control one of its outputs (sender’s change or the recipient’s output).
 
 #### Replace-by-Fee (RBF)
-Sender rebroadcasts a higher-fee replacement of an unconfirmed transaction. Opt-in RBF is defined by BIP-125 (wallets signal replaceability); some nodes also run full-RBF (via mempoolfullrbf), which accepts replacements regardless of opt-in. Use RBF when you control the original tx and it can be replaced.
+Sender rebroadcasts a higher-fee replacement of an unconfirmed transaction. Opt-in RBF is defined by BIP-125 (wallets signal replaceability); as of **Bitcoin Core v29**, **full-RBF is the default relay policy** in Core (the `mempoolfullrbf` option was removed). Use RBF when you control the original tx and it can be replaced.
 
 RBF is a sender-driven replacement while CPFP is a child-driven package mining. Either party with a spendable output can do CPFP. They’re compatible and can be used together if needed.
 
 #### OP_RETURN Data Embedding
-The **OP_RETURN opcode** allows embedding small amounts of arbitrary data in transactions. As of Bitcoin Core v30 (2025), the historical 80-byte relay cap has been removed, allowing OP_RETURN outputs up to nearly 4 MB by default (policy, not consensus; operator policies vary).
+The **OP_RETURN opcode** allows embedding small amounts of arbitrary data in transactions. The OP_RETURN relay cap (historically ~80 bytes) is slated to be removed **by default in Bitcoin Core v30** (policy, not consensus), effectively permitting much larger OP_RETURN data subject to transaction size/weight limits; operators can still run stricter policies.
 
 ### Address Types and Formats
 

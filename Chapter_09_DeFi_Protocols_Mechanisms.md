@@ -427,34 +427,3 @@ The security of any DeFi strategy is only as strong as its weakest dependency.
 DeFi's composability enables financial products impossible in traditional systems—from flash loans that provide unlimited capital for single transactions to yield tokens that let you trade time itself. But this same composability amplifies both opportunities and risks.
 
 The protocols that survive and thrive will be those that best balance innovation with robust risk management, creating sustainable value for users while maintaining security in an adversarial environment.
-
-### DeFi Risk Assessment Framework
-
-Before engaging with any DeFi protocol, professional users should systematically evaluate:
-
-**Governance and Control Risks**:
-- Who controls protocol upgrades? (Check for timelocks, multisig thresholds, emergency powers)
-- How are critical parameters changed? (Governance processes, admin keys)
-- What happens in emergencies? (Pause mechanisms, circuit breakers)
-
-**Oracle and Price Feed Risks**:
-- Where do prices come from? (Multiple sources, deviation thresholds)
-- How fresh are the prices? (Staleness checks, heartbeat intervals)  
-- Are there manipulation defenses? (Read-only reentrancy guards, medianization)
-
-**Cross-Chain and Bridge Risks**:
-- Which bridges are used? (Identify canonical bridges and their security models)
-- What's the trust model? (Light-client/optimistic/multisig approaches)
-- What happens if bridges fail? (Wrapped asset risks, recovery mechanisms)
-
-**Operational Security**:
-- Are token approvals minimized? (No infinite allowances, regular revocation)
-- Are liquidation parameters stress-tested? (LTV ratios, liquidation cascades)
-- Are there user protection mechanisms? (Slippage bounds, MEV protection)
-
-**Dependency Analysis**:
-- What other protocols are used? (Audit status, upgrade paths)
-- How do failures propagate? (Composability risks, correlation effects)
-- Are there single points of failure? (Critical dependencies, backup systems)
-
-This framework helps identify where risks concentrate and how they might compound during market stress—essential knowledge for managing DeFi exposure professionally.

@@ -1,6 +1,6 @@
 # Chapter XIV: Quantum Resistance and Cryptographic Security
 
-In this final examination, we stress-test the cryptographic foundations that everything else depends on. The race is on—cryptographically relevant quantum computers may emerge within 10-30 years, potentially breaking the signature schemes protecting trillions in digital assets. This chapter explains quantum threats to signatures and hashes, how exposure differs across UTXO and account models, and the pragmatic migration paths that could determine whether the ecosystem survives this transition intact.
+In this final examination, we stress-test the cryptographic foundations that everything else depends on. The race is on. Cryptographically relevant quantum computers may emerge within 10-30 years, potentially breaking the signature schemes protecting trillions in digital assets. This chapter explains quantum threats to signatures and hashes, how exposure differs across UTXO and account models, and the pragmatic migration paths that could determine whether the ecosystem survives this transition intact.
 
 ## Section I: Quantum Computing and Cryptographic Threats
 

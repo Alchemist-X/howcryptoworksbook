@@ -113,11 +113,3 @@ The technical challenges of RWA tokenization stem from a fundamental mismatch: b
 **Custody and settlement** present the most complex bridging challenges. **Qualified custodians** must hold underlying assets in traditional finance systems while smart contracts manage token issuance and transfers on-chain. This creates a coordination problem: blockchain transactions settle in minutes, but traditional securities settle in days. Protocols must carefully manage this timing mismatch to avoid creating unbacked tokens or settlement failures.
 
 **Scalability and cost** considerations force difficult trade-offs. High-value, low-frequency assets like tokenized real estate might justify Ethereum mainnet deployment despite high gas costs. But smaller or more active assets benefit from **Layer 2** solutions or alternative chains with lower fees. This creates fragmentation—different RWA categories gravitating toward different blockchain ecosystems based on their economic characteristics.
-
-## Key Takeaways
-
-- **Market Selection Works**: Fiat-backed stablecoins (USDT/USDC) survived multiple crypto winters through simple mint/redeem arbitrage, while algorithmic experiments like Terra/LUNA collapsed under pressure—proving that stability requires real backing, not clever code
-- **Institutional Infrastructure Emerges**: BlackRock's BUIDL, Franklin Templeton's FOBXX, and JPMorgan’s Onyx/Kinexys plus JPM Coin represent traditional finance's embrace of blockchain rails for operational efficiency, settlement speed, and programmable compliance
-- **Regulatory Compliance as Code**: Smart contracts can enforce KYC, transfer restrictions, and reporting requirements automatically, enabling innovation within existing securities frameworks while limiting mainstream adoption to accredited investors
-- **The Liquidity Paradox**: RWA tokenization promises to make illiquid assets tradeable, but tokenized assets often lack meaningful secondary markets—functioning more like private placements than the liquid instruments their proponents envision
-- **Bridging Two Worlds**: Technical challenges stem from fundamental mismatches between blockchain's instant finality and traditional finance's T+2 settlement cycles, requiring careful coordination of custody, oracles, and cross-system dependencies
