@@ -2,23 +2,37 @@
 
 ## Section I: Architecture and Execution
 
-Ethereum scales primarily through rollups and data‑availability optimization. Solana chooses a different path: a high‑throughput, single‑state L1 with a parallel runtime, a distinct networking stack, local fee markets, and a hardware‑centric roadmap. We compare these choices and the implications for latency‑sensitive apps, MEV, and developer ergonomics.
+Ethereum scales primarily through rollups and data‑availability optimization. Solana chooses a different path: a high‑throughput, single‑state L1 with a **parallel runtime**, a distinct networking stack, **local fee markets**, and a hardware‑centric roadmap. We compare these choices and the implications for latency‑sensitive apps, MEV, and developer ergonomics.
 
-Unlike Ethereum, where smart contracts typically store state internally and execute sequentially, Solana organizes state around an account model that cleanly separates programs from data. Programs are stateless executables while data lives in separate accounts owned by those programs. This architectural choice makes composability straightforward: programs call into one another via cross-program invocations (CPIs) and pass accounts as inputs.
+Unlike Ethereum, where smart contracts typically store state internally and execute sequentially, Solana organizes state around an **account model** that cleanly separates programs from data. Programs are stateless executables while data lives in separate accounts owned by those programs. This architectural choice makes composability straightforward: programs call into one another via **cross-program invocations (CPIs)** and pass accounts as inputs.
 
-The key differentiator lies in Solana's mandatory transaction declaration requirement. Transactions must declare all read and write accounts in advance, which enables the **Sealevel** execution engine to identify non-overlapping transactions and schedule them in parallel across CPU cores. Ethereum doesn't require pre-declared state access (though EIP-2930 introduced optional access lists as hints), and L1 execution remains effectively sequential for determinism.
+The key differentiator lies in Solana's **mandatory transaction declaration requirement**. Transactions must declare all read and write accounts in advance, which enables the **Sealevel** execution engine to identify non-overlapping transactions and schedule them in parallel across CPU cores. Ethereum doesn't require pre-declared state access (though EIP-2930 introduced optional access lists as hints), and L1 execution remains effectively sequential for determinism.
 
 While Ethereum's current rollup-centric roadmap focuses on data sharding to make L2s cheaper rather than L1 execution parallelization, Solana's single-shard design with protocol-level parallel scheduling delivers high throughput with predictable performance when account conflicts are minimized. The composability gap becomes more apparent when comparing Solana's atomic cross-program calls to the challenges of maintaining atomicity across Ethereum's multi-rollup ecosystem.
 
-Addresses are base58-encoded Ed25519 public keys. **Program Derived Addresses (PDAs)** are off curve—there is no private key—and allow programs to assert authority without custodial keys. Accounts must be made rent-exempt (by holding the minimum lamports) to avoid purging. For complex interactions, **versioned transactions** and **Address Lookup Tables (ALTs)** compress long account lists while keeping messages compact.
+### Address Types and Account Management
 
-Because each transaction declares its read/write accounts, the runtime works like a smart restaurant kitchen manager who can see every order's ingredient list upfront. Non-overlapping orders (different ingredients) get assigned to different stations and cook simultaneously, while overlapping orders (sharing the same rare ingredients) must wait in line. Priority fees work like rush charges—pay more and the kitchen prioritizes your order when stations are busy. Remove one popular ingredient that's causing a bottleneck, and suddenly the whole kitchen can work in parallel, serving orders at near-maximum speed.
+Solana uses two fundamentally different types of addresses that serve distinct purposes in the ecosystem. Regular addresses work like traditional crypto wallets, functioning as base58-encoded Ed25519 public keys where Ed25519 represents a modern, fast cryptographic signature scheme. Users control these addresses with private keys, operating just like Bitcoin or Ethereum wallets in familiar ways.
+
+**Program Derived Addresses (PDAs)** represent a revolutionary departure from this traditional model. These are addresses that don't have private keys at all. Instead, programs generate them deterministically using seeds through a mathematical process: `hash(program_id + seeds + "PDA")`. The construction ensures no corresponding private key exists, meaning only the program that created a PDA can authorize transactions from it.
+
+This design solves the fundamental custody problem that plagues traditional escrow systems. Traditional escrow requires someone to hold private keys, creating inherent trust issues and potential points of failure. With PDAs, the escrow program itself controls the funds directly. No human can steal them because there's literally no private key to compromise. It's essentially like having a robot bank teller that follows programmed rules but can't be bribed, coerced, or compromised.
+
+All accounts must hold minimum **lamports** (Solana's native token) to remain **"rent-exempt,"** preventing state bloat by requiring economic commitment for persistent storage. Think of this as a security deposit for using blockchain storage space. For complex interactions involving many accounts, **versioned transactions** and **Address Lookup Tables (ALTs)** compress long account lists, keeping transaction messages compact while supporting sophisticated multi-account operations.
+
+### Parallel Execution Through Declared Dependencies
+
+Solana's performance advantage stems from its **mandatory dependency declaration system**. Every transaction must specify exactly which accounts it will read from or write to before execution begins. This enables the **Sealevel** runtime to identify non-conflicting transactions and execute them simultaneously across CPU cores.
+
+Consider this like a restaurant kitchen with an exceptionally smart manager who can see every order's complete ingredient list before cooking starts. Non-overlapping orders that use different accounts get assigned to different cooking stations and prepare simultaneously, maximizing kitchen efficiency. When orders overlap by sharing the same accounts, they must wait in line to prevent conflicts and ensure food safety. Priority fees work exactly like rush charges in this scenario—pay more and the kitchen prioritizes your order when stations are busy. Remove one popular bottleneck account from the system, and suddenly many more transactions can process in parallel.
+
+This represents a fundamental departure from Ethereum's approach, where transactions execute sequentially even when they don't actually conflict with each other. Solana's method **scales naturally with hardware improvements**: more CPU cores directly translate to more parallel transaction processing capacity, creating a clear path for performance scaling as hardware continues advancing.
 
 ## Section II: Transactions, Fees, and UX
 
 This elegant parallel architecture enables a distinctive approach to transaction processing that feels fundamentally different from Ethereum's sequential model. Every transaction includes a message (account list, instructions, recent blockhash) and the required Ed25519 signatures. A base fee of 5,000 lamports per signature is charged. Want faster inclusion during network congestion? Users can attach a **compute budget** and pay **priority fees** per compute unit—trading cost for latency. These compute unit caps serve dual purposes: enforcing fairness and helping the scheduler bound execution time.
 
-Fee policy has evolved significantly. Per **SIMD-0096**, priority fees (per-compute-unit tips) flow 100% to the current leader, while base fees are split 50% burned and 50% to the validator. Here's the clever part—local fee markets price congestion at the account level. Hotspots pay more without degrading the entire network, though in practice fee estimation can be noisy during intense hotspots and continues to evolve. Meanwhile, preflight simulation combined with rich program logs lets developers and users preview transaction effects before committing to on-chain execution. The result? Better safety and user experience.
+Fee policy has evolved significantly. Per **SIMD-0096**, priority fees (per-compute-unit tips) flow 100% to the current leader, while base fees are split 50% burned and 50% to the validator. Here's the clever part—**local fee markets** price congestion at the account level. Hotspots pay more without degrading the entire network, though in practice fee estimation can be noisy during intense hotspots and continues to evolve. Meanwhile, **preflight simulation** combined with rich program logs lets developers and users preview transaction effects before committing to on-chain execution. The result? Better safety and user experience.
 
 ## Section III: Consensus, Scheduling, and Networking
 
@@ -32,9 +46,7 @@ PoH acts like a printing press that stamps timestamps on blank newspaper pages a
 
 With transactions flowing directly to leaders through Gulf Stream and blocks built in predictable slots, we need to understand how value extraction works in this environment—and it's quite different from Ethereum's mempool-based MEV landscape.
 
-Canonical MEV concepts, roles, impacts, and mitigations are covered in Chapter VII, Section I. This chapter focuses on Solana-specific mechanics and design choices.
-
-Block construction on Solana increasingly routes through **Jito**, which enables sidecar block building with bundle auctions. This is optional, widely used infrastructure (not an in-protocol requirement). Searchers simulate bundles off-chain and pay tips for inclusion; validators integrate priority fees and bundle tips when constructing blocks. See Chapter VII, Section I (MEV) for cross-ecosystem roles and mitigations.
+Block construction on Solana increasingly routes through **Jito**, which enables sidecar block building with **bundle auctions**. This is optional, widely used infrastructure (not an in-protocol requirement). Searchers simulate bundles off-chain and pay tips for inclusion; validators integrate priority fees and bundle tips when constructing blocks. See Chapter VII, Section I (MEV) for cross-ecosystem roles and mitigations.
 
 ## Section V: Developer Stack and Standards
 
@@ -42,7 +54,7 @@ Understanding how blocks are built and MEV is extracted sets the stage for seein
 
 Imagine you're an architect designing a skyscraper. On Ethereum, you're working with concrete blocks—solid, reliable, but heavy and slow to assemble. On Solana, you're working with prefabricated steel modules that snap together quickly but require precise engineering upfront. This is the essence of Solana development: more planning, more speed.
 
-Developers write programs in Rust, compiled to Berkeley Packet Filter (BPF) bytecode. Why Rust? Because when you're processing thousands of transactions per second, memory safety isn't optional—it's survival. The **Anchor** framework acts like a sophisticated blueprint system, providing Interface Definition Languages (IDLs), automatic account validation, PDA helpers, and ergonomic cross‑program invocations. Think of Anchor as the difference between hand-drawing architectural plans versus using CAD software with built-in safety checks.
+Developers write programs in **Rust**, compiled to **Berkeley Packet Filter (BPF)** bytecode. Why Rust? Because when you're processing thousands of transactions per second, memory safety isn't optional—it's survival. The **Anchor** framework acts like a sophisticated blueprint system, providing **Interface Definition Languages (IDLs)**, automatic account validation, PDA helpers, and ergonomic cross‑program invocations. Think of Anchor as the difference between hand-drawing architectural plans versus using CAD software with built-in safety checks.
 
 Token infrastructure reveals Solana's design philosophy clearly. Rather than the "everything is a contract" approach of ERC-20s, Solana uses **SPL tokens**—a standardized program that all tokens share. It's like having one universal electrical outlet standard instead of every appliance manufacturer creating their own plug. **Associated Token Accounts** take this further, automatically creating standardized "wallets" for each token-owner pair. No more wondering where your tokens live or accidentally sending them to the wrong address.
 
@@ -52,7 +64,7 @@ Program deployment uses the **Upgradeable Loader**, which solves a critical prob
 
 **Sysvars** expose read-only protocol state—clock, rent parameters, instruction context—like having real-time building sensors that programs can query. Need to know the current time for a time-locked contract? Check the clock sysvar. Building a rent-optimization tool? Query the rent sysvar for current rates.
 
-For NFTs and large-scale asset management, **Metaplex** provides the standards while **state compression** solves the economics. Traditional NFT collections store each token's metadata on-chain—expensive when you're minting millions of items. State compression uses concurrent Merkle trees with off-chain storage, like keeping a detailed inventory in a warehouse while storing just the warehouse's fingerprint on-chain. You get the security guarantees with a fraction of the cost.
+For NFTs and large-scale asset management, **Metaplex** provides the standards while **state compression** solves the economics. Traditional NFT collections store each token's metadata on-chain—expensive when you're minting millions of items. State compression uses **concurrent Merkle trees** with off-chain storage, like keeping a detailed inventory in a warehouse while storing just the warehouse's fingerprint on-chain. You get the security guarantees with a fraction of the cost.
 
 This developer stack reflects Solana's core philosophy: build the right abstractions once, then let everyone benefit from the shared infrastructure. It's the difference between every city building its own power grid versus connecting to a sophisticated, shared electrical network.
 
@@ -60,15 +72,15 @@ This developer stack reflects Solana's core philosophy: build the right abstract
 
 This sophisticated developer infrastructure sits atop Solana's performance foundation—but that performance comes with important trade-offs that shape the entire ecosystem.
 
-Remember our restaurant kitchen analogy? The parallel execution we described in Section I delivers exactly what you'd expect: **Sealevel's parallel runtime scales with core count when account conflicts are minimized**. More CPU cores mean more simultaneous transaction processing. More RAM means larger working sets. Better networking means faster coordination between validators. This isn't theoretical—it's the direct result of architectural choices made years ago.
+**Sealevel's parallel runtime scales with core count when account conflicts are minimized.** More CPU cores mean more simultaneous transaction processing. More RAM means larger working sets. Better networking means faster coordination between validators. This follows directly from the architectural choices described earlier.
 
 But here's the catch: running a high-performance kitchen requires expensive equipment. Recommended validator hardware is demanding—think industrial-grade servers with massive RAM and high-end networking gear. This creates a tension at the heart of Solana's design. The same architectural choices that enable blazing speed also raise the barrier to entry for validators, potentially concentrating power among well-funded operators.
 
-Client diversity addresses this centralization risk head-on. **Firedancer**, developed by Jump Crypto, represents an independent, ground-up reimplementation of the Solana validator. It's like having multiple engine manufacturers for the same car model—if one design has a critical flaw, the network doesn't grind to a halt. Firedancer targets massive throughput and resiliency improvements, with demos exceeding 1 million transactions per second, and aims to reduce hardware requirements. As of now it is in testnet/gradual rollout and not broadly mainnet-voting yet.
+**Client diversity** addresses this centralization risk head-on. **Firedancer**, developed by Jump Crypto, represents an independent, ground-up reimplementation of the Solana validator. It's like having multiple engine manufacturers for the same car model—if one design has a critical flaw, the network doesn't grind to a halt. Firedancer targets massive throughput and resiliency improvements, with demos exceeding 1 million transactions per second, and aims to reduce hardware requirements. As of now it is in testnet/gradual rollout and not broadly mainnet-voting yet.
 
 The network has learned from its growing pains. Early Solana suffered from congestion-related outages that critics seized upon. Notably, on February 6, 2024, Solana experienced an outage of roughly five hours. But systematic upgrades—QUIC networking improvements, Turbine propagation refinements, runtime optimizations—have dramatically reduced both the frequency and severity of these issues, and the Foundation publishes ongoing performance reports. It's the difference between a race car that's fast but unreliable versus one that's both fast and bulletproof.
 
-Cross-chain connectivity introduces another layer of complexity. Bridges like Wormhole and Circle's Cross-Chain Transfer Protocol (CCTP) connect Solana to Ethereum and other ecosystems, enabling capital flow and multi-chain applications. But bridges are trust boundaries—each one introduces risks that applications must explicitly manage. A bridge hack doesn't just affect the bridge; it can impact every application that relies on bridged assets.
+Cross-chain connectivity introduces another layer of complexity. Bridges like **Wormhole** and Circle's **Cross-Chain Transfer Protocol (CCTP)** connect Solana to Ethereum and other ecosystems, enabling capital flow and multi-chain applications. But bridges are trust boundaries—each one introduces risks that applications must explicitly manage. A bridge hack doesn't just affect the bridge; it can impact every application that relies on bridged assets.
 
 ## Section VII: Use-Case Fit and Design Patterns
 
@@ -76,13 +88,13 @@ After exploring Solana's architecture, performance characteristics, and trade-of
 
 **Solana shines brightest for applications that demand chain-wide, same-slot atomic composability combined with low latency.** This isn't marketing speak; it's a direct consequence of the architectural choices we've explored.
 
-Consider **Central Limit Order Book (CLOB) exchanges** like OpenBook. Traditional finance runs on CLOBs because they provide the best price discovery and liquidity efficiency. But most blockchains can't support true CLOBs—the latency and throughput requirements are simply too demanding. Ethereum DEXs use Automated Market Makers (AMMs) partly because CLOBs are impractical on a 12-second block time with expensive transactions.
+Consider **Central Limit Order Book (CLOB) exchanges** like **OpenBook**. Traditional finance runs on CLOBs because they provide the best price discovery and liquidity efficiency. But most blockchains can't support true CLOBs—the latency and throughput requirements are simply too demanding. Ethereum DEXs use Automated Market Makers (AMMs) partly because CLOBs are impractical on a 12-second block time with expensive transactions.
 
 Solana changes this calculus entirely. Sub-second slots enable rapid order matching. Parallel execution means thousands of trades can settle simultaneously. Same-slot composability allows complex arbitrage strategies to execute atomically across multiple markets. The result? DeFi that feels more like traditional finance, with tighter spreads and better capital efficiency.
 
-**Real-time payments** represent another natural fit. Imagine a point-of-sale system where customers pay with crypto and merchants receive settlement confirmation in a few slots (typically ~1–2+ seconds). Ethereum's 12-second blocks make this impractical for retail; Bitcoin's 10-minute blocks make it impossible. Solana's fast confirmations make it viable. Projects like Solana Pay are building exactly this infrastructure.
+**Real-time payments** represent another natural fit. Imagine a point-of-sale system where customers pay with crypto and merchants receive settlement confirmation in a few slots (typically ~1–2+ seconds). Ethereum's 12-second blocks make this impractical for retail; Bitcoin's 10-minute blocks make it impossible. Solana's fast confirmations make it viable. Projects like **Solana Pay** are building exactly this infrastructure.
 
-**On-chain gaming** pushes blockchain capabilities to their limits. Games need rapid state updates, complex interactions between multiple players, and seamless user experiences. Star Atlas, an ambitious space exploration MMO, chose Solana specifically because other blockchains couldn't handle their requirements. When a player fires a weapon in a multiplayer battle, that action needs to propagate to all other players instantly—not in 12 seconds.
+**On-chain gaming** pushes blockchain capabilities to their limits. Games need rapid state updates, complex interactions between multiple players, and seamless user experiences. **Star Atlas**, an ambitious space exploration MMO, chose Solana specifically because other blockchains couldn't handle their requirements. When a player fires a weapon in a multiplayer battle, that action needs to propagate to all other players instantly—not in 12 seconds.
 
 **High-frequency trading and MEV strategies** also gravitate toward Solana. The combination of predictable block times, direct leader communication via Gulf Stream, and parallel execution creates opportunities for sophisticated trading strategies that simply don't exist on other chains.
 
@@ -94,16 +106,8 @@ This isn't just technical complexity; it's a different mental model. Ethereum de
 
 The ecosystem is still young, but the pattern is clear: **Solana attracts applications that push the boundaries of what's possible on-chain.** As the infrastructure matures and developer tooling improves, expect this trend to accelerate.
 
-## The Solana Thesis in Practice
+Solana represents a **fundamental bet**: that making the base layer fast, parallel, and standardized can support mainstream application loads without fragmenting composability.
 
-Solana represents a fundamental bet: that blockchain applications will eventually demand the same performance characteristics as traditional software. While Ethereum chose the path of modular scaling through rollups and data availability layers, Solana doubled down on making the base layer itself capable of handling mainstream application loads.
+The trade-offs are real: higher hardware expectations and a more parallel-aware developer model, alongside a younger tooling stack. For workloads that demand low latency, atomic composability, and high throughput, the advantages are material.
 
-This architectural philosophy creates a distinctive development environment. The restaurant kitchen that can coordinate hundreds of parallel orders. The newspaper printing press that timestamps every story with cryptographic precision. The electrical grid that powers an entire ecosystem through shared, standardized infrastructure. These aren't just metaphors—they're the lived reality of building on Solana.
-
-The trade-offs are real and significant. Higher hardware requirements create centralization pressures. The complexity of parallel programming demands more sophisticated developers. The relative youth of the ecosystem means fewer battle-tested tools and patterns. Bridge risks introduce cross-chain dependencies that applications must carefully manage.
-
-But for applications that can leverage Solana's strengths—the CLOB exchanges that provide traditional finance-quality price discovery, the real-time payment systems that make crypto feel like digital cash, the on-chain games that push the boundaries of what's possible in decentralized environments—the performance advantages are transformative.
-
-As we'll see in subsequent chapters, this performance foundation enables entirely new categories of applications. DeFi protocols that were impossible on slower chains. Trading strategies that exploit microsecond advantages. Gaming experiences that feel native rather than blockchain-constrained.
-
-Solana's ultimate success won't be measured in transactions per second or validator counts, but in whether it enables applications that couldn't exist anywhere else. The early evidence suggests it's succeeding on exactly that metric.
+As clients and networking improve, reliability should continue to rise and participation barriers fall.

@@ -168,47 +168,6 @@ Crypto yield comes from fundamentally different sources than traditional finance
 
 **MEV Sharing**: Platforms like **Jito** on Solana distribute MEV profits to token holders, letting users earn from the value extraction they would otherwise lose to searchers.
 
-**Liquid Staking**: Earn staking rewards while maintaining liquidity through tokens like stETH, though this introduces additional risks we'll explore in the next section.
-
-## Section V: Liquid Staking Infrastructure
-
-Proof-of-stake networks require users to lock up tokens to secure the network and earn rewards. But this creates a problem: staked capital sits idle, unable to participate in DeFi. Liquid staking solves this by issuing tradeable tokens that represent staked positions.
-
-### The Liquid Staking Solution
-
-**The Problem**: Traditional staking locks your tokens. You earn rewards but can't use your capital for other opportunities—no lending, no trading, no liquidity provision.
-
-**The Solution**: Liquid staking protocols pool user deposits, stake them with validators, and issue **Liquid Staking Tokens (LSTs)** that represent your share of the staked pool plus accumulated rewards. You get staking yield AND the ability to use your tokens in DeFi.
-
-### Major Players and Approaches
-
-**Lido**: The dominant player, controlling a significant portion of staked ETH through **stETH** tokens. Lido uses a curated set of validators and distributes rewards automatically. For DeFi compatibility, stETH can be wrapped as **wstETH** (wrapped staked ETH) which maintains a fixed balance while accruing value.
-
-**Rocket Pool**: Takes a more decentralized approach, allowing anyone to run validators with an **8 ETH bond plus RPL tokens**—where RPL collateral must be ≥10% (and up to 150%) of the protocol-matched ETH (i.e., at least ~2.4 ETH worth of RPL for an 8-ETH minipool). This reduces centralization risk but requires more complex coordination between node operators and stakers.
-
-### The Risk Spectrum
-
-Liquid staking isn't risk-free. Users face several potential issues:
-
-- **Validator centralization**: If too much stake concentrates in few validators, it threatens network security
-- **Smart contract risk**: Bugs in staking protocols can drain funds
-- **Slashing risk**: Validator misbehavior can result in penalty losses
-- **Liquidity risk**: LST tokens might trade at discounts to underlying assets during stress
-
-### Restaking: The Next Evolution
-
-**Liquid Restaking Tokens (LRTs)** extend the concept by using staked ETH to secure additional services called **Actively Validated Services (AVSs)** on EigenLayer. This potentially increases yields but adds new risks:
-
-- **AVS slashing correlation**: Multiple services can slash the same stake
-- **LST basis risk**: Complex interactions between different staking layers
-- **Cascading failures**: Problems in one layer can propagate through the system
-
-*For detailed coverage of restaking mechanics, see Chapter II on the Ethereum Ecosystem.*
-
-### Restaking and Actively‑Validated Services (AVSs)
-
-For a full treatment of restaking and AVSs, see the canonical section in Chapter II — Ethereum Ecosystem: [Restaking and Shared Security](./Chapter_02_Ethereum_Ecosystem.md#restaking-and-shared-security).
-
 ## Section VI: Yield Optimization and Aggregation
 
 Individual yield farming can be profitable, but it requires constant attention—monitoring rates, harvesting rewards, rebalancing positions, and managing gas costs. This operational complexity led to the rise of automated yield strategies.
