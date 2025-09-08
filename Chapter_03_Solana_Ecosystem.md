@@ -10,11 +10,13 @@ The key differentiator lies in Solana's **mandatory transaction declaration requ
 
 While Ethereum's current rollup-centric roadmap focuses on data sharding to make L2s cheaper rather than L1 execution parallelization, Solana's single-shard design with protocol-level parallel scheduling delivers high throughput with predictable performance when account conflicts are minimized. The composability gap becomes more apparent when comparing Solana's atomic cross-program calls to the challenges of maintaining atomicity across Ethereum's multi-rollup ecosystem.
 
+From a user‑experience perspective, this "monolithic" single‑state design is simpler today than Ethereum's modular, rollup‑centric approach. On Ethereum, users often hop across heterogeneous L2s—with different fee tokens, bridge UX, finality semantics, VM compatibility (some EVM, some not), and even distinct block explorers and RPC quirks. On Solana, there is one global state, a cohesive ecosystem of explorers and wallets, and atomic composability within transactions across the whole network. The result is fewer context switches and less UX friction—though L2 UX may converge as standards and shared infrastructure mature.
+
 ### Address Types and Account Management
 
 Solana uses two fundamentally different types of addresses that serve distinct purposes in the ecosystem. Regular addresses work like traditional crypto wallets, functioning as base58-encoded Ed25519 public keys where Ed25519 represents a modern, fast cryptographic signature scheme. Users control these addresses with private keys, operating just like Bitcoin or Ethereum wallets in familiar ways.
 
-**Program Derived Addresses (PDAs)** represent a revolutionary departure from this traditional model. These are addresses that don't have private keys at all. Instead, programs generate them deterministically using seeds through a mathematical process: `hash(program_id + seeds + "PDA")`. The construction ensures no corresponding private key exists, meaning only the program that created a PDA can authorize transactions from it.
+**Program Derived Addresses (PDAs)** represent a departure from this traditional model. These are addresses that don't have private keys at all. Instead, programs generate them deterministically using seeds, the program ID, and a bump value through SHA-256 hashing, with the result forced off the Ed25519 curve to ensure no corresponding private key can exist. Only the program that created a PDA can authorize transactions from it via `invoke_signed`.
 
 This design solves the fundamental custody problem that plagues traditional escrow systems. Traditional escrow requires someone to hold private keys, creating inherent trust issues and potential points of failure. With PDAs, the escrow program itself controls the funds directly. No human can steal them because there's literally no private key to compromise. It's essentially like having a robot bank teller that follows programmed rules but can't be bribed, coerced, or compromised.
 
@@ -30,9 +32,11 @@ This represents a fundamental departure from Ethereum's approach, where transact
 
 ## Section II: Transactions, Fees, and UX
 
-This elegant parallel architecture enables a distinctive approach to transaction processing that feels fundamentally different from Ethereum's sequential model. Every transaction includes a message (account list, instructions, recent blockhash) and the required Ed25519 signatures. A base fee of 5,000 lamports per signature is charged. Want faster inclusion during network congestion? Users can attach a **compute budget** and pay **priority fees** per compute unit—trading cost for latency. These compute unit caps serve dual purposes: enforcing fairness and helping the scheduler bound execution time.
+This parallel architecture enables a distinctive approach to transaction processing that feels fundamentally different from Ethereum's sequential model. Every transaction includes a message (account list, instructions, recent blockhash) and the required Ed25519 signatures. A base fee of 5,000 lamports per signature is charged. Want faster inclusion during network congestion? Users can attach a **compute budget** and pay **priority fees** per compute unit—trading cost for latency. These compute unit caps serve dual purposes: enforcing fairness and helping the scheduler bound execution time.
 
 Fee policy has evolved significantly. Per **SIMD-0096**, priority fees (per-compute-unit tips) flow 100% to the current leader, while base fees are split 50% burned and 50% to the validator. Here's the clever part—**local fee markets** price congestion at the account level. Hotspots pay more without degrading the entire network, though in practice fee estimation can be noisy during intense hotspots and continues to evolve. Meanwhile, **preflight simulation** combined with rich program logs lets developers and users preview transaction effects before committing to on-chain execution. The result? Better safety and user experience.
+
+Memecoins reflect this dynamic in practice. They have seen outsized traction on Solana largely because the retail experience is smoother—nicely designed apps, cheap and fast transactions, and straightforward fiat on‑ramps. While many early memecoins were on Ethereum, peak congestion often pushed mainnet gas into the tens of dollars per transaction, effectively pricing out small buyers. On Solana, negligible fees and quick confirmations make low‑ticket experimentation and rapid trading viable for retail participants. This highlights a pragmatic reality: most users don't prioritize theoretical decentralization advantages—they care about accessible opportunities to make money, and Solana currently offers the most frictionless path to speculative trading.
 
 ## Section III: Consensus, Scheduling, and Networking
 
@@ -86,11 +90,11 @@ Cross-chain connectivity introduces another layer of complexity. Bridges like **
 
 After exploring Solana's architecture, performance characteristics, and trade-offs, a clear picture emerges of where this blockchain excels—and where other solutions might be better fits.
 
-**Solana shines brightest for applications that demand chain-wide, same-slot atomic composability combined with low latency.** This isn't marketing speak; it's a direct consequence of the architectural choices we've explored.
+**Solana shines brightest for applications that demand atomic composability within transactions combined with low latency.** This isn't marketing speak; it's a direct consequence of the architectural choices we've explored.
 
 Consider **Central Limit Order Book (CLOB) exchanges** like **OpenBook**. Traditional finance runs on CLOBs because they provide the best price discovery and liquidity efficiency. But most blockchains can't support true CLOBs—the latency and throughput requirements are simply too demanding. Ethereum DEXs use Automated Market Makers (AMMs) partly because CLOBs are impractical on a 12-second block time with expensive transactions.
 
-Solana changes this calculus entirely. Sub-second slots enable rapid order matching. Parallel execution means thousands of trades can settle simultaneously. Same-slot composability allows complex arbitrage strategies to execute atomically across multiple markets. The result? DeFi that feels more like traditional finance, with tighter spreads and better capital efficiency.
+Solana changes this calculus entirely. Sub-second slots enable rapid order matching. Parallel execution means thousands of trades can settle simultaneously. Atomic composability within transactions allows complex arbitrage strategies to execute atomically across multiple markets. The result? DeFi that feels more like traditional finance, with tighter spreads and better capital efficiency.
 
 **Real-time payments** represent another natural fit. Imagine a point-of-sale system where customers pay with crypto and merchants receive settlement confirmation in a few slots (typically ~1–2+ seconds). Ethereum's 12-second blocks make this impractical for retail; Bitcoin's 10-minute blocks make it impossible. Solana's fast confirmations make it viable. Projects like **Solana Pay** are building exactly this infrastructure.
 
