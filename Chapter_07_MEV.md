@@ -8,66 +8,75 @@ Picture a busy marketplace with a peculiar setup: there's a big whiteboard where
 
 A fast-moving reseller spots your order, sprints to Stall A, buys the tomatoes first, then offers them back to you at a markup. Another reseller notices you're about to make a large purchase that will drive up tomato prices, so they buy just before you and sell immediately after, pocketing the price difference your trade created. Meanwhile, the market manager starts auctioning off the right to decide who gets served first: whoever pays the highest tip jumps to the front of the line.
 
-This market chaos isn't just an analogy but rather exactly what happens in **mempool**, creating what researchers call a "dark forest" where revealing profitable trades attracts predators.
+This market chaos isn't just an analogy but rather exactly what happens in **the public mempool** (and increasingly in private order-flow auctions), creating what researchers call a "dark forest" where revealing profitable trades attracts predators.
 
 **Maximal Extractable Value (MEV)** is the profit that emerges from this system. Originally called "Miner Extractable Value" during Ethereum's proof-of-work era, MEV represents revenue extracted beyond standard block rewards and transaction fees by strategically ordering, including, or excluding transactions within blocks.
 
-In our market analogy, the key players have clear roles: **searchers** are the fast-moving resellers scanning for opportunities, **builders** are market managers who organize the optimal serving order to capture maximum tips, and **proposers** (validators) are the market owners who choose which manager's arrangement to accept. This relationship has been formalized through systems like **MEV-Boost**, which creates a liquid market for block space by essentially letting market managers bid for the right to organize transactions.
+In our market analogy, the key players have clear roles: **searchers** are the fast-moving resellers scanning for opportunities, **builders** are market managers who construct blocks and **bid their value to proposers via MEV-Boost**, and **proposers** (validators) are the market owners who choose which manager's arrangement to accept. This relationship has been formalized through systems like **MEV-Boost**, which creates a liquid market for block space by essentially letting market managers bid for the right to organize transactions.
 
-The fundamental insight is that MEV arises from controlling transaction visibility and ordering. Some activities (like ensuring prices stay aligned across different stalls or liquidating bad debt) can stabilize the market, but the overall effect leaves regular shoppers paying more and waiting longer while only well-funded professionals with the fastest runners and private backroom deals consistently win.
+The fundamental insight is that MEV arises from controlling transaction visibility and ordering. Some activities (like ensuring prices stay aligned across different stalls or liquidating bad debt) can stabilize the market, but the overall effect imposes an implicit tax on regular shoppers through worse execution and externalities while only well-funded professionals with the fastest runners and private backroom deals consistently win.
 
-This creates the core tension we'll explore: how transaction ordering, designed to be neutral infrastructure, becomes a sophisticated value extraction mechanism that threatens the very decentralization it's meant to serve.
+This creates the core tension: how transaction ordering, designed to be neutral infrastructure, becomes a sophisticated value extraction mechanism that threatens the very decentralization it's meant to serve.
 
-## Section II: The Strategies - How Value Gets Extracted
+## Section II: How Value Gets Extracted
 
-The strategies that emerge from this environment follow a predictable escalation. The simplest is **arbitrage**: our resellers buying tomatoes cheap at one stall to sell them expensive at another. This actually helps the market by keeping prices aligned, but when competition heats up, searchers get more aggressive.
+The strategies that emerge from this environment follow a predictable escalation. The simplest is **arbitrage**: buying an asset at a lower price on one exchange to sell it at a higher price on another. This actually helps the market by keeping prices aligned across different venues, but when competition heats up, searchers get more aggressive.
 
-They start **front-running**, copying your order but paying the market manager extra to go first. Then comes the **sandwich attack**: they buy before you (driving up the price), let you buy at the inflated rate, then immediately sell at the higher price you created, capturing a near‑riskless profit when their bundle lands as planned.
+They start **front-running**, copying your transaction but paying extra to go first. For example, when you spot an arbitrage opportunity where you can buy ETH for $3,000 on one DEX and immediately sell it for $3,050 on another DEX, a bot sees your transaction and submits the exact same arbitrage trade with higher gas fees to capture that $50 profit before you can.
+
+Then comes the **sandwich attack**: they buy before you (driving up the price), let you buy at the inflated rate, then immediately sell at the higher price you created, capturing a near‑riskless profit when their bundle lands as planned. For example, you try to swap 10 ETH for a token at $100 per token, but a bot buys first pushing the price to $105, your trade executes at $105, then the bot immediately sells their tokens back at $104, pocketing the $4-5 spread they created by sandwiching your transaction.
 
 **Liquidations** represent another category: when someone's borrowed too much against their collateral, searchers race to claim the reward for closing out the position. Unlike sandwiching, liquidations serve a necessary function, but the race to claim them still inflates costs for everyone.
 
-The market impact creates a fundamental tension between efficiency and fairness. While arbitrage enhances price discovery and liquidations maintain protocol health, the overall MEV ecosystem extracts an **"invisible tax"** from users. Priority-gas-auction bidding historically spiked gas costs as bots competed for transaction priority; today much of that competition has shifted off-chain into order-flow and builder auctions, reducing broad mempool fee spikes but often shifting costs into worse execution for users or rebates captured by intermediaries. This isn't just theoretical harm. Every sandwich attack represents value directly transferred from a user to a sophisticated actor, even if the fee externalities now appear less in the public mempool and more in private routing markets.
+The market impact creates a fundamental tension between efficiency and fairness. While arbitrage enhances price discovery and liquidations maintain protocol health, the overall MEV ecosystem extracts an **"invisible tax"** from users. 
 
-The response has been innovation in execution methods. **Frequent batch auctions** and **intent-based settlement** (like CoW Swap and Uniswap X) remove the continuous-time priority that enables sandwiching. Instead of processing trades one-by-one in a race, these systems collect orders and execute them together, eliminating the timing games that create MEV opportunities.
+Priority-gas-auction bidding historically spiked gas costs as bots competed for transaction priority; today much of that competition is **off-chain via order-flow and builder auctions**, reducing broad mempool fee spikes but often shifting costs into worse execution for users or rebates captured by intermediaries. This isn't just theoretical harm. Every sandwich attack represents value directly transferred from a user to a sophisticated actor, even if the fee externalities now appear less in the public mempool and more in private routing markets.
 
-## Section III: The Centralization Crisis - When Markets Concentrate Power
+The response has been innovation in execution methods. **Frequent batch auctions** and **intent-based settlement** (like CoW Swap and Uniswap X) **remove the continuous-time priority that enables classic sandwiching**. Instead of processing trades one-by-one in a race, these systems collect orders and execute them together, greatly reducing the timing games that create MEV opportunities. While batch auctions effectively mitigate sandwiching attacks, they don't eliminate all forms of MEV such as liquidations or oracle-based extraction.
 
-This dynamic creates a brutal reality: success in MEV requires both deep pockets and technical expertise. You need capital to compete in liquidation auctions, sophisticated infrastructure to detect opportunities faster than competitors, and the technical knowledge to navigate an increasingly complex landscape. The result? Dangerous centralization.
+## Section III: Flashbots - Taming the Dark Forest
 
-Recent data reveals the scope of this concentration. In late 2024, block building was highly concentrated; for example, two builders produced roughly 80-90% of blocks over multi-week windows, with daily shares fluctuating materially. Over the same period, a sizable share of blocks were relayed via OFAC-compliant infrastructure, varying by measurement window (often around ~30-50%). The pattern is clear: a small number of sophisticated actors dominate MEV extraction, undermining the decentralized ethos of blockchain networks.
+By 2020, Ethereum faced exactly this market chaos at scale. The priority gas auctions described earlier were creating network congestion, while miners were capturing MEV through opaque, off-chain deals that favored sophisticated actors.
 
-This concentration sparked innovation. In 2024, major players announced **BuilderNet**, a decentralized block-building network developed by Flashbots, Beaverbuild, and Nethermind. BuilderNet uses **Trusted Execution Environments (TEEs)** to allow multiple operators to share transaction order flow and coordinate block building while keeping contents private until finalized. Think of it as allowing multiple market managers to collaborate on organizing the optimal serving order without revealing their strategies to competitors.
+Enter **Flashbots**, a research organization founded in 2020 with a radical proposition: instead of trying to eliminate MEV, create transparent infrastructure to make it more fair and efficient. Their insight was that MEV extraction was inevitable, but the current system was wasteful and harmful to regular users.
+
+**MEV-Geth and the First Solution**: In January 2021, Flashbots released **MEV-Geth** (a modified Ethereum client) with **mev-relay**, creating a private communication channel between searchers and miners. Instead of competing in the public mempool with escalating gas bids, searchers could submit transaction bundles directly to miners through this sealed-bid auction system. This moved the competition off-chain, reducing PGA spam in the public mempool.
+
+The system worked like creating a separate, organized auction house for our market resellers. Instead of everyone shouting bids in the main marketplace (causing chaos for regular shoppers), the resellers could submit sealed bids to market managers who would choose the most profitable arrangement. This reduced the chaos in the main marketplace while sophisticated actors could still compete for MEV opportunities.
+
+**The Transition to Proof-of-Stake**: When Ethereum moved to proof-of-stake in September 2022, the entire MEV landscape needed rebuilding. Flashbots developed **MEV-Boost**, an open-source middleware that provides **out-of-protocol Proposer-Builder Separation (PBS)**. This expanded the builder-validator relationship introduced earlier into a full competitive marketplace via **relays**. Today, approximately 85-95% of Ethereum blocks are built via MEV-Boost.[^2] Note that this is distinct from **enshrined PBS**, which remains in development and research phases.
+
+The system evolved from individual miners making direct deals to a sophisticated auction where multiple builders compete for validator selection, with relays facilitating the bidding process.
+
+**User Protection Through Flashbots Protect**: Recognizing that infrastructure alone wasn't enough, Flashbots launched Flashbots Protect, a service that routes user transactions through private mempools. This shields regular users from the MEV extraction strategies detailed earlier while potentially providing rebates from captured MEV—essentially bypassing the public mempool and reducing sandwich/frontrunning risk. These transactions still compete in the builder auction but are not exposed to public mempool predation.
+
+The Flashbots approach represents a pragmatic philosophy: since MEV extraction is inevitable in any system with transaction ordering, the goal should be making it transparent, efficient, and less harmful to users. Rather than fighting the economic forces, they built infrastructure to channel them constructively.
+
+## Section IV: The Centralization Crisis
+
+Despite Flashbots' innovations, the MEV ecosystem still creates a brutal reality: success in MEV requires both deep pockets and technical expertise. You need capital to compete in liquidation auctions, sophisticated infrastructure to detect opportunities faster than competitors, and the technical knowledge to navigate an increasingly complex landscape. The result? Dangerous concentration.
+
+In 2024, block building was highly concentrated; for example, in mid-October two builders produced ~89% of blocks over a two-week window, and over Oct 2023–Mar 2024 three builders produced ~80% of MEV-Boost blocks. Over the same period, a sizable share of blocks were relayed via OFAC-compliant infrastructure, often around ~40–60% (and sometimes higher) depending on the measurement window. The pattern is clear: a small number of sophisticated actors dominate MEV extraction, undermining the decentralized ethos of blockchain networks.
+
+This concentration sparked innovation. In 2024, major players announced **BuilderNet**, a decentralized block-building network launched Nov 2024 and jointly operated (at launch) by Flashbots, Beaverbuild, and Nethermind. BuilderNet uses **Trusted Execution Environments (TEEs)** to allow multiple operators to share transaction order flow and coordinate block building while keeping contents private until finalized. Think of it as allowing multiple market managers to collaborate on organizing the optimal serving order without revealing their strategies to competitors.
 
 This architecture aims to create a more transparent and permissionless system for MEV distribution, moving away from the opaque, custom deals that define the current landscape. Beaverbuild is already transitioning its centralized builder to this new network, with more permissionless features planned for future releases.
 
-The broader toolkit approach recognizes that different participants need different strategies. **Order flow auctions (OFAs)** and **private orderflow** solutions (like MEV-Share, SUAVE, private relays, and encrypted mempools) seek to return value to users through rebates, though results in practice remain mixed. **Time-bandit attacks** (reorganizing blocks to capture MEV) are constrained by fast finality, while researchers explore **MEV-smoothing** and **enshrined PBS** (Proposer-Builder Separation) to further distribute value extraction.
-
-### MEV Mitigation Strategies by Role
-
-The response has been a toolkit approach, with different participants using different strategies:
-
-| Role | Primary tactics | Tools / examples | Key trade‑offs |
-| --- | --- | --- | --- |
-| Users | Hide orderflow; constrain execution | Private RPCs (MEV‑Share, CoWSwap RPC), RFQ/intent routers (CoW Swap, Uniswap X), tight slippage + fill‑or‑kill, batch auctions | Less immediate execution on long‑tail pairs; routing trust; failed txs if constraints too tight |
-| dApps / Protocols | Remove continuous‑time priority; internalize or rebate MEV | Frequent batch auctions, RFQ flows, intents + solver competitions, on‑chain hooks with anti‑sandwich checks, OFAs with rebates | Added complexity; potential latency; relies on robust solver markets and simulation guards |
-| Builders | Privacy + integrity; fairness goals | PBS compliance, privacy‑preserving builders (TEE/encrypted), fair ordering within bundles, no‑sandwich policies, BuilderNet participation | Throughput/latency overhead; trust in TEEs/attestations; competitive pressure vs permissive builders |
-| Validators / Proposers | Safe inclusion + value sharing | Use reputable relays, inclusion lists/inclusion guarantees, OFA revenue‑sharing, MEV‑smoothing pools, enshrined PBS (research) | Relay trust; potential revenue variance; policy constraints vs profit maximization |
-
-Status notes: Inclusion lists (FOCIL/COMIS), enshrined PBS, and MEV‑smoothing are active research/proposals or pool‑level constructs; they are not deployed as protocol features on Ethereum mainnet.
+The broader toolkit approach recognizes that different participants need different strategies. **Order flow auctions (OFAs)** and **private orderflow** solutions (like MEV-Share, SUAVE, private relays, and encrypted mempools) seek to return value to users through rebates, though results in practice remain mixed. **Time-bandit attacks** (reorganizing blocks to capture MEV) are constrained by stronger finality guarantees (and are rarer under PoS than PoW), though related vectors remain an active research concern, while researchers explore **MEV-smoothing** and **enshrined PBS** (Proposer-Builder Separation) to further distribute value extraction.
 
 **Operational notes:** Prefer intent/batch‑auction settlement for retail orderflow to eliminate sandwich windows. Enforce simulation, slippage bounds, and pause hooks at the protocol level to reduce exploit surfaces.
 
-## Section IV: The Next Frontier - Cross-Domain MEV
+## Section V: Cross-Domain MEV
 
 Just as the industry began addressing single-chain MEV, a new challenge emerged that threatens to dwarf the current problems. **Cross-Domain MEV** extends our market analogy: imagine if the resellers could now sprint between multiple adjacent markets, buying low in Market A and selling high in Market B faster than anyone else could react.
 
-This isn't theoretical. Sophisticated actors are already executing arbitrage and other strategies across different blockchain networks, exploiting price differences between exchanges on separate chains. The timing and latency of blockchain bridges become critical factors, enabling complex, multi-block MEV strategies that are even harder to mitigate than their single-chain counterparts.
+This isn't theoretical. Sophisticated actors are already executing arbitrage and other strategies across different L1s, exploiting price differences between DEXs on separate chains. The timing and latency of blockchain bridges become critical factors, enabling complex, multi-block MEV strategies that are even harder to mitigate than their single-chain counterparts.
 
-Researchers warn this could pose an **"existential risk"** to decentralization. If sophisticated actors gain control over transaction ordering across multiple domains, the centralization pressures we've seen on individual chains could compound exponentially. The cross-domain nature makes coordination harder and value extraction more opaque, potentially creating a new class of MEV that's both more profitable and more harmful to users.
+Researchers warn it could pose **severe risks** (sometimes described as 'existential') to decentralization. If sophisticated actors gain control over transaction ordering across multiple domains, the centralization pressures we've seen on individual chains could compound exponentially. The cross-domain nature makes coordination harder and value extraction more opaque, potentially creating a new class of MEV that's both more profitable and more harmful to users.
 
 The challenge is that as the blockchain ecosystem grows and interconnects, each new bridge, each new chain, each new connection creates fresh opportunities for value extraction. The solutions that work for single-chain MEV (batch auctions, private orderflow, fair ordering) become exponentially more complex when they must coordinate across multiple domains with different consensus mechanisms, block times, and economic models.
 
-Mitigations under study include **shared sequencing** across domains, **cross-domain batch auctions**, and **routing intents through OFAs** that can coordinate across chains. However, these solutions are still largely theoretical, and the race between MEV extraction and mitigation continues to intensify.
+Mitigations under study include **shared sequencing** across domains (with projects like Espresso and Astria in active rollout and testing phases), **cross-domain batch auctions**, and **routing intents through OFAs** that can coordinate across chains. Solutions like SUAVE are currently in testnet/alpha phases rather than production mainnet. However, these solutions are still largely experimental, and the race between MEV extraction and mitigation continues to intensify.
 
 ## The Ongoing Battle for Fair Markets
 
