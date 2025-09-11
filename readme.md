@@ -47,10 +47,10 @@ This is an advanced study plan to take you from competent to expert in the parts
 ### Chapter VI: Market Structure and Trading
 - [Section I: Exchange Architecture and Core Products](./Chapter_06_Market_Structure_Trading.md#section-i-exchange-architecture-and-core-products)
 - [Section II: Order Management and Market Microstructure](./Chapter_06_Market_Structure_Trading.md#section-ii-order-management-and-market-microstructure)
-- [Section III: Market Participants and Information Flow](./Chapter_06_Market_Structure_Trading.md#section-iii-market-participants-and-information-flow)
-- [Section IV: Risk Management and Margining Systems](./Chapter_06_Market_Structure_Trading.md#section-iv-risk-management-and-margining-systems)
+- [Section III: Market Makers](./Chapter_06_Market_Structure_Trading.md#section-iii-market-makers)
+- [Section IV: Risk Management](./Chapter_06_Market_Structure_Trading.md#section-iv-risk-management)
 - [Section V: Pricing Mechanisms and Market Signals](./Chapter_06_Market_Structure_Trading.md#section-v-pricing-mechanisms-and-market-signals)
-- [Section VI: Advanced Analytics and Market Intelligence](./Chapter_06_Market_Structure_Trading.md#section-vi-advanced-analytics-and-market-intelligence)
+- [Section VI: Token Economics and Vesting](./Chapter_06_Market_Structure_Trading.md#section-vi-token-economics-and-vesting)
 - [Section VII: The Corporate Treasury Trend](./Chapter_06_Market_Structure_Trading.md#section-vii-the-corporate-treasury-trend)
 
 ### Chapter VII: MEV
