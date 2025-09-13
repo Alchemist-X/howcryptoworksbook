@@ -24,7 +24,7 @@ Here's how it works: Miners bundle transactions into a block and repeatedly hash
 
 To generate different guesses, miners vary several fields: the **nonce** (a 32 bit number offering about 4 billion attempts), the timestamp, and sometimes the version field. When the nonce space is exhausted, miners modify arbitrary data in the coinbase transaction (often called an **extra nonce**) which changes the block's Merkle root and effectively gives them a fresh header space to search.
 
-To keep the average block time at approximately 10 minutes, the network performs a **difficulty retarget** every 2,016 blocks (about two weeks). The algorithm measures the actual time taken for those 2,016 blocks and adjusts difficulty accordingly, though it clamps extreme changes between ¼× and 4× to prevent wild swings.
+To keep the average block time at approximately 10 minutes, the network performs a **difficulty retarget** every 2,016 blocks, whcih is about every two weeks. The algorithm measures the actual time taken for those 2,016 blocks and adjusts difficulty accordingly, though it clamps extreme changes between ¼× and 4× to prevent wild swings.
 
 Hash rate comes from **ASIC hardware**, specialized computer chips designed solely for Bitcoin mining that are thousands of times more efficient than regular computers. These ASICs are typically organized into mining pools, where thousands of miners combine their computing power and share rewards proportionally. Pools coordinate this work using the **Stratum protocol**, which gives each miner a unique coinbase and job template so everyone searches distinct header space while avoiding duplicate work.
 
@@ -37,6 +37,8 @@ Occasionally, two miners find valid blocks at nearly the same time, creating tem
 Bitcoin has a predictable, algorithmic monetary policy with a fixed issuance schedule. The **block reward**, or subsidy, is cut in half every 210,000 blocks, an event known as the **"halving"** that occurs roughly every four years. The subsidy began at 50 BTC and has since been reduced to 25, 12.5, 6.25, and most recently to 3.125 BTC after the 2024 halving.
 
 This mechanism makes Bitcoin a **disinflationary asset**, as its inflation rate trends toward zero. Around the year 2140, the subsidy will cease, and miners will be compensated solely by transaction fees. Due to integer rounding in halvings, the terminal supply converges to ~20,999,999.9769 BTC.
+
+As of 2025, roughly 95% of the eventual 21 million BTC has already been mined and is in circulation; the remaining issuance will be released on a diminishing schedule over the next century.
 
 The miner **security budget** (total revenue paid to block producers from subsidy plus fees) presents both current stability and future challenges. While this budget is straightforward to calculate in BTC terms, the relevant metric for gauging attack resistance is **USD per unit time**, since both miners and potential attackers procure hardware, facilities, and energy in fiat terms. As specialized hardware improves and the cost per hash declines, what matters economically is the dollar cost to acquire and operate enough hash rate for long enough to reliably reorganize the chain.
 

@@ -53,30 +53,26 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section VI: Token Economics and Vesting](./Chapter_06_Market_Structure_Trading.md#section-vi-token-economics-and-vesting)
 - [Section VII: The Corporate Treasury Trend](./Chapter_06_Market_Structure_Trading.md#section-vii-the-corporate-treasury-trend)
 
-### Chapter VII: MEV
-- [Section I: The Market Chaos: Understanding MEV Fundamentals](./Chapter_07_MEV.md#section-i-the-market-chaos-understanding-mev-fundamentals)
-- [Section II: How Value Gets Extracted](./Chapter_07_MEV.md#section-ii-how-value-gets-extracted)
-- [Section III: Flashbots: Taming the Dark Forest](./Chapter_07_MEV.md#section-iii-flashbots-taming-the-dark-forest)
-- [Section IV: The Centralization Crisis](./Chapter_07_MEV.md#section-iv-the-centralization-crisis)
-- [Section V: Cross-Domain MEV](./Chapter_07_MEV.md#section-v-cross-domain-mev)
+### Chapter VII: DeFi Protocols and Mechanisms
+- [Section I: Why DeFi?](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-i-defi-core-concepts-and-philosophy)
+- [Section II: Decentralized Exchange Architecture](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-ii-decentralized-exchange-architecture)
+- [Section III: Lending and Borrowing Fundamentals](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-iii-lending-and-borrowing-fundamentals)
+- [Section IV: Yield Generation and Optimization](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-iv-yield-generation-and-optimization)
+- [Section V: Infrastructure Dependencies](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-v-infrastructure-dependencies)
+- [Section VI: Advanced Mechanisms and Future Evolution](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-vi-advanced-mechanisms-and-future-evolution)
 
-### Chapter VIII: Stablecoins and Real World Assets
-- [Section I: The Mechanisms That Work](./Chapter_08_Stablecoins_and_RWAs.md#section-i-the-mechanisms-that-work)
-- [Section II: When Mechanisms Fail](./Chapter_08_Stablecoins_and_RWAs.md#section-ii-when-mechanisms-fail)
-- [Section III: The Infrastructure Revolution](./Chapter_08_Stablecoins_and_RWAs.md#section-iii-the-infrastructure-revolution)
-- [Section IV: Bringing Traditional Finance On-Chain](./Chapter_08_Stablecoins_and_RWAs.md#section-iv-bringing-traditional-finance-on-chain)
+### Chapter VIII: MEV
+- [Section I: The Market Chaos: Understanding MEV Fundamentals](./Chapter_08_MEV.md#section-i-the-market-chaos-understanding-mev-fundamentals)
+- [Section II: How Value Gets Extracted](./Chapter_08_MEV.md#section-ii-how-value-gets-extracted)
+- [Section III: Flashbots: Taming the Dark Forest](./Chapter_08_MEV.md#section-iii-flashbots-taming-the-dark-forest)
+- [Section IV: The Centralization Crisis](./Chapter_08_MEV.md#section-iv-the-centralization-crisis)
+- [Section V: Cross-Domain MEV](./Chapter_08_MEV.md#section-v-cross-domain-mev)
 
-### Chapter IX: DeFi Protocols and Mechanisms
-- [Section I: Why DeFi?](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-i-why-defi)
-- [Section II: Lending and Borrowing Platforms](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-ii-lending-and-borrowing-platforms)
-- [Section III: Decentralized Exchange Innovation](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-iii-decentralized-exchange-innovation)
-- [Section IV: Yield Generation Mechanisms](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-iv-yield-generation-mechanisms)
-- [Section V: Yield Optimization and Aggregation](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-v-yield-optimization-and-aggregation)
-- [Section VI: Advanced Yield Generation Strategies](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-vi-advanced-yield-generation-strategies)
-- [Section VII: Oracle Networks and Price Feeds](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-vii-oracle-networks-and-price-feeds)
-- [Section VIII: Cross-Chain Infrastructure and Interoperability](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-viii-cross-chain-infrastructure-and-interoperability)
-- [Section IX: Bridge and Oracle Security](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-ix-bridge-and-oracle-security)
-- [Section X: Flash Loans and Atomic Transactions](./Chapter_09_DeFi_Protocols_Mechanisms.md#section-x-flash-loans-and-atomic-transactions)
+### Chapter IX: Stablecoins and Real World Assets
+- [Section I: The Mechanisms That Work](./Chapter_09_Stablecoins_and_RWAs.md#section-i-the-mechanisms-that-work)
+- [Section II: When Mechanisms Fail](./Chapter_09_Stablecoins_and_RWAs.md#section-ii-when-mechanisms-fail)
+- [Section III: The Infrastructure Revolution](./Chapter_09_Stablecoins_and_RWAs.md#section-iii-the-infrastructure-revolution)
+- [Section IV: Bringing Traditional Finance On-Chain](./Chapter_09_Stablecoins_and_RWAs.md#section-iv-bringing-traditional-finance-on-chain)
 
 ### Chapter X: Hyperliquid
 - [Section I: Speed vs. Decentralization: The Consensus Trade-off](./Chapter_10_Hyperliquid.md#section-i-speed-vs-decentralization-the-consensus-trade-off)

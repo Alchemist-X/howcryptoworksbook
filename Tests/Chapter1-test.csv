@@ -1,0 +1,70 @@
+﻿Question,Correct Answer,Answer A,Answer B,Answer C,Answer D,Difficulty
+What newspaper headline was embedded in Bitcoin's genesis block?,B,Bank bailout imminent,Chancellor on brink of second bailout for banks,Financial crisis deepens,Banks need government help,1
+What consensus mechanism does Bitcoin use?,A,Nakamoto Consensus,Byzantine Fault Tolerance,Proof of Stake,Delegated Proof of Work,1
+How often does Bitcoin perform a difficulty retarget?,C,Every 2 years,Every 4 years,Every 2 weeks,Every 4 weeks,2
+What is the smallest unit of Bitcoin called?,D,Wei,Gwei,Bit,Satoshi,1
+What does ASIC stand for in Bitcoin mining?,C,Advanced System Integrated Circuit,Automated Secure Investment Computer,Application Specific Integrated Circuit,Advanced Software Implementation Core,2
+What protocol do Bitcoin mining pools use for coordination?,B,HTTP protocol,Stratum protocol,WebSocket protocol,FTP protocol,2
+How often does a Bitcoin halving occur approximately?,B,Every 2 years,Every 4 years,Every 2 weeks,Every 4 weeks,1
+What was the initial block reward when Bitcoin started?,B,25 BTC,50 BTC,100 BTC,12.5 BTC,2
+Around what year will the Bitcoin block subsidy cease?,D,2100,2120,2130,2140,2
+What model does Bitcoin use to track ownership?,A,UTXO model,Account model,Balance model,Ledger model,1
+What language defines Bitcoin spending conditions?,B,Solidity,Bitcoin Script,JavaScript,Python,2
+What are Bitcoin transactions waiting for confirmation stored in?,A,Mempool,Block pool,Transaction cache,Pending list,1
+How are Bitcoin transaction fees measured?,D,Satoshis per byte,Bitcoin per kilobyte,Wei per gas,Satoshis per virtual byte,2
+What is the Bitcoin block weight limit?,B,"1,000,000 weight units","4,000,000 weight units","2,000,000 weight units","8,000,000 weight units",2
+What does RBF stand for in Bitcoin transactions?,C,Return By Fee,Refund By Fee,Replace By Fee,Rebroadcast By Fee,2
+What is the predominant Bitcoin implementation?,A,Bitcoin Core,Bitcoin Classic,Bitcoin Unlimited,Bitcoin Cash,1
+What does BIP stand for in the Bitcoin ecosystem?,B,Bitcoin Integration Protocol,Bitcoin Improvement Proposal,Bitcoin Implementation Process,Bitcoin Infrastructure Plan,1
+Which type of Bitcoin fork is backward compatible?,C,Hard fork,Chain fork,Soft fork,Network fork,1
+What year did SegWit activate on Bitcoin?,A,2017,2019,2021,2023,3
+What bug did SegWit solve in Bitcoin?,A,Transaction malleability,Double spending,51% attacks,Block propagation delays,2
+What measurement system did SegWit introduce to Bitcoin?,C,Block size,Transaction weight,Block weight,Fee weight,2
+What does BIP 148 represent in Bitcoin's history?,D,Miner Activated Soft Fork,Protocol upgrade,Hard fork proposal,User Activated Soft Fork,3
+What signature type does Taproot enable in Bitcoin?,A,Schnorr Signatures,ECDSA Signatures,RSA Signatures,EdDSA Signatures,2
+Which Bitcoin address type starts with 'bc1'?,D,Legacy,P2SH,Native SegWit or Taproot,Lightning,2
+Which Bitcoin address type starts with '3'?,B,Legacy,P2SH,Native SegWit or Taproot,Lightning,2
+What Bitcoin Layer 2 solution enables cheaper and faster BTC payments?,A,Lightning,Plasma,State Channels,Rollup ,1
+What are Bitcoin Lightning Network payment channels technically?,C,Single signature outputs,Hash locked outputs,2-of-2 multisig outputs,Time locked outputs,3
+Who stores the complete Bitcoin blockchain?,B,Miners only,Full nodes,SPV nodes,Light nodes,1
+What do pruned Bitcoin nodes discard after verification?,A,Old block data,Transaction signatures,Block headers,Mempool data,2
+What do Bitcoin SPV clients download?,C,Full blockchain,Recent blocks only,Block headers only,Transaction data only,2
+What mechanism helps new Bitcoin nodes find peers?,B,IP broadcasting,DNS seeds,Network scanning,Peer lists,3
+What type of attack involves controlling majority hashpower in Bitcoin?,C,Eclipse attack,Sybil attack,51% attack,Selfish mining,1
+How many Bitcoin confirmations are typically considered irreversible?,B,3,6,10,20,2
+What Bitcoin privacy technique combines multiple users' inputs?,A,CoinJoin,MixNet,TumbleBit,PayJoin,2
+What numbering system does Bitcoin Ordinal theory use?,C,Transaction numbers,Block numbers,Satoshi serial numbers,Address numbers,2
+Where does Bitcoin Ordinal inscription data live?,D,Block header,Coinbase transaction,UTXO scripts,Taproot script path witness,3
+What does BRC-20 use for fungible tokens on Bitcoin?,A,JSON inscriptions,Smart contracts,Script opcodes,Binary data,2
+What year was Bitcoin blockchain launched?,B,2008,2009,2010,2011,1
+What philosophy influenced Bitcoin's creation?,D,Libertarian,Anarchist,Socialist,Cypherpunk,2
+What algorithm do Bitcoin miners use for hashing?,B,SHA-1,Double SHA-256,SHA-512,BLAKE2,2
+What is a 32-bit number Bitcoin miners vary called?,C,Hash,Target,Nonce,Seed,2
+What happens to Bitcoin difficulty adjustment if blocks are too fast?,A,Increases,Decreases,Stays same,Resets,1
+What is the maximum upward Bitcoin difficulty adjustment per retarget?,C,2x,3x,4x,5x,3
+What must offset Bitcoin halvings for security?,B,More miners,Fee demand and BTC price,Government subsidies,Block size increases,3
+What measures Bitcoin Lightning channel capacity for sending?,C,Total liquidity,Channel balance,Outbound liquidity,Available funds,3
+What type of Bitcoin fork created Bitcoin Cash?,B,Soft fork,Hard fork,Chain split,Protocol update,1
+What type of Bitcoin nodes reject non-signaling blocks?,D,Mining nodes,Pruned nodes,SPV nodes,BIP 148 nodes,4
+What rule do Bitcoin nodes use to choose between competing valid forks?,B,Longest chain by block count,Heaviest chain by accumulated work,Chain with most transactions,Chain with highest fees,2
+What happens when two miners find valid blocks almost simultaneously?,C,Immediate rollback,Permanent split,Temporary fork producing stale blocks,Invalidation of both blocks,2
+After exhausting the 32-bit nonce space how do miners expand their search space?,B,Change the target bits,Modify coinbase extra nonce to alter Merkle root,Increase block size,Lower timestamp precision,3
+"When you can't replace a parent Bitcoin transaction but control one of its outputs, which fee bumping method should you use?",C,Replace-By-Fee (RBF),Batching,Child-Pays-For-Parent (CPFP),PayJoin,2
+Which activation method was used for Taproot in 2021?,D,User Activated Soft Fork (UASF),BIP9 Miner Signaling,Flag-day activation,Speedy Trial,2
+Which statement about Bitcoin addresses is correct?,D,Addresses are public keys,Addresses are private keys,Addresses are scripts,Addresses are encodings of keys or scripts,2
+What service monitors Bitcoin's blockchain to punish Lightning channel cheating?,B,Validators,Watchtowers,Oracles,Sequencers,2
+What technique redistributes liquidity across Bitcoin Lightning channels?,C,Channel splicing,Anchors,Channel rebalancing,Watchtower polling,3
+What attack isolates a Bitcoin node's connections to feed it a distorted network view?,B,51% attack,Eclipse attack,Sybil attack,Selfish mining,3
+Bitcoin transactions are best described as:,C,Anonymous,Pseudorandom,Pseudonymous,De-identified,1
+Which practice harms Bitcoin on-chain privacy the most?,A,Address reuse,Using Lightning,Using SegWit,Using CoinJoin,2
+What are the two steps of Bitcoin Ordinal inscriptions?,D,Mint then transfer,Deploy then mint,Reveal then commit,Commit then reveal,2
+Who typically retains Bitcoin inscription media long-term?,D,All nodes store permanently,Only miners,Only pruned nodes,Indexer and archival nodes,3
+Why is USD per unit time a key metric for Bitcoin's security budget?,B,Hardware is priced in BTC,Attack/defense costs are paid in fiat,Blocks are priced in USD,Nodes only accept USD fees,4
+What is Bitcoin's fixed maximum supply cap?,B,10 million BTC,21 million BTC,20 million BTC,No cap,1
+How much of total BTC is already mined?,A,95%,99%,90%,80%,1
+Who enforces Bitcoin's validity rules regardless of miner hash rate?,B,Miners,Full nodes,Light nodes,Pruned nodes,2
+"In Bitcoin,  the transaction fee equals:",B,Outputs minus inputs,Inputs minus outputs,Fee rate times virtual size is exact by definition,Fixed fee per transaction,2
+Why do miners join mining pools?,B,To support decentralization,To reduce payout variance and receive steadier rewards,To lower network difficulty,To avoid paying electricity costs,2
+Which block header field encodes the target used to compute accumulated work?,C,nLockTime,nSequence,nBits,nVersion,3
+How many satoshis are in one bitcoin (BTC)?,A,"100,000,000","10,000,000","1,000,000","100,000",1
+What do full nodes maintain as the set of all spendable outputs?,B,Mempool,UTXO set,Address book,Header chain,2
