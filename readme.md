@@ -44,7 +44,7 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section III: Threats and Security Imperatives](./Chapter_05_Custody.md#section-iii-threats-and-security-imperatives)
 - [Section IV: Institutional Custody Models and Architecture](./Chapter_05_Custody.md#section-iv-institutional-custody-models-and-architecture)
 
-### Chapter VI: Market Structure and Trading
+### Chapter VI: Crypto Market Structure & Trading
 - [Section I: Exchange Architecture and Core Products](./Chapter_06_Market_Structure_Trading.md#section-i-exchange-architecture-and-core-products)
 - [Section II: Order Management and Market Microstructure](./Chapter_06_Market_Structure_Trading.md#section-ii-order-management-and-market-microstructure)
 - [Section III: Market Makers](./Chapter_06_Market_Structure_Trading.md#section-iii-market-makers)
@@ -54,12 +54,11 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section VII: The Corporate Treasury Trend](./Chapter_06_Market_Structure_Trading.md#section-vii-the-corporate-treasury-trend)
 
 ### Chapter VII: DeFi Protocols and Mechanisms
-- [Section I: Why DeFi?](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-i-defi-core-concepts-and-philosophy)
+- [Section I: DeFi Core Concepts and Philosophy](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-i-defi-core-concepts-and-philosophy)
 - [Section II: Decentralized Exchange Architecture](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-ii-decentralized-exchange-architecture)
 - [Section III: Lending and Borrowing Fundamentals](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-iii-lending-and-borrowing-fundamentals)
 - [Section IV: Yield Generation and Optimization](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-iv-yield-generation-and-optimization)
 - [Section V: Infrastructure Dependencies](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-v-infrastructure-dependencies)
-- [Section VI: Advanced Mechanisms and Future Evolution](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-vi-advanced-mechanisms-and-future-evolution)
 
 ### Chapter VIII: MEV
 - [Section I: The Market Chaos: Understanding MEV Fundamentals](./Chapter_08_MEV.md#section-i-the-market-chaos-understanding-mev-fundamentals)
@@ -69,43 +68,42 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section V: Cross-Domain MEV](./Chapter_08_MEV.md#section-v-cross-domain-mev)
 
 ### Chapter IX: Stablecoins and Real World Assets
-- [Section I: The Mechanisms That Work](./Chapter_09_Stablecoins_and_RWAs.md#section-i-the-mechanisms-that-work)
-- [Section II: When Mechanisms Fail](./Chapter_09_Stablecoins_and_RWAs.md#section-ii-when-mechanisms-fail)
-- [Section III: The Infrastructure Revolution](./Chapter_09_Stablecoins_and_RWAs.md#section-iii-the-infrastructure-revolution)
-- [Section IV: Bringing Traditional Finance On-Chain](./Chapter_09_Stablecoins_and_RWAs.md#section-iv-bringing-traditional-finance-on-chain)
+- [Section I: Fiat Stablecoins](./Chapter_09_Stablecoins_and_RWAs.md#section-i-fiat-stablecoins)
+- [Section II: Real World Assets](./Chapter_09_Stablecoins_and_RWAs.md#section-ii-real-world-assets)
 
 ### Chapter X: Hyperliquid
-- [Section I: Speed vs. Decentralization: The Consensus Trade-off](./Chapter_10_Hyperliquid.md#section-i-speed-vs-decentralization-the-consensus-trade-off)
-- [Section II: Building for Speed: HyperBFT and EVM Compatibility](./Chapter_10_Hyperliquid.md#section-ii-building-for-speed-hyperbft-and-evm-compatibility)
-- [Section III: Liquidity vs. Concentration Risk: The HLP Design](./Chapter_10_Hyperliquid.md#section-iii-liquidity-vs-concentration-risk-the-hlp-design)
-- [Section IV: Trust vs. UX: The Bridging Trade-off](./Chapter_10_Hyperliquid.md#section-iv-trust-vs-ux-the-bridging-trade-off)
-- [Section V: Permissionless vs. Quality Control: The Governance Balance](./Chapter_10_Hyperliquid.md#section-v-permissionless-vs-quality-control-the-governance-balance)
-- [Section VI: Value Capture and Operational Reality](./Chapter_10_Hyperliquid.md#section-vi-value-capture-and-operational-reality)
+- [Section I: Road to Domination](./Chapter_10_Hyperliquid.md#section-i-road-to-domination)
+- [Section III: HyperBFT and EVM](./Chapter_10_Hyperliquid.md#section-iii-hyperbft-and-evm)
+- [Section IV: The HLP Design](./Chapter_10_Hyperliquid.md#section-iv-the-hlp-design)
+- [Section VI: The Governance Balance](./Chapter_10_Hyperliquid.md#section-vi-the-governance-balance)
+- [Section VII: Road to Decentralization](./Chapter_10_Hyperliquid.md#section-vii-road-to-decentralization)
 
-### Chapter XI: Non-Fungible Token (NFT) Fundamentals
+### Chapter XI: Non-Fungible Tokens (NFTs)
 - [Section I: The Digital Ownership Revolution](./Chapter_11_NFTs.md#section-i-the-digital-ownership-revolution)
 - [Section II: The Storage Dilemma](./Chapter_11_NFTs.md#section-ii-the-storage-dilemma)
 - [Section III: The Technical Foundation](./Chapter_11_NFTs.md#section-iii-the-technical-foundation)
 - [Section IV: Where NFTs Actually Trade](./Chapter_11_NFTs.md#section-iv-where-nfts-actually-trade)
 
-### Chapter XII: Governance, Token Economics & DAO Operations
-- [Section I: DAO Core Concepts](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-i-dao-core-concepts)
-- [Section II: Token Economics and Distribution](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-ii-token-economics-and-distribution)
-- [Section III: DAO Operational Architecture](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-iii-dao-operational-architecture)
-- [Section IV: Advanced Governance Mechanisms](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-iv-advanced-governance-mechanisms)
-- [Section V: DAO Types and Specializations](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-v-dao-types-and-specializations)
-- [Section VI: Legal Framework and Compliance](./Chapter_12_Governance_Token_Economics_DAO_Operations.md#section-vi-legal-framework-and-compliance)
+### Chapter XII: Governance & Token Economics
+- [Section I: DAO Core Concepts](./Chapter_12_Governance_and%20Token_Economics.md#section-i-dao-core-concepts)
+- [Section II: Token Economics and Distribution](./Chapter_12_Governance_and%20Token_Economics.md#section-ii-token-economics-and-distribution)
+- [Section III: A Three-Pillar Structure](./Chapter_12_Governance_and%20Token_Economics.md#section-iii-a-three-pillar-structure)
 
 ### Chapter XIII: Decentralized Physical Infrastructure Networks (DePIN)
 - [Section I: DePIN Core Concepts](./Chapter_13_DePIN.md#section-i-depin-core-concepts)
 - [Section II: DePIN Technical Architecture](./Chapter_13_DePIN.md#section-ii-depin-technical-architecture)
-- [Section III: DePIN Categories and Implementation](./Chapter_13_DePIN.md#section-iii-depin-categories-and-implementation)
-- [Section IV: DePIN Economics and Governance](./Chapter_13_DePIN.md#section-iv-depin-economics-and-governance)
-- [Section V: DePIN Network Operations and Challenges](./Chapter_13_DePIN.md#section-v-depin-network-operations-and-challenges)
+- [Section III: DePIN Economics and Governance](./Chapter_13_DePIN.md#section-iii-depin-economics-and-governance)
+- [Section IV: DePIN Categories and Implementation](./Chapter_13_DePIN.md#section-iv-depin-categories-and-implementation)
+- [Section IV: Risks and Challenges](./Chapter_13_DePIN.md#section-iv-risks-and-challenges)
 
-### Chapter XIV: Quantum Resistance and Cryptographic Security
-- [Section I: Quantum Computing and Cryptographic Threats](./Chapter_14_Quantum_Resistance.md#section-i-quantum-computing-and-cryptographic-threats)
+### Chapter XIV: Quantum Resistance
+- [Section I: Quantum Computing](./Chapter_14_Quantum_Resistance.md#section-i-quantum-computing)
 - [Section II: Blockchain Vulnerability Assessment](./Chapter_14_Quantum_Resistance.md#section-ii-blockchain-vulnerability-assessment)
-- [Section III: Risk Categories and Exposure Analysis](./Chapter_14_Quantum_Resistance.md#section-iii-risk-categories-and-exposure-analysis)
-- [Section IV: Mitigation Strategies and Quantum-Resistant Solutions](./Chapter_14_Quantum_Resistance.md#section-iv-mitigation-strategies-and-quantum-resistant-solutions)
-- [Section V: Network Coordination and Future Preparations](./Chapter_14_Quantum_Resistance.md#section-v-network-coordination-and-future-preparations)
+- [Section III: Quantum-Resistance Transition](./Chapter_14_Quantum_Resistance.md#section-iii-quantum-resistance-transition)
+
+### Chapter XV: Prediction Markets
+- [Section I: The Wisdom of Crowds](./Chapter_15_Prediction_Markets.md#section-i-the-wisdom-of-crowds)
+- [Section II: The Early Failures: Gnosis and Augur's Lessons](./Chapter_15_Prediction_Markets.md#section-ii-the-early-failures-gnosis-and-augurs-lessons)
+- [Section III: The Breakthrough: Polymarket and Kalshi's Success Formula](./Chapter_15_Prediction_Markets.md#section-iii-the-breakthrough-polymarket-and-kalshis-success-formula)
+- [Section IV: The Network Effects of Political Prediction](./Chapter_15_Prediction_Markets.md#section-iv-the-network-effects-of-political-prediction)
+- [Section V: The Future of Information Markets](./Chapter_15_Prediction_Markets.md#section-v-the-future-of-information-markets)

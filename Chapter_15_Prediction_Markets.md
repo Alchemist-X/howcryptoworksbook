@@ -1,22 +1,20 @@
 # Chapter XV: Prediction Markets
 
-Information aggregation through financial incentives creates powerful forecasting mechanisms. This chapter explores prediction markets: how they differ from traditional betting, why early decentralized attempts failed, and what made Polymarket and Kalshi succeed in capturing mainstream attention during the 2024 election cycle.
+## Section I: The Wisdom of Crowds
 
-## Section I: The Wisdom of Crowds: Understanding Decentralized Prediction Markets
-
-Picture a traditional election night: pundits debate on television, polls show conflicting results, and everyone waits for official vote counts. Meanwhile, in a parallel universe, thousands of people are putting real money behind their beliefs about the outcome, creating a live, continuously updating probability that often proves more accurate than any expert analysis.
+Picture an election night: pundits debate on television, polls show conflicting results, and everyone waits for official vote counts. Meanwhile, in a parallel universe, thousands of people are putting real money behind their beliefs about the outcome, creating a live, continuously updating probability that often proves more accurate than any expert analysis.
 
 This is the core insight behind **prediction markets**: when people risk their own money on future events, they reveal information that polls and punditry cannot capture. Unlike traditional betting sites that simply offer odds set by bookmakers, prediction markets create a mechanism where the collective wisdom of participants determines prices through supply and demand.
 
-**Decentralized prediction markets** take this concept further by removing central authorities and intermediaries. Instead of a bookmaker setting odds and taking a cut, smart contracts automatically match buyers and sellers, execute payouts, and resolve outcomes based on predetermined criteria. This creates several key advantages over traditional betting platforms.
+**Decentralized prediction markets** take this concept further by removing central authorities and intermediaries. Instead of a bookmaker setting odds and taking a cut, smart contracts automatically match buyers and sellers, execute payouts, and resolve outcomes based on predetermined criteria decided via an oracle. This creates several key advantages over traditional betting platforms.
 
-First is **transparency**: every transaction, every bet, every resolution mechanism is visible on-chain. Traditional betting sites operate as black boxes where users must trust the house's odds, payout calculations, and fairness. Decentralized markets make all of this verifiable through blockchain technology.
+First is **transparency**: every transaction, every bet, every resolution mechanism is visible on-chain. Traditional betting sites operate as black boxes where users must trust the house's odds, payout calculations, and fairness. Decentralized markets make all of this verifiable.
 
 Second is **regulatory arbitrage**: while traditional betting faces complex legal restrictions in many jurisdictions, decentralized prediction markets can operate globally without requiring licenses in each country. This creates access for users who might otherwise be excluded from prediction markets entirely.
 
 Third is **censorship resistance**: no central authority can shut down markets or prevent certain topics from being traded. This becomes particularly valuable for politically sensitive predictions where traditional platforms might face pressure to restrict certain markets.
 
-The fundamental mechanism works through **binary outcome tokens**: for a presidential election, you might buy "Trump wins" tokens at 45 cents each. If Trump wins, each token pays out $1. If he loses, they become worthless. The current price (45 cents) represents the market's collective assessment that Trump has a 45% chance of winning.
+The fundamental mechanism works through **binary outcome tokens**: for a presidential election, a trader might buy "Trump wins" tokens at 45 cents each. If Trump wins, each token pays out $1. If he loses, they become worthless. The current price (45 cents) represents the market's collective assessment that Trump has a 45% chance of winning.
 
 This creates a powerful information aggregation system. People with inside knowledge, superior analysis, or different perspectives can profit by trading against the consensus, which moves prices toward more accurate probabilities. The result is often remarkably precise forecasting that outperforms traditional polling and expert predictions.
 

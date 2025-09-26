@@ -4,9 +4,9 @@ Control over transaction ordering creates and redistributes value on‑chain. Th
 
 ## Section I: The Market Chaos: Understanding MEV Fundamentals
 
-Picture a busy marketplace with a peculiar setup: there's a big whiteboard where everyone must post their intended purchases before they can buy anything. You write "buying 10 tomatoes from Stall A," and suddenly chaos erupts.
+Picture a busy marketplace with a peculiar setup: there's a big whiteboard where everyone must post their intended purchases before they can buy anything. A trader writes "buying 10 tomatoes from Stall A," and suddenly chaos erupts.
 
-A fast-moving reseller spots your order, sprints to Stall A, buys the tomatoes first, then offers them back to you at a markup. Another reseller notices you're about to make a large purchase that will drive up tomato prices, so they buy just before you and sell immediately after, pocketing the price difference your trade created. Meanwhile, the market manager starts auctioning off the right to decide who gets served first: whoever pays the highest tip jumps to the front of the line.
+A fast-moving reseller spots the order, sprints to Stall A, buys the tomatoes first, then offers them back to the trader at a markup. Another reseller notices the trader is about to make a large purchase that will drive up tomato prices, so they buy just before the trader and sell immediately after, pocketing the price difference the trade created. Meanwhile, the market manager starts auctioning off the right to decide who gets served first: whoever pays the highest tip jumps to the front of the line.
 
 This market chaos isn't just an analogy but rather exactly what happens in **the public mempool**, creating what researchers call a "dark forest" where revealing profitable trades attracts predators.
 
@@ -22,9 +22,9 @@ This creates the core tension: how transaction ordering, designed to be neutral 
 
 The strategies that emerge from this environment follow a predictable escalation. The simplest is **arbitrage**: buying an asset at a lower price on one exchange to sell it at a higher price on another. This actually helps the market by keeping prices aligned across different venues, but when competition heats up, searchers get more aggressive.
 
-They start **front-running**, copying your transaction but paying extra to go first. For example, when you spot an arbitrage opportunity where you can buy ETH for $3,000 on one DEX and immediately sell it for $3,050 on another DEX, a bot sees your transaction and submits the exact same arbitrage trade with higher gas fees to capture that $50 profit before you can.
+They start **front-running**, copying a trader's transaction but paying extra to go first. For example, when a trader spots an arbitrage opportunity where they can buy ETH for $3,000 on one DEX and immediately sell it for $3,050 on another DEX, a bot sees the transaction and submits the exact same arbitrage trade with higher gas fees to capture that $50 profit before the trader can.
 
-Then comes the **sandwich attack**: they buy before you (driving up the price), let you buy at the inflated rate, then immediately sell at the higher price you created, capturing a near‑riskless profit when their bundle lands as planned. For example, you try to swap 10 ETH for a token at $100 per token, but a bot buys first pushing the price to $105, your trade executes at $105, then the bot immediately sells their tokens back at $104, pocketing the $4-5 spread they created by sandwiching your transaction.
+Then comes the **sandwich attack**: they buy before a trader (driving up the price), let the trader buy at the inflated rate, then immediately sell at the higher price the trader created, capturing a near‑riskless profit when their bundle lands as planned. For example, a trader tries to swap 10 ETH for a token at $100 per token, but a bot buys first pushing the price to $105, the trade executes at $105, then the bot immediately sells their tokens back at $104, pocketing the $4-5 spread they created by sandwiching the transaction.
 
 Uniswap's deterministic pricing curve and public mempool visibility create predictable price impact that searchers exploit through a simple three-step process: front-run your buy to push prices up, let your trade execute at the worse price, then back-run sell to capture the spread. This works because AMMs must move price with each swap (that's how they discover fair value without order books), transaction intent is visible and reorderable in the mempool, and off-chain markets provide price anchors for profitable extraction.
 

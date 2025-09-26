@@ -10,9 +10,9 @@ Unlike fungible tokens where every unit is identical, each NFT is unique, creati
 
 ### The Problem NFTs Solve
 
-Before NFTs, the digital world had a fundamental flaw: perfect copyability. You can download the Mona Lisa in 4K and your copy is pixel-perfect. That makes “owning the image” meaningless: how do you own what anyone can duplicate at zero cost?
+Before NFTs, the digital world had a fundamental flaw: perfect copyability. Anyone can download the Mona Lisa in 4K and their copy is pixel-perfect. That makes "owning the image" meaningless: how can someone own what anyone can duplicate at zero cost?
 
-NFTs address this with **verifiable digital scarcity of the token**: a certificate of **provenance** that cannot be forged, even though the pixels remain copyable. When you buy an NFT, you’re not buying the image file, anyone can right-click and save it. You’re buying a blockchain-verified claim that says “this is the original and I own it.”
+NFTs address this with **verifiable digital scarcity of the token**: a certificate of **provenance** that cannot be forged, even though the pixels remain copyable. When someone buys an NFT, they're not buying the image file, anyone can right-click and save it. They're buying a blockchain-verified claim that says "this is the original and I own it."
 
 This shift from physical to cryptographic scarcity unlocks something unprecedented: **programmable ownership**. Unlike a painting that just hangs on a wall, NFTs can evolve over time, **route royalties to creators where supported**, interact with other digital assets, and even control their own smart-contract accounts. The certificate of provenance becomes the asset, and it can be composed with other systems.
 
@@ -26,16 +26,16 @@ The vast majority of NFTs exist on Ethereum's **ERC-721 standard**. Each token c
 
 This technical foundation is powerful, but it introduces a core design tension every project must navigate: **what lives on-chain versus off-chain**.
 
-### What You Actually Own
+### What Holders Actually Own
 
-NFTs **unbundle ownership** into programmable pieces. Traditional ownership bundles rights: buy a painting and you own the physical object, can display it, can resell it, and (usually) can’t make commercial copies. NFTs separate these layers:
+NFTs **unbundle ownership** into programmable pieces. Traditional ownership bundles rights: buy a painting and the owner gets the physical object, can display it, can resell it, and (usually) can't make commercial copies. NFTs separate these layers:
 
-* **Token ownership**: The blockchain immutably records that you control NFT #1234.
-* **Content authenticity**: Typically established by **minting from the creator’s wallet**, not necessarily by a separate signature on the media.
-* **Usage rights**: A separate **license** defines what you’re allowed to do with the content.
+* **Token ownership**: The blockchain immutably records that a holder controls NFT #1234.
+* **Content authenticity**: Typically established by **minting from the creator's wallet**, not necessarily by a separate signature on the media.
+* **Usage rights**: A separate **license** defines what the holder is allowed to do with the content.
 * **Access control**: Smart contracts can grant permissions (e.g., token-gated features) based on token ownership.
 
-This modularity enables new possibilities. You might own an NFT that grants commercial rights to use the artwork in your business, while the image itself lives on IPFS and provenance is anchored by the artist’s wallet. Each piece is separate and programmable. Crucially, **license rights are often governed off-chain and are not always transferable** with the token.
+This modularity enables new possibilities. An owner might hold an NFT that grants commercial rights to use the artwork in their business, while the image itself lives on IPFS and provenance is anchored by the artist's wallet. Each piece is separate and programmable. Crucially, **license rights are often governed off-chain and are not always transferable** with the token.
 
 ### The Copyright Conundrum
 
@@ -47,13 +47,13 @@ This ambiguity led to a major strategic split in the NFT world. Some projects, l
 
 ### The Permanence vs. Cost Trade-off
 
-When you create an NFT, you face a fundamental dilemma: store everything on-chain for maximum permanence but pay enormous gas fees, or store most content off-chain for affordability but risk your NFT pointing to dead links years later.
+When creating an NFT, creators face a fundamental dilemma: store everything on-chain for maximum permanence but pay enormous gas fees, or store most content off-chain for affordability but risk the NFT pointing to dead links years later.
 
-Most projects choose a hybrid approach. The blockchain records ownership and includes a **tokenURI**, an on-chain URI (ideally content-addressed like `ipfs://` or `ar://`) pointing to a JSON file containing the token's name, description, image, and properties. This creates both flexibility and fragility: your ownership is permanent and immutable, but the actual content your NFT represents depends on external storage staying online.
+Most projects choose a hybrid approach. The blockchain records ownership and includes a **tokenURI**, an on-chain URI (ideally content-addressed like `ipfs://` or `ar://`) pointing to a JSON file containing the token's name, description, image, and properties. This creates both flexibility and fragility: ownership is permanent and immutable, but the actual content the NFT represents depends on external storage staying online.
 
 This has created a spectrum of storage solutions, each with different trade-offs:
 
-- **Centralized servers**: Cheapest and most flexible, but your NFT dies if the server shuts down
+- **Centralized servers**: Cheapest and most flexible, but the NFT becomes inaccessible if the server shuts down
 - **IPFS (InterPlanetary File System)**: Content-addressed distributed storage where files are identified by their content hash, making them harder to lose but requiring ongoing "pinning" to stay available
 - **Arweave**: Pay once for permanent storage via an endowment (the "permaweb"); higher upfront costs
 - **On-chain storage**: Maximum permanence and censorship resistance (e.g., Autoglyphs), but can cost thousands of dollars in gas fees for a single image
@@ -64,7 +64,7 @@ More sofisticated NFT collections uses **content-addressed URIs** (IPFS/Arweave 
 
 The storage challenge led developers to realize they needed more sophisticated token standards. **ERC-1155** emerged as the "multi-token standard," allowing a single smart contract to manage both fungible and non-fungible tokens simultaneously. This is particularly powerful for gaming ecosystems that need both unique items (legendary weapons with individual histories) and fungible resources (gold coins that are interchangeable).
 
-ERC-1155 also introduced **batch operations**: instead of making separate transactions for each token transfer, you can move dozens of tokens in a single transaction, dramatically reducing gas costs. It even supports **semi-fungible tokens**: items that start identical (like event tickets) but become unique when used (like used tickets with specific seat assignments and entry timestamps).
+ERC-1155 also introduced **batch operations**: instead of making separate transactions for each token transfer, dozens of tokens can be moved in a single transaction, dramatically reducing gas costs. It even supports **semi-fungible tokens**: items that start identical (like event tickets) but become unique when used (like used tickets with specific seat assignments and entry timestamps).
 
 This flexibility extends to **supply mechanics** as well. Some collections have fixed supplies (the famous 10,000 CryptoPunks will never increase), others use bonding curves where price increases with demand, and some implement **burning mechanisms** where tokens can be permanently destroyed to create deflationary pressure.
 
@@ -78,7 +78,7 @@ This is where NFTs transcend simple digital collectibles and become truly progra
 
 **Composable NFTs** create ownership hierarchies: tokens that own other tokens. Imagine buying a virtual world plot (one NFT) that contains a house (another NFT) filled with furniture (more NFTs). When you sell the plot, everything inside can transfer atomically if the collection uses a composability pattern like **ERC-998** or replicates that behavior via TBAs. This creates complex ownership trees that mirror how we think about property in the physical world.
 
-**Soulbound Tokens (SBTs)** go the opposite direction: they're intentionally non-transferable, designed to represent identity, credentials, achievements, or reputation that should remain permanently tied to specific individuals. Your university degree NFT shouldn't be sellable to someone else.
+**Soulbound Tokens (SBTs)** go the opposite direction: they're intentionally non-transferable, designed to represent identity, credentials, achievements, or reputation that should remain permanently tied to specific individuals. A university degree NFT shouldn't be sellable to another individual.
 
 These advanced mechanics are possible because of the robust technical standards that have evolved to support them. Let's examine how these standards actually work in practice.
 
@@ -156,7 +156,7 @@ Unlike Bitcoin or Ethereum where every token is worth the same, every NFT is uni
 
 **Trait-based pricing** attempts to solve this by considering individual characteristics. A Bored Ape with golden fur and laser eyes is worth far more than one with common brown fur and normal eyes.
 
-**Collection-wide bidding** lets you place bids on "any Bored Ape with laser eyes" rather than a specific token. This improves liquidity for sellers and creates more efficient price discovery, but it also commoditizes supposedly unique assets. OpenSea supports collection and trait offers; Blur popularized trait bidding and rewarded it with points, accelerating adoption among pro traders.
+**Collection-wide bidding** allows bidders to place bids on "any Bored Ape with laser eyes" rather than a specific token. This improves liquidity for sellers and creates more efficient price discovery, but it also commoditizes supposedly unique assets. OpenSea supports collection and trait offers; Blur popularized trait bidding and rewarded it with points, accelerating adoption among pro traders.
 
 These market dynamics reveal something important: NFTs exist in a tension between uniqueness and fungibility, and this tension shapes everything about how they're used and valued.
 

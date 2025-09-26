@@ -20,17 +20,17 @@ For example, it's easy to multiply two huge numbers together, but extremely diff
 
 Quantum computers could potentially solve these "impossible" math problems much faster, which means we need entirely new types of digital locks.
 
-The good news is that not all encryption is equally vulnerable. Public key encryption systems like RSA and ECC, which are the kind used when you first connect to a website, are most at risk because a quantum algorithm called Shor's algorithm can break them on a sufficiently powerful quantum computer. 
+The good news is that not all encryption is equally vulnerable. Public key encryption systems like RSA and ECC, which are the kind used when users first connect to a website, are most at risk because a quantum algorithm called Shor's algorithm can break them on a sufficiently powerful quantum computer. 
 
 However, symmetric encryption, which is used for the actual data transfer, isn't broken by quantum computers - we may just need larger symmetric keys like AES-256 for long-term data protection. Hash functions remain viable too, using longer hash outputs like SHA-256 or SHA-384 preserves security against quantum attacks.
 
 #### What's At Stake
 
-Our digital world runs on encrypted communication in ways most people never think about. Every time you check your bank balance, send a private message, make an online purchase, or log into your email, encryption protects that information.
+Our digital world runs on encrypted communication in ways most people never think about. Every time someone checks their bank balance, sends a private message, makes an online purchase, or logs into their email, encryption protects that information.
 
 Beyond personal data, encryption secures power grids, air traffic control systems, military communications, and the backbone of the internet itself. It enables secure voting systems, protects journalists' sources, and allows people to communicate safely under oppressive governments.
 
-The "https" padlock in your browser, the security updates on your phone, and even the chip in your credit card - all depend on encryption that quantum computers could theoretically break.
+The "https" padlock in browsers, the security updates on phones, and even the chip in credit cards - all depend on encryption that quantum computers could theoretically break.
 
 #### The Timeline Problem
 
@@ -64,7 +64,7 @@ Most blockchain networks rely heavily on elliptic-curve signatures for security.
 
 It's crucial to understand the different attack vectors: Grover's algorithm provides quadratic speedup for preimage and second-preimage attacks, while the best-known quantum collision attack (BHT) scales around 2^(n/3), offering a different and generally weaker advantage than Grover's preimage capabilities.
 
-To illustrate the threat landscape: Shor's algorithm is like a master locksmith who can reverse-engineer any lock's blueprint from its face (your public key) and cut a matching key directly, catastrophic for RSA and ECDSA once the tools mature. Grover's algorithm resembles a superhuman librarian who must still search through library stacks, but can do so far more efficiently, turning a 256-bit search space into an effectively 128-bit one. One breaks mathematical structure entirely; the other dramatically accelerates brute-force search.
+To illustrate the threat landscape: Shor's algorithm is like a master locksmith who can reverse-engineer any lock's blueprint from its face (the public key) and cut a matching key directly, catastrophic for RSA and ECDSA once the tools mature. Grover's algorithm resembles a superhuman librarian who must still search through library stacks, but can do so far more efficiently, turning a 256-bit search space into an effectively 128-bit one. One breaks mathematical structure entirely; the other dramatically accelerates brute-force search.
 
 #### Timeline and Emerging Standards
 
@@ -82,7 +82,7 @@ This timeline creates pressure across the entire blockchain ecosystem. Migration
 
 To understand quantum vulnerability, we need to establish one fundamental principle: quantum computers can break public keys, but they cannot easily break the cryptographic hashes of those keys. This distinction is crucial because it determines which funds are at risk.
 
-Think of it like this: a Bitcoin address is like a safe whose combination (the public key) isn't revealed until you open it. Once you open the safe, anyone listening can record your combination. Today's eavesdroppers can't use that combination to break into safes, but when quantum "lockpicks" arrive, they can replay those recorded combinations to steal whatever remains inside.
+Think of it like this: a Bitcoin address is like a safe whose combination (the public key) isn't revealed until someone opens it. Once the safe is opened, anyone listening can record the combination. Today's eavesdroppers can't use that combination to break into safes, but when quantum "lockpicks" arrive, they can replay those recorded combinations to steal whatever remains inside.
 
 ### Why Legacy Bitcoin Addresses Are More Vulnerable
 
@@ -90,7 +90,7 @@ Legacy Bitcoin addresses face significantly higher quantum risk for two concrete
 
 The transaction literally says "here's the public key, anyone who can prove they control it can spend this." On-chain analysis estimates that about 1.5–1.9 million BTC remain locked in these completely exposed P2PK outputs, including Satoshi's early mining rewards. This is like having a safe with the combination written on the outside. Quantum computers won't need to break any locks; they can simply read the combination and walk in.
 
-The second vulnerability comes from address reuse patterns. Early Bitcoin users commonly reused the same address for multiple transactions, a practice that was later discouraged. Each time you spend from an address, you expose its public key on the blockchain. With address reuse, the first transaction reveals the public key while subsequent transactions leave remaining funds vulnerable to quantum attack. Legacy users often accumulated large balances on single addresses over time, then only spent portions, leaving substantial "change" vulnerable after the first spend.
+The second vulnerability comes from address reuse patterns. Early Bitcoin users commonly reused the same address for multiple transactions, a practice that was later discouraged. Each time someone spends from an address, they expose its public key on the blockchain. With address reuse, the first transaction reveals the public key while subsequent transactions leave remaining funds vulnerable to quantum attack. Legacy users often accumulated large balances on single addresses over time, then only spent portions, leaving substantial "change" vulnerable after the first spend.
 
 ### Current Standards
 
@@ -114,7 +114,7 @@ This creates a high-stakes scenario often described as a "**quantum rush**." Sho
 
 ### Best Practices
 
-To protect against future quantum computing threats, users should adopt careful key management practices. For Ethereum, avoid keeping large amount of funds in an address after its first transaction, since any on-chain signature reveals your public key to potential quantum attacks, instead, migrate to a fresh, unused address or preferably a smart contract wallet that can be upgraded to post-quantum cryptographic schemes.
+To protect against future quantum computing threats, users should adopt careful key management practices. For Ethereum, avoid keeping large amount of funds in an address after its first transaction, since any on-chain signature reveals the public key to potential quantum attacks, instead, migrate to a fresh, unused address or preferably a smart contract wallet that can be upgraded to post-quantum cryptographic schemes.
 
 Bitcoin users should similarly avoid address reuse by spending entire UTXOs to fresh addresses, ensuring no value remains tied to previously exposed public keys. While multisig and multi-party computation (MPC) solutions offer enhanced security today, they don't eliminate quantum risk if they still rely on secp256k1 cryptography once public keys are revealed; their primary value lies in providing an upgrade path to quantum-resistant algorithms when they become available.
 

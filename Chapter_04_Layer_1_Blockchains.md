@@ -24,7 +24,7 @@ The **modular blockchain thesis** argues these functions don't need to live toge
 
 The monolithic trade-off becomes apparent in operational requirements. High-throughput monolithic chains often demand specialized hardware, fast networking, and sophisticated operational expertise. As transaction volume grows, validator requirements increase, potentially limiting the number of entities that can practically run full nodes. 
 
-Decentralization in practice exists on a spectrum; there is no crisp threshold for being 'decentralized enough.' A pragmatic lens is the cost and coordination required to shut the network down - economically, legally, and operationally. In practice, Solana supporters believe the chain is decentralized enough, while Ethereum supporters generally disagree. You see effectively the same effect with Bitcoiners, who consider Ethereum too centralized.
+Decentralization in practice exists on a spectrum; there is no crisp threshold for being 'decentralized enough.' A pragmatic lens is the cost and coordination required to shut the network down - economically, legally, and operationally. In practice, Solana supporters believe the chain is decentralized enough, while Ethereum supporters generally disagree. The same effect appears with Bitcoiners, who consider Ethereum too centralized.
 
 ### Modular Architectures
 
@@ -173,7 +173,7 @@ Without intervention, state growth eventually prices out regular users from runn
 
 Fortunately, three main approaches have emerged to control state growth, each with distinct tradeoffs:
 
-**State Rent** introduces ongoing storage fees - if you want to keep data on-chain, you must continuously pay for that privilege. This creates economic pressure to remove unnecessary state, similar to how cloud storage pricing encourages efficient data management. The challenge lies in implementation: suddenly charging rent for existing data could break thousands of applications that assumed permanent free storage.
+**State Rent** introduces ongoing storage fees - if users want to keep data on-chain, they must continuously pay for that privilege. This creates economic pressure to remove unnecessary state, similar to how cloud storage pricing encourages efficient data management. The challenge lies in implementation: suddenly charging rent for existing data could break thousands of applications that assumed permanent free storage.
 
 **State Expiry** takes a more aggressive approach by automatically removing state that hasn't been accessed for a certain period (e.g., one year). If users need expired state later, they must provide cryptographic proofs of its previous existence. This hard cap on state size comes at the cost of significant complexity - applications must now handle the possibility that their data might disappear.
 

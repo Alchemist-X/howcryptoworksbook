@@ -14,9 +14,9 @@ The result is a system where global access means anyone with an internet connect
 
 ### The Economic Drivers
 
-The demand for decentralized financial services stems from real economic needs that traditional systems often serve poorly. Crypto holders want to earn yield on idle assets, while traders and institutions need leverage for market activities. In DeFi, you can deposit volatile assets and borrow stable dollars without selling your position, preserving upside exposure while accessing liquidity. However, this approach creates liquidation risk.
+The demand for decentralized financial services stems from real economic needs that traditional systems often serve poorly. Crypto holders want to earn yield on idle assets, while traders and institutions need leverage for market activities. In DeFi, users can deposit volatile assets and borrow stable dollars without selling their position, preserving upside exposure while accessing liquidity. However, this approach creates liquidation risk.
 
-Decentralized exchanges (often just called DEXs) address the custody and access problems of centralized platforms. When you trade on a DEX, you never give up control of your assets. Trades settle atomically on the same chain, completely removing custodial exchange risk. This approach enables permissionless listing of new assets and the bundling of complex transactions like trading plus lending plus staking in a single operation.
+Decentralized exchanges (often just called DEXs) address the custody and access problems of centralized platforms. When users trade on a DEX, they never give up control of their assets. Trades settle atomically on the same chain, completely removing custodial exchange risk. This approach enables permissionless listing of new assets and the bundling of complex transactions like trading plus lending plus staking in a single operation.
 
 ### The Fundamental Trade-offs
 
@@ -30,7 +30,7 @@ Professional participation in DeFi markets requires quantitative understanding o
 
 ## Section II: Decentralized Exchange Architecture
 
-Decentralized exchanges solve a fundamental problem: how do you trade assets without trusting a centralized intermediary to hold your funds? In doing so, they establish on-chain price discovery and liquidity that other protocols can build upon.
+Decentralized exchanges solve a fundamental problem: how can users trade assets without trusting a centralized intermediary to hold their funds? In doing so, they establish on-chain price discovery and liquidity that other protocols can build upon.
 
 ### Uniswap: The AMM Revolution
 
@@ -48,21 +48,21 @@ Uniswap v4, which launched in early 2025, represents the next evolution with a s
 
 #### Price Impact and Slippage: The Core Mechanics
 
-Why does buying tokens move the price? This seemingly simple question reveals the core mechanics of AMMs. Consider a constant product pool with token reserves and a fixed invariant. When you buy token X with token Y, you add your input amount to the Y reserves and remove output tokens from the X reserves. The constraint that their product must remain constant means larger trades have proportionally larger **price impact**.
+Why does buying tokens move the price? This seemingly simple question reveals the core mechanics of AMMs. Consider a constant product pool with token reserves and a fixed invariant. When a trader buys token X with token Y, they add their input amount to the Y reserves and remove output tokens from the X reserves. The constraint that their product must remain constant means larger trades have proportionally larger **price impact**.
 
 To understand this intuitively, imagine a special marketplace with two buckets of different colored marbles - let's say **red marbles and blue marbles**. There's a magical rule that mirrors the AMM's constant product formula: the number of red marbles multiplied by the number of blue marbles must always equal the same number (like 10,000).
 
-When you want to buy red marbles, you have to add blue marbles to the blue bucket. But here's the catch - you can only take out enough red marbles so that the multiplication rule stays true.
+When someone wants to buy red marbles, they have to add blue marbles to the blue bucket. But here's the catch - they can only take out enough red marbles so that the multiplication rule stays true.
 
-If the buckets start with 100 red marbles and 100 blue marbles (100 × 100 = 10,000), and you want to buy 10 red marbles:
+If the buckets start with 100 red marbles and 100 blue marbles (100 × 100 = 10,000), and someone wants to buy 10 red marbles:
 
-- You might add 11 blue marbles to the bucket (making it 111 blue)
-- You can only take about 9.9 red marbles out (leaving 90.1 red)
+- They might add 11 blue marbles to the bucket (making it 111 blue)
+- They can only take about 9.9 red marbles out (leaving 90.1 red)
 - Because 111 × 90.1 ≈ 10,000
 
-The more red marbles you want, the exponentially more blue marbles you need to add. The bucket becomes "stingier" with each marble you take, the first marble is cheap, but the 50th costs exponentially more. The deeper the buckets (more marbles), the less each individual trade affects the overall balance. Shallow buckets create large price swings; deep buckets maintain price stability.
+The more red marbles someone wants, the exponentially more blue marbles they need to add. The bucket becomes "stingier" with each marble taken, the first marble is cheap, but the 50th costs exponentially more. The deeper the buckets (more marbles), the less each individual trade affects the overall balance. Shallow buckets create large price swings; deep buckets maintain price stability.
 
-In DeFi terms: these buckets are liquidity pools, the marbles are token reserves, and the stinginess is **slippage** (the price impact that grows with trade size). Unlike traditional markets where you don't know if there are enough sellers, AMM pools always have liquidity available at a calculable price.
+In DeFi terms: these buckets are liquidity pools, the marbles are token reserves, and the stinginess is **slippage** (the price impact that grows with trade size). Unlike traditional markets where there may not be enough sellers, AMM pools always have liquidity available at a calculable price.
 
 For small trades, slippage approximates the trading fee. But for larger trades, the curve's shape adds additional price impact that grows with trade size relative to pool depth. This creates a natural market mechanism where small trades get better execution while large trades pay for their market impact.
 
@@ -116,7 +116,7 @@ Crypto's volatility demands substantial safety buffers. When ETH can drop 20% in
 
 Aave operates like an automated bank that never closes, using smart contracts to evaluate collateral and approve loans based on pre-defined rules rather than human underwriters. The protocol has evolved significantly since its inception, with each version addressing real limitations users faced in practice.
 
-For lenders, the process remains straightforward across all versions. You deposit assets like ETH, USDC, or other supported tokens into shared liquidity pools and immediately start earning interest. Your deposits are represented by **aTokens** that continuously compound by increasing your balance at a maintained unit price. Borrowers can borrow against their deposits but must maintain more collateral than they borrow—depositing $1,000 of ETH might allow borrowing only $800 of USDC.
+For lenders, the process remains straightforward across all versions. A participant deposits assets like ETH, USDC, or other supported tokens into shared liquidity pools and immediately starts earning interest. Deposits are represented by **aTokens** that continuously compound by increasing balance at a maintained unit price. Borrowers can borrow against their deposits but must maintain more collateral than they borrow—for example, depositing $1,000 of ETH might allow borrowing only $800 of USDC.
 
 #### Risk Management Through Key Parameters
 
@@ -126,9 +126,9 @@ Interest rates adjust automatically based on pool utilization through mathematic
 
 #### Who Uses Over-Collateralized Lending
 
-Despite requiring excess collateral, over-collateralized lending serves use cases that explain its popularity—**with Aave surpassing $70B in total deposits** in 2025 and nearly **$30B in active borrows** at peak. Many users want liquidity without selling assets they believe will appreciate—you're long ETH but need stablecoins for expenses or new opportunities. Borrowing preserves upside potential and is also tax favorable in most jurisdictions. 
+Despite requiring excess collateral, over-collateralized lending serves use cases that explain its popularity—**with Aave surpassing $70B in total deposits** in 2025 and nearly **$30B in active borrows** at peak. Many users want liquidity without selling assets they believe will appreciate—an ETH holder may need stablecoins for expenses or new opportunities. Borrowing preserves upside potential and is also tax favorable in most jurisdictions. 
 
-When you borrow against an asset instead of selling it, you don't trigger capital gains taxes. Selling creates an immediate taxable event where you owe taxes on the difference between your cost basis and sale price. Borrowing lets you access liquidity while keeping the asset and avoiding this tax hit.
+When borrowing against an asset instead of selling it, capital gains taxes are not triggered. Selling creates an immediate taxable event based on the difference between cost basis and sale price. Borrowing allows access to liquidity while retaining the asset and avoiding this tax hit.
 
 Leveraged trades represent another major use case. Users deposit ETH, borrow stablecoins, then buy more ETH through "looping" strategies that amplify exposure—for example, depositing $1,000 of ETH, borrowing $800 USDC, buying more ETH, and repeating until your Health Factor approaches your risk tolerance (e.g., HF ≈ 1.2 for aggressive leverage). Alternatively, staked assets like stETH can serve as collateral to boost yield through measured leverage, combining staking rewards with borrowing strategies.
 

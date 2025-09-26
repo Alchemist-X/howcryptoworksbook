@@ -8,17 +8,17 @@ Bitcoin's creation was a direct response to the 2008 global financial crisis. On
 
 This act highlights Bitcoin's mission: to be an alternative to the traditional banking system. Its philosophy is rooted in the cypherpunk belief in using strong cryptography to achieve individual sovereignty over one's finances. To accomplish this, Bitcoin operates as a peer to peer electronic cash system without trusted third parties. Its monetary policy is predictable and enforced by code, featuring a fixed, immutable supply cap of 21 million BTC. This creates digital scarcity, standing in stark contrast to fiat currencies that central banks can print at will.
 
-But creating a decentralized alternative to traditional banking raises a fundamental challenge: how do you get thousands of computers around the world to agree on who owns what, without a central authority to settle disputes?
+But creating a decentralized alternative to traditional banking raises a fundamental challenge: how can thousands of computers around the world agree on who owns what, without a central authority to settle disputes?
 
 ### Consensus and Chain Selection 
 
-Bitcoin solves this through a robust consensus mechanism. Bitcoin uses **Nakamoto Consensus**, which is often simplified as the "longest chain rule" but is more accurately described as the "heaviest chain rule." Nodes choose the valid chain with the greatest accumulated proof of work, computed from each block's target (nBits). Think of two hikers taking different routes: one logs 1,000 easy steps, the other 600 hard steps. We don't score by steps (block count) but by calories (a stand in for work) so the steeper, harder route can "weigh" more even with fewer steps. Likewise, nodes sum each block's work and follow the chain with the most total work. You can't win by making a long, low effort chain because difficulty rules are enforced; to rewrite history you must produce at least as much cumulative work as the honest chain (and more, if you're behind).
+Bitcoin solves this through a robust consensus mechanism. Bitcoin uses **Nakamoto Consensus**, which is often simplified as the "longest chain rule" but is more accurately described as the "heaviest chain rule." Nodes choose the valid chain with the greatest accumulated proof of work, computed from each block's target (nBits). Think of two hikers taking different routes: one logs 1,000 easy steps, the other 600 hard steps. The system doesn't score by steps (block count) but by calories (a stand in for work) so the steeper, harder route can "weigh" more even with fewer steps. Likewise, nodes sum each block's work and follow the chain with the most total work. An attacker can't win by making a long, low effort chain because difficulty rules are enforced; to rewrite history an attacker must produce at least as much cumulative work as the honest chain (and more, if they're behind).
 
 ### Mining and Proof of Work
 
-What if you needed to prove you'd done a lot of work, but couldn't trust anyone to verify it? Bitcoin solves this through **Proof of Work**, a system where miners compete to solve cryptographic puzzles that require enormous computational effort but can be quickly verified by anyone.
+What if someone needed to prove they'd done a lot of work, but couldn't trust anyone to verify it? Bitcoin solves this through **Proof of Work**, a system where miners compete to solve cryptographic puzzles that require enormous computational effort but can be quickly verified by anyone.
 
-Here's how it works: Miners bundle transactions into a block and repeatedly hash the block header using the double SHA 256 algorithm. They're searching for a hash value below a specific target, like rolling dice until you get a number lower than a certain threshold, except they're "rolling" trillions of times per second.
+Here's how it works: Miners bundle transactions into a block and repeatedly hash the block header using the double SHA 256 algorithm. They're searching for a hash value below a specific target, like rolling dice until getting a number lower than a certain threshold, except they're "rolling" trillions of times per second.
 
 **Hash rate** is the speed of this guessing process: how many hashes a miner or the entire network can try each second while searching for a valid block. More hash rate means more chances per second to find a block. It's measured in hashes per second (H/s), commonly shown as TH/s (terahashes), PH/s (petahashes), or EH/s (exahashes). Importantly, higher total network hash rate doesn't make blocks come faster on average; difficulty adjusts to maintain the ~10 minute target.
 
@@ -28,7 +28,7 @@ To keep the average block time at approximately 10 minutes, the network performs
 
 Hash rate comes from **ASIC hardware**, specialized computer chips designed solely for Bitcoin mining that are thousands of times more efficient than regular computers. These ASICs are typically organized into mining pools, where thousands of miners combine their computing power and share rewards proportionally. Pools coordinate this work using the **Stratum protocol**, which gives each miner a unique coinbase and job template so everyone searches distinct header space while avoiding duplicate work.
 
-Miners use pools because finding a block is like a huge lottery. With one home ASIC, your chance on any given day is tiny - you could wait years and still never hit one. Pools let miners combine their hash rate so blocks are found regularly, and rewards are split by each miner's share of work. That means steadier, more predictable payouts instead of long dry spells.
+Miners use pools because finding a block is like a huge lottery. With one home ASIC, a miner's chance on any given day is tiny - they could wait years and still never hit one. Pools let miners combine their hash rate so blocks are found regularly, and rewards are split by each miner's share of work. That means steadier, more predictable payouts instead of long dry spells.
 
 Occasionally, two miners find valid blocks at nearly the same time, creating temporary forks in the blockchain. These **stale blocks** and brief **chain reorganizations** are normal; the network automatically settles on the chain with more accumulated work. This is why merchants typically wait for multiple **confirmations** (additional blocks built on top) before considering large payments final.
 
@@ -50,11 +50,11 @@ Bitcoin's predictable scarcity forms a cornerstone of its store of value proposi
 
 ### UTXO Model
 
-How do you track ownership in a system without accounts? Bitcoin takes a different approach from traditional banking by using an **Unspent Transaction Output (UTXO) model**.
+How can a system track ownership without accounts? Bitcoin takes a different approach from traditional banking by using an **Unspent Transaction Output (UTXO) model**.
 
-Think of it like physical cash in your wallet. Instead of having a single account balance, you have individual bills of different denominations: a $20, two $5s, and some $1s. When you buy something for $7, you might use a $5 and two $1s, getting back change if needed.
+Think of it like physical cash in a wallet. Instead of having a single account balance, there are individual bills of different denominations: a $20, two $5s, and some $1s. When buying something for $7, one might use a $5 and two $1s, getting back change if needed.
 
-Bitcoin works similarly. Instead of a single balance, your wallet holds a collection of UTXOs (individual digital "coins" of varying amounts). When you send bitcoin, your wallet performs **coin selection** (choosing which UTXOs to spend, with privacy and fee trade offs), consumes them entirely, and creates new UTXOs as outputs: one for the recipient and another as "change" back to you. This elegant design prevents double spending: once a UTXO is spent in a confirmed transaction, it's permanently removed from the UTXO set and can never be spent again.
+Bitcoin works similarly. Instead of a single balance, a wallet holds a collection of UTXOs (individual digital "coins" of varying amounts). When sending bitcoin, the wallet performs **coin selection** (choosing which UTXOs to spend, with privacy and fee trade offs), consumes them entirely, and creates new UTXOs as outputs: one for the recipient and another as "change" back to the sender. This elegant design prevents double spending: once a UTXO is spent in a confirmed transaction, it's permanently removed from the UTXO set and can never be spent again.
 
 Each full node maintains its own view of the global **UTXO set** (the complete collection of all spendable outputs) derived from the validated blockchain.
 
@@ -64,11 +64,11 @@ Each full node maintains its own view of the global **UTXO set** (the complete c
 
 ### Transaction Structure and Prioritization
 
-Once you understand how UTXOs work, the next question is: how do transactions actually get processed? A Bitcoin transaction consists of **inputs** (the UTXOs being spent) and **outputs** (the new UTXOs being created). The transaction **fee** equals the sum of inputs minus the sum of outputs. Once broadcast, transactions enter each node's **mempool** (a pool of unconfirmed transactions).
+Once the UTXO model is understood, the next question is: how do transactions actually get processed? A Bitcoin transaction consists of **inputs** (the UTXOs being spent) and **outputs** (the new UTXOs being created). The transaction **fee** equals the sum of inputs minus the sum of outputs. Once broadcast, transactions enter each node's **mempool** (a pool of unconfirmed transactions).
 
 Here's where economics comes into play. Since blocks are limited to 4,000,000 weight units (~1,000,000 vB), miners must choose which transactions to include from their own mempools. They naturally prioritize transactions that pay the highest **fee rate**, measured in satoshis per virtual byte (sats/vB), where virtual bytes are derived from transaction weight. A satoshi is the smallest unit of bitcoin; there are 100 million satoshis in one bitcoin.
 
-This creates a **fee market** where users essentially bid for block space. Need your transaction confirmed quickly during network congestion? Pay a higher fee rate. Can wait? Pay less and wait for a quieter period. If your transaction gets stuck, you can use **Replace by Fee (RBF)** to broadcast a higher fee replacement, or **Child Pays for Parent (CPFP)** to create a high fee child transaction that incentivizes miners to include the parent. Use CPFP when you can't (or don't want to) replace the parent but control one of its outputs (sender's change or the recipient's output). Use RBF when you control the original tx and it can be replaced.
+This creates a **fee market** where users essentially bid for block space. Users needing quick confirmation during network congestion pay higher fee rates. Those who can wait pay less and wait for a quieter period. If a transaction gets stuck, users can use **Replace by Fee (RBF)** to broadcast a higher fee replacement, or **Child Pays for Parent (CPFP)** to create a high fee child transaction that incentivizes miners to include the parent. Use CPFP when the sender can't (or doesn't want to) replace the parent but controls one of its outputs (sender's change or the recipient's output). Use RBF when the sender controls the original transaction and it can be replaced.
 
 ---
 
@@ -86,11 +86,11 @@ As a concrete example of a policy (not consensus) change: the historical ~80 byt
 
 ### Understanding Fork Types
 
-How do you upgrade a decentralized network where no one's in charge? Bitcoin has two main upgrade mechanisms that allow the protocol to evolve while maintaining consensus.
+How can a decentralized network be upgraded when no one's in charge? Bitcoin has two main upgrade mechanisms that allow the protocol to evolve while maintaining consensus.
 
 #### Hard Forks
 
-**Hard forks** are incompatible upgrades that loosen or change consensus rules. Think of it like changing the width of train tracks. If your train (node) doesn't switch to the new wheel size, it simply can't run on the new tracks. Everyone has to upgrade or they'll keep running on the old line, which becomes a different railway. Bitcoin avoids this because coordinating a whole railway swap is risky and can split passengers and schedules for good. Hard forks are extremely rare in Bitcoin due to coordination challenges and the risk of permanent network splits. 
+**Hard forks** are incompatible upgrades that loosen or change consensus rules. Think of it like changing the width of train tracks. If a train (node) doesn't switch to the new wheel size, it simply can't run on the new tracks. Everyone has to upgrade or they'll keep running on the old line, which becomes a different railway. Bitcoin avoids this because coordinating a whole railway swap is risky and can split passengers and schedules for good. Hard forks are extremely rare in Bitcoin due to coordination challenges and the risk of permanent network splits. 
 
 A notable example is Bitcoin Cash (BCH), created in 2017 by changing rules (notably much larger blocks). In practice, that approach fractured liquidity and community mindshare; over time BCH has retained only a small fraction of Bitcoin's adoption, hashpower, and market value. Critically, though, deciding what's the "real Bitcoin" isn't something the code can decree; there's no central authority. It's a messy blend of social consensus (what users, exchanges, wallets, and merchants run), economic gravity (where liquidity settles), and security assumptions (what most full nodes enforce). Markets have decidedly treated BTC as the Schelling point, but that outcome is ultimately social, not ordained.
 
@@ -175,7 +175,7 @@ The **Lightning Network** attempts to enable faster Bitcoin payments through a L
 
 The network can theoretically route payments across multiple interconnected channels using **HTLCs** (Hash Time Locked Contracts) and **onion routing** for privacy, while **watchtowers** monitor for cheating attempts. However, Lightning faces significant **liquidity constraints** that limit its practical utility. Users need **outbound liquidity** to send payments and **inbound liquidity** to receive them. When channels lack sufficient liquidity, it results in **payment failures** or forces users to split larger payments across multiple routes.
 
-Think of Lightning as a canal system with locks; you can only send if there's enough water on your side (outbound capacity) and only receive if the other side has room (inbound capacity). **Channel rebalancing** helps redistribute liquidity but incurs fees and takes time. Multi hop routes only work when each channel along the path has liquidity flowing the right direction.
+Think of Lightning as a canal system with locks; users can only send if there's enough water on their side (outbound capacity) and only receive if the other side has room (inbound capacity). **Channel rebalancing** helps redistribute liquidity but incurs fees and takes time. Multi hop routes only work when each channel along the path has liquidity flowing the right direction.
 
 This approach addresses Bitcoin's base layer limitations for small payments. Bitcoin is optimized for **high assurance settlement**, making "coffee payments" economically inefficient due to high fees and block space constraints. Lightning attempts to shift low value, high frequency activity off chain while preserving the option to settle back to Layer 1 when needed.
 
@@ -251,7 +251,7 @@ The BRC 20 system works through specific inscription types: a **deploy inscripti
 
 A **BRC 20 transfer** follows a two step process layered over Bitcoin's UTXO model. First, users must inscribe a JSON object declaring their intent to transfer a specific number of tokens, receiving this **transfer inscription** in the same wallet that holds their BRC 20 balance. This step moves tokens from an "**available**" balance to a "**transferable**" pool in the eyes of indexers. Second, the transfer inscription itself must be sent to the recipient's address; when that transaction confirms, indexers debit the sender's balance and credit the recipient.
 
-This process creates a distinction in user experience: sending a single **inscribed artifact** resembles moving a unique object; you select the exact UTXO containing that specific sat and deliver it. **BRC 20 transfers** operate more like managing ledger entries with a paper trail: you create a signed note (the transfer inscription) that locks an amount for sending, then send that note to the recipient. Both approaches require normal Bitcoin fees and **Taproot compatible addresses**, but their bookkeeping mechanisms differ.
+This process creates a distinction in user experience: sending a single **inscribed artifact** resembles moving a unique object; the sender selects the exact UTXO containing that specific sat and delivers it. **BRC 20 transfers** operate more like managing ledger entries with a paper trail: the sender creates a signed note (the transfer inscription) that locks an amount for sending, then sends that note to the recipient. Both approaches require normal Bitcoin fees and **Taproot compatible addresses**, but their bookkeeping mechanisms differ.
 
 ### Strengths and Limitations
 
@@ -259,6 +259,6 @@ Ordinals provide a path to **digital artifacts** on Bitcoin without requiring ne
 
 **BRC 20** extends the Ordinal concept to fungible tokens while remaining explicitly experimental. Even its original creator points to alternative asset systems as more purpose built solutions. Both Ordinals and BRC 20 work across multiple wallets and marketplaces today, but they're best understood as **conventions anchored to real Bitcoin transactions** rather than contract enforced protocols.
 
-To understand this ecosystem: imagine Bitcoin as a railway where every satoshi represents a seat, and every transaction moves seats between carriages. **Ordinal inscriptions** are like attaching small artworks to specific seats; wherever that seat travels, the artwork goes with it, and you must control that exact seat to transfer the artwork. **BRC 20** operates like a ticketing system built on the railway's record keeping: people leave signed notes declaring "move 100 units from me to Alice," and clerks monitoring the system (**indexers**) adjust everyone's balances when they observe the note traveling from sender to recipient.
+To understand this ecosystem: imagine Bitcoin as a railway where every satoshi represents a seat, and every transaction moves seats between carriages. **Ordinal inscriptions** are like attaching small artworks to specific seats; wherever that seat travels, the artwork goes with it, and the owner must control that exact seat to transfer the artwork. **BRC 20** operates like a ticketing system built on the railway's record keeping: people leave signed notes declaring "move 100 units from me to Alice," and clerks monitoring the system (**indexers**) adjust everyone's balances when they observe the note traveling from sender to recipient.
 
 The trains, tracks, and carriages remain standard Bitcoin infrastructure; the artworks and ticketing systems represent conventions layered on top. This architecture demonstrates how Bitcoin's base layer can support digital asset systems through creative use of existing features, enabling new use cases while maintaining the network's fundamental properties.

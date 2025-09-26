@@ -6,7 +6,7 @@
 
 DePIN's creation addresses infrastructure's fundamental capital coordination problem. Traditional infrastructure follows a familiar pattern: corporations raise billions, deploy networks, and charge users for access. This creates artificial scarcity and geographic inequality since profitable urban areas get coverage while rural regions remain underserved.
 
-DePIN's philosophy is rooted in the belief that communities can build infrastructure more efficiently than corporations through aligned economic incentives. Instead of waiting for Verizon to decide your neighborhood deserves better coverage, you can install equipment yourself and earn money for every device that connects through your hardware.
+DePIN's philosophy is rooted in the belief that communities can build infrastructure more efficiently than corporations through aligned economic incentives. Instead of waiting for Verizon to decide a neighborhood deserves better coverage, an operator can install equipment and earn money for every device that connects through that hardware.
 
 This approach embeds economic incentives directly into the protocol layer. Rather than hoping someone builds profitable applications on top, DePIN protocols include native tokens and on-chain metering from day one. When someone uses the harddware, the protocol itself collects revenue and distributes it programmatically to network participants.
 
@@ -24,7 +24,7 @@ The result? A self-organizing system that builds infrastructure through individu
 
 ### Token Economics and Incentive Design
 
-Every DePIN network faces a classic chicken-and-egg dilemma: the **cold-start problem**. Early participants must invest in expensive hardware and ongoing electricity costs while serving practically zero customers. It's like opening a restaurant in an empty neighborhood, you need to pay for ingredients and staff before anyone shows up to eat.
+Every DePIN network faces a classic chicken-and-egg dilemma: the **cold-start problem**. Early participants must invest in expensive hardware and ongoing electricity costs while serving practically zero customers. It's like opening a restaurant in an empty neighborhood: costs must be paid for ingredients and staff before anyone shows up to eat.
 
 The solution requires a delicate balancing act: paying people to build infrastructure before it makes economic sense, then gradually transitioning toward sustainable economics as real usage takes off.
 

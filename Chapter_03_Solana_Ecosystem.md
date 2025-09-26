@@ -2,7 +2,7 @@
 
 ## Section I: Architecture and Execution
 
-Ethereum scales primarily through rollups and data‑availability optimization. Solana chooses a different path: a high‑throughput, single‑state L1 with a **parallel runtime**, a distinct networking stack, **local fee markets**, and a **hardware‑centric roadmap**. We compare these choices and the implications for latency‑sensitive apps, MEV, and developer ergonomics.
+Ethereum scales primarily through rollups and data‑availability optimization. Solana chooses a different path: a high‑throughput, single‑state L1 with a **parallel runtime**, a distinct networking stack, **local fee markets**, and a **hardware‑centric roadmap**. This chapter compares these choices and the implications for latency‑sensitive apps, MEV, and developer ergonomics.
 
 Unlike Ethereum, where smart contracts typically store state internally and execute sequentially, Solana organizes state around an **account model** that cleanly separates programs from data. Programs are stateless executables while data lives in separate accounts owned by those programs. This architectural choice makes **composability** straightforward: programs call into one another via **cross-program invocations (CPIs)** and pass accounts as inputs.
 
@@ -24,7 +24,7 @@ Accounts must hold minimum **lamports** (the smallest unit of SOL, Solana's nati
 
 ### Execution Model Deep Dive
 
-Consider Solana's parallel execution like a restaurant kitchen with a manager who can see each order's complete ingredient list before cooking starts. Non-overlapping orders that use different accounts get assigned to different cooking stations and prepare simultaneously, maximizing kitchen efficiency. When orders overlap by sharing the same accounts, they must wait in line to prevent conflicts and ensure food safety. Priority fees work similarly to rush charges in this scenario - pay more and the kitchen prioritizes your order when stations are busy. Remove one popular bottleneck account from the system, and suddenly many more transactions can process in parallel.
+Consider Solana's parallel execution like a restaurant kitchen with a manager who can see each order's complete ingredient list before cooking starts. Non-overlapping orders that use different accounts get assigned to different cooking stations and prepare simultaneously, maximizing kitchen efficiency. When orders overlap by sharing the same accounts, they must wait in line to prevent conflicts and ensure food safety. Priority fees work similarly to rush charges in this scenario - pay more and the kitchen prioritizes the order when stations are busy. Remove one popular bottleneck account from the system, and suddenly many more transactions can process in parallel.
 
 This represents a fundamental departure from Ethereum's approach, where transactions execute sequentially even when they don't actually conflict with each other. Solana's method **scales naturally with hardware improvements**: more CPU cores directly translate to more **parallel transaction processing** capacity, creating a clear path for performance scaling as hardware continues advancing.
 
@@ -48,7 +48,7 @@ A proposed consensus rewrite called **Alpenglow** (SIMD-0326) targets dramatical
 
 ## Section IV: MEV and Block Building
 
-With transactions flowing directly to leaders through Gulf Stream and blocks built in predictable slots, we need to understand how value extraction works in this environment - and it's quite different from Ethereum's mempool-based MEV landscape.
+With transactions flowing directly to leaders through Gulf Stream and blocks built in predictable slots, the next step is understanding how value extraction works in this environment—quite different from Ethereum's mempool-based MEV landscape.
 
 Block construction on Solana increasingly routes through **Jito**, which enables sidecar block building with **bundle auctions**. This is optional, widely used infrastructure (not an in-protocol requirement). Searchers simulate bundles off-chain and pay tips for inclusion; validators integrate priority fees and bundle tips when constructing blocks. See Chapter VII, Section I (MEV) for cross-ecosystem roles and mitigations.
 

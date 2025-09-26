@@ -18,7 +18,7 @@ Then a week later it gets hacked for $60 million due to a smart contract bug.
 
 The DAO's spectacular rise and fall taught the crypto world a crucial lesson: decentralized governance isn't just about writing smart contracts but rather about reimagining how humans coordinate at scale. The dream was compelling: eliminate the principal-agent problems that plague traditional organizations by giving every stakeholder direct voting power. No more CEOs making self-serving decisions. No more boards prioritizing shareholders over users. Just pure, democratic coordination.
 
-But democracy, it turns out, is messy, especially when your voters are pseudonymous, your treasury is programmable money, and your decisions execute automatically through immutable code.
+But democracy, it turns out, is messy, especially when voters are pseudonymous, the treasury is programmable money, and decisions execute automatically through immutable code.
 
 ### From Code to Constitution
 

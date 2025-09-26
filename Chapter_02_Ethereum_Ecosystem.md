@@ -8,13 +8,13 @@ This shift unlocked possibilities that didn't exist before. **Decentralized exch
 
 But **power requires complexity**. Where Bitcoin's design prioritized simplicity and security above all else, Ethereum made different tradeoffs. It replaced Bitcoin's straightforward transaction model with **an account system that tracks complex application state**. It developed **a sophisticated fee system** to manage computational resources. It underwent **a technical transition from proof of work to proof of stake**. And it spawned **an entire ecosystem of scaling solutions** to handle real world usage.
 
-Understanding Ethereum means grasping how these pieces fit together: how the **fee system incentivizes efficient resource use**, how **proof of stake secures the network**, and how **Layer 2 solutions** make the platform practical for everyday applications. This chapter will guide you through these core mechanics, showing you the engineering decisions that power today's significant experiment in **decentralized computation**.
+Understanding Ethereum means grasping how these pieces fit together: how the **fee system incentivizes efficient resource use**, how **proof of stake secures the network**, and how **Layer 2 solutions** make the platform practical for everyday applications. This chapter will guide readers through these core mechanics, showing the engineering decisions that power today's significant experiment in **decentralized computation**.
 
 ### Understanding Ethereum's Fee System
 
-Every computation has a cost. Just like AWS charges you for CPU cycles, memory usage, and data transfer, Ethereum measures computational effort in **gas**, and understanding this system is important for using Ethereum effectively.
+Every computation has a cost. Just like AWS charges users for CPU cycles, memory usage, and data transfer, Ethereum measures computational effort in **gas**, and understanding this system is important for using Ethereum effectively.
 
-Think of gas as the fuel that powers Ethereum's computer. Every operation, from sending ETH to your friend to executing a complex smart contract, consumes a specific amount of this computational fuel. A simple ETH transfer between regular wallets burns through 21,000 units of gas, while interacting with smart contracts or more complex operations require proportionally more.
+Think of gas as the fuel that powers Ethereum's computer. Every operation, from sending ETH to a friend to executing a complex smart contract, consumes a specific amount of this computational fuel. A simple ETH transfer between regular wallets burns through 21,000 units of gas, while interacting with smart contracts or more complex operations require proportionally more.
 
 When discussing fees, Ethereum users work with specific denominations. While **wei** represents the smallest possible unit of ether (1e 18 ETH), fee discussions typically happen in **gwei** (a more practical unit that's one billionth of an ether). This makes gas prices easier to discuss without drowning in decimal places.
 
@@ -46,7 +46,7 @@ Before ERC-20, every new token was essentially a unique snowflake, requiring cus
 
 Suddenly, developers could build applications that worked with thousands of different tokens without writing custom code for each one. A decentralized exchange could list any ERC-20 token, a lending protocol could accept any ERC-20 as collateral, and users could seamlessly move assets between different applications. This composability (the ability for different protocols to work together like Lego blocks) became one of Ethereum's defining characteristics.
 
-The ecosystem continued to evolve with additional standards: **ERC-721** and **ERC-1155** for non fungible tokens (which we'll explore in Chapter XI), and the **Ethereum Name Service (ENS)** which allows users to replace those cryptographic addresses with human readable names like "larry.eth". These standards, combined with **EIP 55 checksums** that help prevent address typos, make Ethereum increasingly user friendly while maintaining its technical rigor.
+The ecosystem continued to evolve with additional standards: **ERC-721** and **ERC-1155** for non fungible tokens (which Chapter XI explores), and the **Ethereum Name Service (ENS)** which allows users to replace those cryptographic addresses with human readable names like "larry.eth". These standards, combined with **EIP 55 checksums** that help prevent address typos, make Ethereum increasingly user friendly while maintaining its technical rigor.
 
 Understanding how Ethereum processes transactions and maintains standards is just the beginning. The real magic happens in how the network reaches consensus about what transactions are valid and in what order they should be processed. This brings us to one of Ethereum's significant transformations: its evolution from an energy intensive system to a proof of stake mechanism.
 
@@ -188,7 +188,7 @@ With these primitives, UX shifts from transactions to **intents** - high-level g
 
 ## Section V: Restaking
 
-While Ethereum's proof-of-stake system secures the network itself, an innovative concept called **restaking** allows that same security to protect additional protocols. Think of it as getting double duty from your security deposit - validators can use their staked ETH to secure not just Ethereum, but also other applications that need cryptoeconomic guarantees.
+While Ethereum's proof-of-stake system secures the network itself, an innovative concept called **restaking** allows that same security to protect additional protocols. Think of it as getting double duty from a security deposit - validators can use their staked ETH to secure not just Ethereum, but also other applications that need cryptoeconomic guarantees.
 
 **EigenLayer** pioneered this approach by creating a system where validators can "opt in" to secure **Actively Validated Services (AVSs)** - external protocols that need the kind of security that only comes from having real money at stake. The mechanism is simple: for native restaking, validators point their withdrawal credentials to an EigenPod and delegate to an operator, while liquid staking token holders can deposit their tokens into EigenLayer strategies. In both cases, participants commit to follow the rules of their chosen AVSs. If they break those rules, they face additional slashing penalties on top of any Ethereum-level punishments.
 
