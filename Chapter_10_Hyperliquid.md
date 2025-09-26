@@ -54,7 +54,7 @@ Hyperliquid offers three main trading products: **perps** (standard perpetual fu
 
 **Listing mechanisms vary by product type.** Spot listings require winning Dutch auctions to deploy HIP-1 tokens on HyperCore, then creating trading pairs through additional auctions. Perp listings are currently curated by the team with community input, though they're moving toward permissionless deployments via HIP-3. Hyperps remain curated and are specifically designed for assets without reliable external price feeds.
 
-**All spot assets trade as HIP-1 tokens** on HyperCore's L1, regardless of their origin. This includes bridged assets like Bitcoin, when you deposit BTC or SOL, it becomes a HIP-1 representation that trades on the on-chain orderbook, then can be withdrawn back to the Bitcoin or Solana blockchain
+**All spot assets trade as HIP-1 tokens** on HyperCore's L1, regardless of their origin. This includes bridged assets like Bitcoin; when a participant deposits BTC or SOL, it becomes a HIP-1 representation that trades on the on-chain orderbook, then can be withdrawn back to the Bitcoin or Solana blockchain.
 
 Non-EVM assets like Bitcoin and Solana use **Unit's lock-and-mint bridge**, while EVM-based assets like USDC from Arbitrum use Hyperliquid's native validator-signed bridge. For Bitcoin, users send native BTC to a deposit address monitored by Unit. Once confirmed on the Bitcoin blockchain, Unit mints the corresponding HIP-1 token representation on HyperCore that can be traded. Withdrawals work in reverse. The HIP-1 token is burned and Unit releases the native BTC back to the user's address. 
 
@@ -96,7 +96,7 @@ This governance structure reflects a sophisticated understanding of platform dyn
 
 ## Section VII: Road to Decentralization 
 
-Building in DeFi is fundamentally about balancing performance and decentralization, a tradeoff where you can rarely optimize for both simultaneously. Generally, successful protocols start off more centralized to achieve the speed and reliability needed for adoption, then gradually decentralize over time as they mature and their infrastructure becomes more robust.
+Building in DeFi is fundamentally about balancing performance and decentralization, a tradeoff where simultaneous optimization is rarely possible. Generally, successful protocols start off more centralized to achieve the speed and reliability needed for adoption, then gradually decentralize over time as they mature and their infrastructure becomes more robust.
 
 Hyperliquid faces persistent criticism around several centralization vectors that critics argue undermine its decentralized positioning. The most prominent concern centers on validator control, where the Hyper Foundation reportedly controls approximately 81% of staked HYPE through its own validators. This concentration could theoretically allow a single entity to halt or steer the chain, raising questions about the protocol's resistance to censorship or coordinated control.
 

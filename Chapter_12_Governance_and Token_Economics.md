@@ -2,7 +2,7 @@
 
 In 2020, Uniswap team dropped the ultimate surprise: 400 UNI tokens to every wallet that had ever used their protocol. On day one, those 400 UNI were worth roughly $2,000 and a few months later, the same 400 UNI airdrop was worth about $6,000. Democracy or chaos?
 
-This single moment crystallized the central tension of decentralized governance: How do you coordinate thousands of strangers to make billion-dollar decisions without traditional management, boards of directors, or even legal entities? How do you prevent the wealthy from simply buying control while still rewarding meaningful participation?
+This single moment crystallized the central tension of decentralized governance: How can thousands of strangers be coordinated to make billion-dollar decisions without traditional management, boards of directors, or even legal entities? How can systems prevent the wealthy from simply buying control while still rewarding meaningful participation?
 
 Welcome to the world of DAOs (Decentralized Autonomous Organizations), where code becomes constitution, tokens become voting power, and communities attempt to govern themselves at internet scale.
 
@@ -26,15 +26,15 @@ Think of a DAO as a digital nation with programmable laws. The "constitution" is
 
 This represents a fundamental shift from traditional corporate governance. In Apple, shareholders might vote on board members who then hire executives who eventually make product decisions. In a DAO, token holders vote directly on the decisions themselves, and those decisions execute automatically through code, with built-in delays and safeguards to prevent hasty or malicious changes.
 
-But here's the catch: unlike owning Apple stock, holding governance tokens doesn't necessarily give you legal ownership of anything, only the ability to vote. Your power is defined entirely by smart contracts and operational controls like timelocks and multisigs. You can steer the protocol, but you don't "own" it in any traditional sense.
+But here's the catch: unlike owning Apple stock, holding governance tokens doesn't necessarily give legal ownership of anything, only the ability to vote. A holder's power is defined entirely by smart contracts and operational controls like timelocks and multisigs. A token holder can steer the protocol, but does not "own" it in any traditional sense.
 
 ### The Voting Dilemma: Four Approaches to Digital Democracy
 
-How do you structure voting to be both fair and effective? The crypto world has experimented with multiple governance mechanisms, each with dramatic successes and failures.
+How should voting be structured to be both fair and effective? The crypto world has experimented with multiple governance mechanisms, each with dramatic successes and failures.
 
 #### 1. Token-Weighted Voting 
 
-Most DAOs start with the corporate model: one token, one vote. Own 1% of the supply, get 1% of voting power. But in practice, **delegation is the norm**—platforms like Uniswap and Compound allow token holders to delegate their voting power to active participants.
+Most DAOs start with the corporate model: one token, one vote. Own 1% of the supply, get 1% of voting power. But in practice, **delegation is the norm**, platforms like Uniswap and Compound allow token holders to delegate their voting power to active participants.
 
 The concentration problem remains severe. In major DAOs, **a small set of top delegates often control decisive voting power**; in notable cases, **single-digit entities** have been sufficient to reach quorum or pass proposals. Foundations, early investors, and team members typically control large portions from day one, leaving the actual daily users with virtually no voice.
 
@@ -62,39 +62,39 @@ The logic: if governance is inevitably flawed, whether through plutocracy, apath
 
 ### From Discord Drama to On-Chain Democracy
 
-Imagine you want to propose that Uniswap should add a new 0.15% fee tier for certain trading pairs. You can't just submit a vote and hope for the best since successful DAO governance follows a carefully orchestrated dance designed to prevent chaos, build consensus, and avoid costly mistakes.
+Suppose a proposer aims to add a new 0.15% fee tier for certain trading pairs on Uniswap. A vote cannot simply be submitted and left to chance; successful DAO governance follows a carefully orchestrated process designed to prevent chaos, build consensus, and avoid costly mistakes.
 
 #### Stage 1: The RFC Phase
 
-Every proposal starts with conversation. You post your new fee tier proposal on Uniswap's governance forum, explaining your reasoning: a 0.15% tier could capture trading volume that currently splits between the 0.05% and 0.3% tiers, optimizing liquidity provision for mid-volatility pairs. Then you share the link on Uniswap's Discord to give the post more attention. Responses will start coming in. Some love it ("This could address the liquidity gaps we've been seeing"), others hate it ("We have enough tiers already"), and the technical experts start poking holes in the math.
+Every proposal starts with conversation. The proposer posts a new fee-tier proposal on Uniswap's governance forum, explaining the reasoning: a 0.15% tier could capture trading volume that currently splits between the 0.05% and 0.3% tiers, optimizing liquidity provision for mid-volatility pairs. Then the proposer shares the link on Uniswap's Discord to increase visibility. Responses start appearing. Some participants support it ("This could address the liquidity gaps we've been seeing"), others oppose it ("We have enough tiers already"), and technical reviewers start scrutinizing the math.
 
-This informal discussion phase, often called a Request for Comment (RFC), serves as a crucial filter. Bad ideas get shot down before wasting anyone's time or money. Good ideas get refined through community feedback. Your simple fee tier addition evolves into a nuanced plan with specific technical parameters, implementation timelines, and analysis of how it might affect existing liquidity across other tiers.
+This informal discussion phase, often called a Request for Comment (RFC), serves as a crucial filter. Bad ideas get shot down before wasting anyone's time or money. Good ideas get refined through community feedback. A simple fee-tier addition evolves into a nuanced plan with specific technical parameters, implementation timelines, and analysis of how it might affect existing liquidity across other tiers.
 
 #### Stage 2: The Temperature Check and Consensus Check (Snapshot Polling)
 
-Once your proposal has survived the Discord gauntlet, it's time for preliminary votes. Uniswap uses a two-phase snapshot process (a temperature check and then consensus check) although a lot of protocols use just one. They use a service called Snapshot, which is a gasless, off-chain voting platform that lets the community signal support without spending any money on transaction fees.
+Once the proposal has survived the Discord gauntlet, it is time for preliminary votes. Uniswap uses a two-phase snapshot process (a temperature check and then consensus check) although a lot of protocols use just one. They use a service called Snapshot, which is a gasless, off-chain voting platform that lets the community signal support without spending any money on transaction fees.
 
-The temperature check serves two purposes: it saves you from the embarrassment (and cost) of submitting a formal proposal that will fail, and it also gives you data to refine your approach. Maybe 60% support your new fee tier but want different technical parameters. Maybe the community loves the concept but wants more analysis of liquidity migration effects first.
+The temperature check serves two purposes: it saves a proposer from the embarrassment (and cost) of submitting a formal proposal that will fail, and it also gives data to refine the approach. Maybe 60% support the new fee tier but want different technical parameters. Maybe the community loves the concept but wants more analysis of liquidity migration effects first.
 
-If your temperature check passes the minimum threshold, you move to a consensus check with a refined proposal. This second round of Snapshot voting (with short polls and minimum yes-vote thresholds) must also hit specific requirements before you can proceed on-chain.
+If the temperature check passes the minimum threshold, the proposer moves to a consensus check with a refined proposal. This second round of Snapshot voting (with short polls and minimum yes-vote thresholds) must also hit specific requirements before proceeding on-chain.
 
-Snapshot prevents manipulation by taking a "snapshot" of token balances at a specific block number. You can't borrow tokens, vote, and return them within a single transaction since your voting power is locked in at the moment the poll begins.
+Snapshot prevents manipulation by taking a "snapshot" of token balances at a specific block number. Voters cannot borrow tokens, vote, and return them within a single transaction since voting power is locked in at the moment the poll begins.
 
 #### Stage 3: The Formal Proposal (On-Chain Submission)
 
-Your Consensus Check passed with solid support. Time to make it official. Submitting an on-chain governance proposal requires skin in the game: you need 1M UNI delegated (currently worth nearly $8M) just to create the proposal, ensuring only serious proposals with significant backing make it this far.
+If the consensus check passes with solid support, it is time to make it official. Submitting an on-chain governance proposal requires skin in the game: the proposer must have 1M UNI delegated (currently worth nearly $8M) just to create the proposal, ensuring only serious proposals with significant backing make it this far.
 
 The proposal isn't just text; it includes the actual smart contract code that will execute if the vote passes. The proposal specifies everything: exactly which new fee tier will be added, how the factory contracts will be updated, and what happens during the transition period. There's no room for ambiguity since the code is the proposal.
 
 #### Stage 4: The Voting Period (Democracy in Action)
 
-For the next 7 days, token holders cast their votes. Unlike traditional elections, you can see exactly how everyone votes in real-time. Whale wallets, small holders, and delegates all participate in a transparent process where every vote is recorded on-chain forever.
+For the next 7 days, token holders cast their votes. Unlike traditional elections, individual vote choices are visible in real time. Whale wallets, small holders, and delegates all participate in a transparent process where every vote is recorded on-chain forever.
 
-But here's where delegation culture becomes crucial: large delegates and the Uniswap Foundation's governance portal heavily influence outcomes. Social consensus built through forum discussions and delegate calls often determines the proposal's fate before the on-chain vote even begins. Your proposal needs 40 million UNI tokens voting "For" (4% of total supply) to reach quorum and pass.
+But here's where delegation culture becomes crucial: large delegates and the Uniswap Foundation's governance portal heavily influence outcomes. Social consensus built through forum discussions and delegate calls often determines the proposal's fate before the on-chain vote even begins. The proposal needs 40 million UNI tokens voting "For" (4% of total supply) to reach quorum and pass.
 
 #### Stage 5: The Execution (Code Becomes Law)
 
-Your proposal passes with 45 million UNI in favor. But there's one final safeguard: the timelock. Instead of executing immediately, the changes are queued for a minimum of 2 days (and potentially longer for more sensitive changes). This gives the community time to react if something went wrong—if someone spotted a critical bug in the implementation code, or the proposal passed through manipulation.
+If the proposal passes with 45 million UNI in favor, one final safeguard remains: the timelock. Instead of executing immediately, the changes are queued for a minimum of 2 days (and potentially longer for more sensitive changes). This gives the community time to react if something went wrong, if someone spotted a critical bug in the implementation code, or the proposal passed through manipulation.
 
 If no emergency intervention occurs, the smart contracts automatically execute your proposal. Uniswap's factory contracts now support your new 0.15% fee tier, and liquidity providers can begin creating pools with this option. Your idea becomes reality without any human administrator needing to flip a switch.
 
@@ -110,7 +110,7 @@ This governance process reveals a fundamental truth about DAOs: they're only as 
 
 Creating a governance token is like designing a new form of money, voting system, and incentive structure all at once. Get it right, and you create a self-sustaining ecosystem where participants are motivated to contribute to long-term success. Get it wrong, and you end up with mercenary capital, voter apathy, and governance attacks.
 
-The challenge starts with a fundamental question: What should your token actually do?
+The challenge starts with a fundamental question: What should a token actually do?
 
 #### The Four Flavors of Token Value
 
@@ -118,13 +118,13 @@ The challenge starts with a fundamental question: What should your token actuall
 
 These tokens operate on a simple premise: ownership grants voting rights, and voting rights determine the protocol's future. Holders can propose changes, vote on protocol parameters, and shape strategic decisions. There's no guaranteed income stream or built-in utility beyond governance participation. Value comes entirely from the market's belief that governance control will be valuable as the protocol grows and evolves. Governance tokens gives token holders a clean slate but they can evolve into other types by voting.
 
-Take Uniswap's UNI token: hold it, vote with it, hope the protocol succeeds. No immediate utility, no guaranteed returns—just the right to shape a protocol's future. It's like owning shares in a company that might never pay dividends, where your only value comes from other people wanting to buy your voting rights. Risky? Absolutely. But when governance decisions can unlock billions in value (like enabling fee switches), those voting rights become incredibly valuable.
+Take Uniswap's UNI token: hold it, vote with it, hope the protocol succeeds. No immediate utility, no guaranteed returns, just the right to shape a protocol's future. It's like owning shares in a company that might never pay dividends, where your only value comes from other people wanting to buy your voting rights. Risky? Absolutely. But when governance decisions can unlock billions in value (like enabling fee switches), those voting rights become incredibly valuable.
 
 **Revenue-Sharing Tokens: The Dividend Play**
 
 This model distributes protocol earnings directly to token holders based on their stake. When the protocol generates fees, trading revenue, or other income, it flows proportionally to token holders who stake or lock their tokens. It's the most straightforward value proposition: the more successful the protocol, the more money flows to token holders.
 
-Some tokens cut straight to the chase: hold them, earn money. When dYdX generates trading fees, it distributes a portion of them directly to DYDX stakers. No complex governance required—just stake your tokens and collect your share of protocol revenue. It's the closest thing to traditional dividend-paying stocks in DeFi, but with the added complexity of smart contract risk and token price volatility.
+Some tokens cut straight to the chase: hold them, earn money. When dYdX generates trading fees, it distributes a portion of them directly to DYDX stakers. No complex governance required, just stake your tokens and collect your share of protocol revenue. It's the closest thing to traditional dividend-paying stocks in DeFi, but with the added complexity of smart contract risk and token price volatility.
 
 **Buyback-and-Burn Tokens: The Scarcity Game**
 
@@ -143,7 +143,7 @@ Chainlink's LINK token serves a clear function: it is used to pay for many oracl
 Every token designer faces the same impossible choice: create scarcity to drive value, or ensure enough tokens exist to fund long-term development. It's like trying to be both Bitcoin and the Federal Reserve simultaneously.
 
 **Fixed Supply: The Bitcoin Approach**
-Some protocols launch with a hard cap: say, 100 million tokens, never to be increased. This creates artificial scarcity and can drive price appreciation, but it also creates a funding problem. How do you pay developers in year five when the initial token allocation is exhausted? Uniswap's initial tokenomics included 1 billion UNI plus a perpetual 2% annual inflation beginning after the initial four-year distribution schedule, designed from day one to fund ongoing development and ecosystem growth.
+Some protocols launch with a hard cap: say, 100 million tokens, never to be increased. This creates artificial scarcity and can drive price appreciation, but it also creates a funding problem. How are developers paid in year five when the initial token allocation is exhausted? Uniswap's initial tokenomics included 1 billion UNI plus a perpetual 2% annual inflation beginning after the initial four-year distribution schedule, designed from day one to fund ongoing development and ecosystem growth.
 
 **Inflation: The Central Bank Model**
 Other protocols embrace inflation from the start. New tokens are minted continuously to fund development, liquidity incentives, and governance participation. It's sustainable but dilutive since every new token reduces the percentage ownership of existing holders. The key is keeping inflation low enough that protocol growth outpaces token dilution.
@@ -163,13 +163,13 @@ Linear vesting releases tokens gradually, maybe 1% per month for 100 months. It'
 
 ### The Distribution Wars: Who Gets the Tokens?
 
-How you distribute tokens determines who controls your DAO. Give too many to insiders, and you create a plutocracy. Give too many to random users, and you get apathetic governance. The crypto world has experimented with four main distribution strategies, each with dramatic successes and spectacular failures.
+How tokens are distributed determines who controls a DAO. Give too many to insiders, and a plutocracy is created. Give too many to random users, and apathetic governance results. The crypto world has experimented with four main distribution strategies, each with dramatic successes and spectacular failures.
 
 #### Retroactive Airdrops
 
-Uniswap's 2020 airdrop set the gold standard for token distributions. With 400 UNI tokens granted to nearly every wallet that had interacted with the protocol, it perfectly rewarded early adopters, created instant community ownership, and generated massive attention. The message was crystal clear: "You helped build this protocol, now you own part of it."
+Uniswap's 2020 airdrop set the gold standard for token distributions. With 400 UNI tokens granted to nearly every wallet that had interacted with the protocol, it perfectly rewarded early adopters, created instant community ownership, and generated massive attention. The message was crystal clear: early adopters had helped build the protocol and now owned part of it.
 
-But success bred imitation—and unintended consequences. Once future airdrops became anticipated events, user behavior fundamentally shifted. Instead of genuinely engaging with protocols, people began using them solely to qualify for potential token rewards. This spawned industrial-scale "airdrop farming" operations running tens of thousands of wallets, each trying to game anticipated criteria.
+But success bred imitation, and unintended consequences. Once future airdrops became anticipated events, user behavior fundamentally shifted. Instead of genuinely engaging with protocols, people began using them solely to qualify for potential token rewards. This spawned industrial-scale "airdrop farming" operations running tens of thousands of wallets, each trying to game anticipated criteria.
 
 This dynamic corrupted the very metrics protocols use to demonstrate traction. Usage numbers, unique wallets, and Total Value Locked (TVL) became increasingly unreliable indicators, often artificially inflated by farmers rather than reflecting genuine adoption. In contrast, the few success stories typically used incentives to bootstrap liquidity, which then converted to genuine activity that sustained even when incentives died.
 
@@ -179,11 +179,11 @@ Up and coming protocols now face the dilemma of needing artificial traction to b
 
 #### Point Programs
 
-Traditional airdrop programs faced a fundamental challenge: users would engage briefly to qualify for rewards, then immediately abandon the protocol after claiming their tokens. Recognizing these limitations, newer protocols began experimenting with more sophisticated approaches. Some implemented points systems to gamify engagement over longer periods, while others introduced "minimum viable participation" thresholds or reputation-based criteria. However, these evolved methods haven't eliminated farming—they've simply made it more complex and resource-intensive.
+Traditional airdrop programs faced a fundamental challenge: users would engage briefly to qualify for rewards, then immediately abandon the protocol after claiming their tokens. Recognizing these limitations, newer protocols began experimenting with more sophisticated approaches. Some implemented points systems to gamify engagement over longer periods, while others introduced "minimum viable participation" thresholds or reputation-based criteria. However, these evolved methods haven't eliminated farming, they've simply made it more complex and resource-intensive.
 
 ##### The Rise of Seasonal Point Programs
 
-Point programs have since evolved far beyond simple pre-launch incentives into sophisticated, ongoing engagement mechanisms that continue operating even after tokens launch. Unlike traditional one-and-done airdrops, modern point programs operate in "seasons"—recurring periods typically lasting 3-6 months where users compete for rewards through sustained activity.
+Point programs have since evolved far beyond simple pre-launch incentives into sophisticated, ongoing engagement mechanisms that continue operating even after tokens launch. Unlike traditional one-and-done airdrops, modern point programs operate in "seasons", recurring periods typically lasting 3-6 months where users compete for rewards through sustained activity.
 
 This seasonal approach has become the dominant retention strategy because it directly addresses the post-airdrop abandonment problem. Rather than watching engagement collapse after token distribution, protocols can maintain user activity indefinitely through the promise of future seasons. Users who might otherwise move on after claiming initial rewards instead remain active, hoping to qualify for subsequent distributions.
 
@@ -191,9 +191,9 @@ This seasonal approach has become the dominant retention strategy because it dir
 
 The seasonal model has given rise to two distinct approaches to criteria transparency, each with strategic advantages:
 
-**Transparent Criteria Seasons** publish exact point formulas and qualifying requirements upfront. Users know precisely how many transactions they need, what volume thresholds to hit, or which specific actions earn points. This transparency creates predictable behavior and allows protocols to direct user activity toward desired outcomes—whether increasing TVL, driving trading volume, or encouraging specific feature adoption.
+**Transparent Criteria Seasons** publish exact point formulas and qualifying requirements upfront. Users know precisely how many transactions they need, what volume thresholds to hit, or which specific actions earn points. This transparency creates predictable behavior and allows protocols to direct user activity toward desired outcomes, whether increasing TVL, driving trading volume, or encouraging specific feature adoption.
 
-**Opaque "Guessing Game" Seasons** deliberately obscure their criteria, creating speculation about which actions will be rewarded. This uncertainty serves multiple strategic purposes: it prevents gaming by making optimization impossible, encourages broader protocol exploration as users try different strategies, and maintains engagement through mystery and anticipation. These systems often retrospectively reward unexpected behaviors—perhaps favoring users who interacted during specific time windows, demonstrated loyalty during market downturns, or engaged with less popular features.
+**Opaque "Guessing Game" Seasons** deliberately obscure their criteria, creating speculation about which actions will be rewarded. This uncertainty serves multiple strategic purposes: it prevents gaming by making optimization impossible, encourages broader protocol exploration as users try different strategies, and maintains engagement through mystery and anticipation. These systems often retrospectively reward unexpected behaviors, perhaps favoring users who interacted during specific time windows, demonstrated loyalty during market downturns, or engaged with less popular features.
 
 **Strategic Implications and Market Impact**
 
@@ -217,6 +217,6 @@ The Uniswap ecosystem provides a perfect real-world example of this tripartite s
 
 - The **Uniswap DAO** is the decentralized government where UNI token holders have the final say. They vote on protocol governance, official deployments, and funding community-led initiatives from their treasury (often valued in the billions in UNI). They have ultimate say over protocol governance, budgets, and official deployments (within established processes).
 - The **Uniswap Foundation** is a non-profit organization dedicated to the growth of the Uniswap ecosystem. It received a substantial grant from the DAO to execute its mission. The Foundation leads initiatives like the Protocol Grants Program, which funds developers and researchers, and advocates for the protocol's interests, ensuring its continued health and decentralization.
-- **Uniswap Labs** is the technology company that originally built the Uniswap protocol. It continues to be a core contributor, designing and proposing major upgrades like Uniswap v4. However, Uniswap Labs is just one (albeit very influential) participant in the ecosystem. DAO approval is needed for official deployments and funding around v4; Labs can publish code independently. Notably, Labs maintains control over the popular Uniswap frontend and trademarks, charging a 0.25% interface fee on transactions through their interface—revenue that flows to Labs, not the DAO.
+- **Uniswap Labs** is the technology company that originally built the Uniswap protocol. It continues to be a core contributor, designing and proposing major upgrades like Uniswap v4. However, Uniswap Labs is just one (albeit very influential) participant in the ecosystem. DAO approval is needed for official deployments and funding around v4; Labs can publish code independently. Notably, Labs maintains control over the popular Uniswap frontend and trademarks, charging a 0.25% interface fee on transactions through their interface, revenue that flows to Labs, not the DAO.
 
 This model allows for a powerful synergy: **Uniswap Labs** can innovate at the speed of a startup, the **Uniswap Foundation** can nurture the ecosystem for long-term success, and the **Uniswap DAO** ensures that all major decisions remain in the hands of the community, preserving the core principle of decentralization.

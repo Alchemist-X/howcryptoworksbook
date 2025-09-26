@@ -108,29 +108,29 @@ Here's the revised section with the use cases elegantly woven in:
 
 With on-chain price formation and liquidity established through DEXs, these pricing mechanisms enable the next layer of DeFi infrastructure: lending and borrowing. These protocols form the foundation of the ecosystem, providing the liquidity and leverage that power more complex strategies.
 
-Over-collateralized borrowing isn't just a design choice—it's a necessity driven by crypto's unique constraints. Unlike traditional finance, DeFi protocols operate without identity verification or legal recourse. Users can't sue defaulters or claw back their income, so they rely entirely on collateral they can liquidate instantly on-chain.
+Over-collateralized borrowing isn't just a design choice, it's a necessity driven by crypto's unique constraints. Unlike traditional finance, DeFi protocols operate without identity verification or legal recourse. Users can't sue defaulters or claw back their income, so they rely entirely on collateral they can liquidate instantly on-chain.
 
-Crypto's volatility demands substantial safety buffers. When ETH can drop 20% in hours, lenders need collateral cushions to remain solvent. The global, permissionless nature means anyone can borrow 24/7 without requiring any paperwork. Smart contracts require deterministic safety rather than subjective underwriting—using metrics like Health Factor (HF), which measures how close a position is to liquidation based on collateral value versus debt—making over-collateralization the natural solution for bearer assets in a trustless environment.
+Crypto's volatility demands substantial safety buffers. When ETH can drop 20% in hours, lenders need collateral cushions to remain solvent. The global, permissionless nature means anyone can borrow 24/7 without requiring any paperwork. Smart contracts require deterministic safety rather than subjective underwriting, using metrics like Health Factor (HF), which measures how close a position is to liquidation based on collateral value versus debt, making over-collateralization the natural solution for bearer assets in a trustless environment.
 
 ### Aave: Building the Automated Lending Infrastructure
 
 Aave operates like an automated bank that never closes, using smart contracts to evaluate collateral and approve loans based on pre-defined rules rather than human underwriters. The protocol has evolved significantly since its inception, with each version addressing real limitations users faced in practice.
 
-For lenders, the process remains straightforward across all versions. A participant deposits assets like ETH, USDC, or other supported tokens into shared liquidity pools and immediately starts earning interest. Deposits are represented by **aTokens** that continuously compound by increasing balance at a maintained unit price. Borrowers can borrow against their deposits but must maintain more collateral than they borrow—for example, depositing $1,000 of ETH might allow borrowing only $800 of USDC.
+For lenders, the process remains straightforward across all versions. A participant deposits assets like ETH, USDC, or other supported tokens into shared liquidity pools and immediately starts earning interest. Deposits are represented by **aTokens** that continuously compound by increasing balance at a maintained unit price. Borrowers can borrow against their deposits but must maintain more collateral than they borrow, for example, depositing $1,000 of ETH might allow borrowing only $800 of USDC.
 
 #### Risk Management Through Key Parameters
 
-Aave manages lending risk through parameters that determine borrowing limits and liquidation triggers. **Loan-to-Value (LTV) ratios** set maximum borrowing power per asset—an 80% LTV means depositing $100 allows borrowing up to $80. **Liquidation thresholds** define when positions become undercollateralized and eligible for liquidation, always set higher than LTV ratios to create safety buffers. **Liquidation bonuses** provide incentives for third parties to maintain system solvency by repaying bad debt in exchange for discounted collateral.
+Aave manages lending risk through parameters that determine borrowing limits and liquidation triggers. **Loan-to-Value (LTV) ratios** set maximum borrowing power per asset, an 80% LTV means depositing $100 allows borrowing up to $80. **Liquidation thresholds** define when positions become undercollateralized and eligible for liquidation, always set higher than LTV ratios to create safety buffers. **Liquidation bonuses** provide incentives for third parties to maintain system solvency by repaying bad debt in exchange for discounted collateral.
 
 Interest rates adjust automatically based on pool utilization through mathematical curves. High demand increases rates to attract lenders and discourage excessive borrowing. Low utilization decreases rates to encourage borrowing and provide competitive returns. This creates natural market balance without manual intervention.
 
 #### Who Uses Over-Collateralized Lending
 
-Despite requiring excess collateral, over-collateralized lending serves use cases that explain its popularity—**with Aave surpassing $70B in total deposits** in 2025 and nearly **$30B in active borrows** at peak. Many users want liquidity without selling assets they believe will appreciate—an ETH holder may need stablecoins for expenses or new opportunities. Borrowing preserves upside potential and is also tax favorable in most jurisdictions. 
+Despite requiring excess collateral, over-collateralized lending serves use cases that explain its popularity, **with Aave surpassing $70B in total deposits** in 2025 and nearly **$30B in active borrows** at peak. Many users want liquidity without selling assets they believe will appreciate, an ETH holder may need stablecoins for expenses or new opportunities. Borrowing preserves upside potential and is also tax favorable in most jurisdictions. 
 
 When borrowing against an asset instead of selling it, capital gains taxes are not triggered. Selling creates an immediate taxable event based on the difference between cost basis and sale price. Borrowing allows access to liquidity while retaining the asset and avoiding this tax hit.
 
-Leveraged trades represent another major use case. Users deposit ETH, borrow stablecoins, then buy more ETH through "looping" strategies that amplify exposure—for example, depositing $1,000 of ETH, borrowing $800 USDC, buying more ETH, and repeating until your Health Factor approaches your risk tolerance (e.g., HF ≈ 1.2 for aggressive leverage). Alternatively, staked assets like stETH can serve as collateral to boost yield through measured leverage, combining staking rewards with borrowing strategies.
+Leveraged trades represent another major use case. Users deposit ETH, borrow stablecoins, then buy more ETH through "looping" strategies that amplify exposure, for example, depositing $1,000 of ETH, borrowing $800 USDC, buying more ETH, and repeating until the Health Factor approaches the participant's risk tolerance (e.g., HF ≈ 1.2 for aggressive leverage). Alternatively, staked assets like stETH can serve as collateral to boost yield through measured leverage, combining staking rewards with borrowing strategies.
 
 The protocols also enable shorting and hedging by allowing users to borrow assets they expect to decline and sell them immediately, creating on-chain prime brokerage functionality. Safe shorting requires sufficient liquidity for the borrowed asset and reliable oracle pricing to prevent manipulation during liquidations. This helps hedge concentrated positions or farming rewards without unwinding entire strategies, maintaining core exposure while managing specific risks.
 
@@ -140,7 +140,7 @@ Professional traders use the platforms for arbitrage and carry trades, borrowing
 
 Aave v1 introduced the basic concept of pooled lending with interest-bearing tokens and pioneered **flash loans**, enabling users to borrow and repay large amounts of capital within a single transaction for arbitrage and liquidations (but also exploits).
 
-Aave v2 added debt tokenization (non-transferable tokens that represent your borrow), plus **credit delegation**, collateral swaps, and **repay-with-collateral**—all of which improved composability and UX. The version also introduced collateral swaps and repay-with-collateral features, reducing gas costs and improving user experience. Credit delegation allowed trusted parties to borrow against others' collateral without direct access to the underlying assets.
+Aave v2 added debt tokenization (non-transferable tokens that represent the borrower's debt), plus **credit delegation**, collateral swaps, and **repay-with-collateral**, all of which improved composability and UX. The version also introduced collateral swaps and repay-with-collateral features, reducing gas costs and improving user experience. Credit delegation allowed trusted parties to borrow against others' collateral without direct access to the underlying assets.
 
 Aave v3 brought targeted improvements for risk management and capital efficiency. **Isolation modes** allowed the protocol to safely list long-tail assets without endangering the broader system, while **efficiency modes** offered better rates for closely correlated asset pairs like stablecoins. The protocol added variable liquidation close factors, allowing liquidators to close up to 100% of very unhealthy positions to remove bad debt efficiently.
 
@@ -156,7 +156,7 @@ While Aave pools assets for lending, Sky (formerly MakerDAO) takes a different a
 
 The Vault system operates through protocol allocators ("Stars") who mint USDS via Vaults and deploy liquidity. Most end users typically upgrade DAI to USDS 1:1 or acquire USDS on markets, then opt into sUSDS to earn the Sky Savings Rate (SSR). Like Aave, the system requires over-collateralization, but the protocol creates newly minted stablecoins rather than lending from existing pools. This distinction matters because it means Sky can create new money supply based on collateral deposits.
 
-Maintaining the peg requires multiple mechanisms working together. The LitePSM acts like an exchange window, enabling fixed-rate swaps between USDS/DAI and other stablecoins (like USDC) to help maintain the $1 peg. This provides immediate arbitrage opportunities when USDS trades away from $1. The Sky Savings Rate works like a demand lever—governance can adjust the rate to influence demand for holding and saving USDS, which supports the peg by making the stablecoin more attractive to hold.
+Maintaining the peg requires multiple mechanisms working together. The LitePSM acts like an exchange window, enabling fixed-rate swaps between USDS/DAI and other stablecoins (like USDC) to help maintain the $1 peg. This provides immediate arbitrage opportunities when USDS trades away from $1. The Sky Savings Rate works like a demand lever, governance can adjust the rate to influence demand for holding and saving USDS, which supports the peg by making the stablecoin more attractive to hold.
 
 Sky represents evolution from its original DAI system to the new USDS framework, with DAI and USDS currently coexisting during the Sky rebrand and voluntary upgrade migration. The protocol increasingly backs stablecoins with real-world assets like Treasury bills alongside crypto collateral, blending DeFi innovation with traditional finance stability.
 
@@ -170,7 +170,7 @@ Wildcat operates as a marketplace where borrowers set all key parameters includi
 
 The protocol's risk management mechanics become especially critical when things go wrong. If reserves fall below the required level, the market becomes delinquent and withdrawals are restricted while penalty fees accrue until the borrower replenishes reserves. Actual losses only materialize if the borrower ultimately defaults, which is why Wildcat requires participants to actively manage counterparty risk through due diligence on borrower reputation.
 
-These risks aren't merely theoretical—they materialized in September 2025 when Kinto, a DeFi platform that had borrowed through Wildcat's facility following a major hack, announced its shutdown and became Wildcat's first official default. There were more than ten lenders in Kinto's facility and they faced a 24% haircut, recovering 76% of their principal from the borrower's remaining assets. This default demonstrated both the isolation of losses to specific facilities—with no contagion to Wildcat's other $150+ million in outstanding loans—and the real-world implications of Wildcat's undercollateralized lending model.
+These risks aren't merely theoretical, they materialized in September 2025 when Kinto, a DeFi platform that had borrowed through Wildcat's facility following a major hack, announced its shutdown and became Wildcat's first official default. There were more than ten lenders in Kinto's facility and they faced a 24% haircut, recovering 76% of their principal from the borrower's remaining assets. This default demonstrated both the isolation of losses to specific facilities, with no contagion to Wildcat's other $150+ million in outstanding loans, and the real-world implications of Wildcat's undercollateralized lending model.
 
 The Kinto default illustrates a broader principle about DeFi's evolution: while programmability doesn't eliminate credit risk, it can make it more transparent and controllable through fully on-chain, transparent credit markets with customizable terms. Wildcat represents this philosophy in practice, bringing traditional credit relationships into the programmable, transparent world of DeFi.
 
@@ -189,13 +189,13 @@ The core yield strategies include:
 7. **Options vaults** (selling covered calls/puts)
 8. **Points farming** (farming pre-token protocols)
 
-To illustrate how these mechanisms work in practice, we'll examine four innovative approaches that demonstrate DeFi's unique capabilities. Each represents a different philosophy toward yield generation: from delta-neutral hedging strategies that create stable returns, to time-based derivatives that let you trade future yield itself, to systematic options strategies that harvest volatility premiums, and speculative farming that bets on future token distributions.
+To illustrate how these mechanisms work in practice, this section examines four innovative approaches that demonstrate DeFi's unique capabilities. Each represents a different philosophy toward yield generation: from delta-neutral hedging strategies that create stable returns, to time-based derivatives that let traders exchange future yield itself, to systematic options strategies that harvest volatility premiums, and speculative farming that bets on future token distributions.
 
 ### Ethena: Delta-Neutral Yield-Bearing Dollars
 
 Ethena demonstrates how DeFi can combine multiple financial primitives to create novel yield generation mechanisms. The protocol's USDe represents a new approach to **synthetic dollar** design through **delta-neutral hedging strategies**.
 
-Unlike traditional fiat-backed stablecoins, Ethena maintains USDe stability through hedging. Think of this like owning a stock while simultaneously betting against it in the futures market—the gains and losses cancel out, leaving you with a stable position that still earns dividends. The protocol backs USDe with staked ETH, BTC, other liquid staking tokens, and reserve assets while taking offsetting **short positions in perpetual futures markets**. When users mint USDe, their collateral generates staking rewards while hedged positions neutralize directional price exposure.
+Unlike traditional fiat-backed stablecoins, Ethena maintains USDe stability through hedging. This is analogous to owning a stock while simultaneously taking a short position in the futures market, the gains and losses cancel out, leaving the holder with a stable position that still earns dividends. The protocol backs USDe with staked ETH, BTC, other liquid staking tokens, and reserve assets while taking offsetting **short positions in perpetual futures markets**. When users mint USDe, their collateral generates staking rewards while hedged positions neutralize directional price exposure.
 
 This creates three primary revenue streams. Staking rewards provide baseline yield from the underlying collateral. **Funding rate payments** from short perpetual positions typically generate additional returns, especially during bull markets when funding rates tend to be positive. **Reserve income** from T-bill-like assets provides a third yield component. The combination can produce attractive yields on what functions as a stable asset.
 
@@ -209,11 +209,11 @@ While Ethena demonstrates yield generation through hedging strategies that neutr
 
 Pendle represents one of DeFi's most innovative concepts: the ability to separate and trade the yield component of assets independently from the principal. This creates entirely new financial primitives that have no equivalent in traditional finance.
 
-The mechanism works by taking yield-bearing assets like staked Ethereum and splitting them into two components. Imagine owning a rental property that you could separate into two distinct assets: one representing ownership of the building itself, and another representing all the rental income for a specific period. The **Principal Token** represents a claim on the underlying asset at maturity, similar to a zero-coupon bond. The **Yield Token** represents a claim on all yield generated until maturity. The mathematical relationship ensures that PT price plus YT price tracks the underlying asset price, with small deviations that arbitrage typically closes, creating interesting trading opportunities.
+The mechanism works by taking yield-bearing assets like staked Ethereum and splitting them into two components. Consider a rental property separated into two distinct assets: one representing ownership of the building itself, and another representing all the rental income for a specific period. The **Principal Token** represents a claim on the underlying asset at maturity, similar to a zero-coupon bond. The **Yield Token** represents a claim on all yield generated until maturity. The mathematical relationship ensures that PT price plus YT price tracks the underlying asset price, with small deviations that arbitrage typically closes, creating interesting trading opportunities.
 
-This separation enables sophisticated strategies. Fixed-rate lending becomes possible by selling your YT immediately after depositing, locking in a guaranteed return. Yield speculation allows buying YT tokens to make leveraged bets on future yield rates. Hedging strategies use PT and YT combinations to manage interest rate risk across different market conditions.
+This separation enables sophisticated strategies. Fixed-rate lending becomes possible by selling the YT immediately after depositing, locking in a guaranteed return. Yield speculation allows buying YT tokens to make leveraged bets on future yield rates. Hedging strategies use PT and YT combinations to manage interest rate risk across different market conditions.
 
-The risks require careful consideration. YT tokens can be illiquid, especially for less popular assets. Their value is highly sensitive to changes in expected yield, creating significant volatility. Unwinding positions before maturity can involve substantial slippage, particularly during market stress when you might most want to exit.
+The risks require careful consideration. YT tokens can be illiquid, especially for less popular assets. Their value is highly sensitive to changes in expected yield, creating significant volatility. Unwinding positions before maturity can involve substantial slippage, particularly during market stress when investors might most want to exit.
 
 ### Points Farming: Speculative Yield Through Future Tokens
 
@@ -225,7 +225,7 @@ Optimization becomes a complex balancing act between cost and potential returns.
 
 However, the risks extend far beyond traditional DeFi protocols. Points farming yields are entirely speculative and policy-driven, with protocols frequently changing rules mid-campaign. Not all points translate proportionally to tokens, and distributions can face delays, dilution, caps, KYC requirements, or complete cancellation. The primary risks are opportunity cost and program risk layered on top of standard smart contract and bridge vulnerabilities.
 
-Despite these uncertainties, points farming has generated substantial returns for early participants in successful protocols. Major airdrops like Hyperliquid, Arbitrum, and Optimism have created significant wealth for active users, validating the strategy's potential while highlighting its inherently speculative nature. The key insight is that points farming represents a bet on both protocol success and fair token distribution—two variables entirely outside participants' control.
+Despite these uncertainties, points farming has generated substantial returns for early participants in successful protocols. Major airdrops like Hyperliquid, Arbitrum, and Optimism have created significant wealth for active users, validating the strategy's potential while highlighting its inherently speculative nature. The key insight is that points farming represents a bet on both protocol success and fair token distribution, two variables entirely outside participants' control.
 
 ### Options Vaults: Systematic Premium Collection
 
@@ -237,7 +237,7 @@ Options vaults automate classic institutional income strategies that were previo
 
 The yield generation comes primarily from option premiums, which vary widely depending on market volatility, strike selection, fees, and incentive structures. Many vaults also receive additional incentives from protocols seeking to bootstrap liquidity or from option market makers paying for flow. Performance depends critically on volatility levels, strike selection algorithms, and fee structures, with most vaults operating on weekly cycles.
 
-However, options vaults introduce specific risk-return trade-offs that users must understand. **Upside capping** represents the primary risk for covered call strategies—during strong rallies, the vault's assets get called away at predetermined strikes, limiting participation in further gains. **Assignment risk** affects put strategies when market downturns force the vault to purchase assets at above-market prices. **Volatility crush** can rapidly erode recent gains when implied volatility collapses, making previously profitable premiums insufficient to cover subsequent losses.
+However, options vaults introduce specific risk-return trade-offs that users must understand. **Upside capping** represents the primary risk for covered call strategies, during strong rallies, the vault's assets get called away at predetermined strikes, limiting participation in further gains. **Assignment risk** affects put strategies when market downturns force the vault to purchase assets at above-market prices. **Volatility crush** can rapidly erode recent gains when implied volatility collapses, making previously profitable premiums insufficient to cover subsequent losses.
 
 Beyond these strategy-specific risks, options vaults face standard DeFi vulnerabilities including smart contract bugs, oracle manipulation, and governance risks. The complexity of options pricing and settlement creates additional attack surfaces compared to simpler yield strategies, requiring robust security measures and careful risk management protocols.
 
@@ -305,7 +305,7 @@ Flash loans represent one of DeFi's most innovative and dangerous features, havi
 
 However, flash loans are limited to a single transaction on one chain or L2. Cross-chain "flash" behaviors rely on bridges and trust assumptions, making them not truly atomic end-to-end.
 
-Legitimate use cases include arbitrage across exchanges without holding capital, collateral swaps in lending protocols executed atomically, liquidations where you can liquidate positions and immediately sell collateral, and refinancing to move debt between protocols in single transactions.
+Legitimate use cases include arbitrage across exchanges without holding capital, collateral swaps in lending protocols executed atomically, liquidations where liquidators can liquidate positions and immediately sell collateral, and refinancing to move debt between protocols in single transactions.
 
 **The Dark Side of Flash Loans**
 
@@ -317,7 +317,7 @@ Beyond price oracles, flash loans can facilitate governance-related attacks, suc
 
 **Protocol Defense Strategies**
 
-Protocol defenses require multiple layers of safeguards. First, implement the checks-effects-interactions pattern and apply reentrancy guards with appropriate granularity—typically on externally callable, state-changing entry points. Overly broad or global guards can hinder intended callbacks, though they may be acceptable for some contracts. The key is preserving intended composability while blocking unsafe reentrancy.
+Protocol defenses require multiple layers of safeguards. First, implement the checks-effects-interactions pattern and apply reentrancy guards with appropriate granularity, typically on externally callable, state-changing entry points. Overly broad or global guards can hinder intended callbacks, though they may be acceptable for some contracts. The key is preserving intended composability while blocking unsafe reentrancy.
 
 Oracle protections form another critical defense layer. Use multi-block TWAPs (time-weighted average prices) or medians sourced from venues that cannot be dominated within a single block, such as Chainlink. Incorporate independent data sources with staleness checks. While using only previous-block prices can help, this approach is brittle around reorgs or thin markets. Where feasible, prefer market-scoped circuit breakers, escalating to protocol-wide pauses for systemic issues.
 
@@ -327,4 +327,4 @@ Additional protective measures include isolation modes with debt ceilings and su
 
 Flash loans exemplify DeFi's core tension: the same composability that enables innovation also amplifies risks. They don't create vulnerabilities but rather amplify existing ones, requiring protocols to be designed securely even when attackers have substantial capital available within the constraints of pool liquidity and transaction limits.
 
-Fees are typically small but not uniform—some protocols set or dynamically adjust them, which can render thin arbitrage opportunities unprofitable, providing some natural economic protection. Some tokens also support flash minting (mint and burn within a single transaction), which functions similarly to a flash loan for that specific token.
+Fees are typically small but not uniform, some protocols set or dynamically adjust them, which can render thin arbitrage opportunities unprofitable, providing some natural economic protection. Some tokens also support flash minting (mint and burn within a single transaction), which functions similarly to a flash loan for that specific token.

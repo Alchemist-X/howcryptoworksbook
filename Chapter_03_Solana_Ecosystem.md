@@ -48,7 +48,7 @@ A proposed consensus rewrite called **Alpenglow** (SIMD-0326) targets dramatical
 
 ## Section IV: MEV and Block Building
 
-With transactions flowing directly to leaders through Gulf Stream and blocks built in predictable slots, the next step is understanding how value extraction works in this environment—quite different from Ethereum's mempool-based MEV landscape.
+With transactions flowing directly to leaders through Gulf Stream and blocks built in predictable slots, the next step is understanding how value extraction works in this environment, quite different from Ethereum's mempool-based MEV landscape.
 
 Block construction on Solana increasingly routes through **Jito**, which enables sidecar block building with **bundle auctions**. This is optional, widely used infrastructure (not an in-protocol requirement). Searchers simulate bundles off-chain and pay tips for inclusion; validators integrate priority fees and bundle tips when constructing blocks. See Chapter VII, Section I (MEV) for cross-ecosystem roles and mitigations.
 

@@ -12,13 +12,13 @@ This approach embeds economic incentives directly into the protocol layer. Rathe
 
 ### Consensus and Coordination
 
-How do you coordinate thousands of participants to build real-world infrastructure without a central authority calling the shots? DePIN networks crack this puzzle through a clever combination of **cryptographic proof systems** and **token-based rewards**.
+How are thousands of participants coordinated to build real-world infrastructure without a central authority calling the shots? DePIN networks crack this puzzle through a clever combination of **cryptographic proof systems** and **token-based rewards**.
 
 The beauty lies in the open participation, anyone can join these networks without needing corporate approval or permission. Yet despite this openness, blockchain-based verification systems ensure that every contribution is authentic and valuable.
 
 Here's how it works in practice: participants earn tokens by providing genuine services like wireless coverage, data storage, or environmental monitoring. Meanwhile, community governance allows network members to vote on important parameters and upgrades, ensuring the system evolves democratically.
 
-Picture it as a massive, global coordination game. Players earn points for delivering real infrastructure services to their communities. Cryptography acts as the referee, preventing cheating and fraud. Meanwhile, the token system creates a powerful alignment where individual profit motives naturally support overall network growth.
+It can be viewed as a massive, global coordination game. Players earn points for delivering real infrastructure services to their communities. Cryptography acts as the referee, preventing cheating and fraud. Meanwhile, the token system creates a powerful alignment where individual profit motives naturally support overall network growth.
 
 The result? A self-organizing system that builds infrastructure through individual incentives rather than top-down control.
 
@@ -101,7 +101,7 @@ Helium solved telecommunications' **chicken-and-egg problem** through elegant ec
 
 #### IoT Coverage (LoRaWAN)
 
-The network surpassed ~850k–900k hotspots by late 2022; today, hundreds of thousands of IoT hotspots remain active across 170+ countries, creating the world's largest LoRaWAN network. **Hotspot operators** earn HNT tokens through proof-of-coverage challenges and actual data transfer, with earnings being **highly variable and historically volatile** depending on location, network density, and market conditions.
+The network surpassed ~850k, 900k hotspots by late 2022; today, hundreds of thousands of IoT hotspots remain active across 170+ countries, creating the world's largest LoRaWAN network. **Hotspot operators** earn HNT tokens through proof-of-coverage challenges and actual data transfer, with earnings being **highly variable and historically volatile** depending on location, network density, and market conditions.
 
 **Data credits (DC)** provide network access priced at $0.00001 per 24-byte packet. **Coverage rewards** incentivize geographic expansion. **Witness rewards** compensate hotspots that verify proof-of-coverage challenges.
 

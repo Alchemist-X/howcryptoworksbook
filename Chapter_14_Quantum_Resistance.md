@@ -68,7 +68,7 @@ To illustrate the threat landscape: Shor's algorithm is like a master locksmith 
 
 #### Timeline and Emerging Standards
 
-Estimates when quantum computers break encryption keep changing. Scientists used to think it would take about 20 million quantum bits (called "qubits") and 8 hours to crack RSA-2048 encryption—the security standard that protects most of our online data today. Now they believe it might only need fewer than 1 million qubits and less than a week. These estimates assume we'll have nearly perfect quantum computers with almost no errors. Today's quantum computers are nowhere near that reliable.
+Estimates when quantum computers break encryption keep changing. Scientists used to think it would take about 20 million quantum bits (called "qubits") and 8 hours to crack RSA-2048 encryption, the security standard that protects most of our online data today. Now they believe it might only need fewer than 1 million qubits and less than a week. These estimates assume we'll have nearly perfect quantum computers with almost no errors. Today's quantum computers are nowhere near that reliable.
 
 Realistically, we're looking at the early 2030s at the absolute earliest. More likely, it'll be sometime between the mid-2030s and 2040s. It could even take longer if engineers hit unexpected roadblocks or faster if breakthroughs happen quicker because of unforeseen AI progress.
 

@@ -6,19 +6,19 @@
 
 Cryptocurrency fundamentally transforms value into information. This shift eliminates the need for physical trucks and armored vaults but creates a new reality: **keys equal control**. If a party can authorize a transaction, they effectively own the asset, creating new opportunities for self-sovereignty and different categories of risk.
 
-This keys-as-control paradigm becomes particularly relevant when custody can exist entirely in memory. A 12 word mnemonic can hold millions of dollars with no physical footprint. For refugees or anyone living under hostile or bad faith governments, this enables value to cross borders in a head, resist confiscation, evade capital controls, and be reconstructed anywhere with an internet connection. But this capability comes with corresponding responsibility—one forgotten passphrase or compromised backup can mean permanent loss.
+This keys-as-control paradigm becomes particularly relevant when custody can exist entirely in memory. A 12 word mnemonic can hold millions of dollars with no physical footprint. For refugees or anyone living under hostile or bad faith governments, this enables value to cross borders in a head, resist confiscation, evade capital controls, and be reconstructed anywhere with an internet connection. But this capability comes with corresponding responsibility, one forgotten passphrase or compromised backup can mean permanent loss.
 
-Whether for individuals or institutions, this shift from physical to informational value creates new failure modes. Sophisticated custody operations become a discipline of **least hotness** (keeping the minimum online), engineered recovery, and provable operations. In essence: **keys equal control**, transactions are irreversible, and policy/operational failures cause most losses—not broken cryptography.
+Whether for individuals or institutions, this shift from physical to informational value creates new failure modes. Sophisticated custody operations become a discipline of **least hotness** (keeping the minimum online), engineered recovery, and provable operations. In essence: **keys equal control**, transactions are irreversible, and policy/operational failures cause most losses, not broken cryptography.
 
 ### Public Keys, Private Keys, and Digital Signatures
 
 At the heart of custody lies a fundamental cryptographic relationship: **public keys** and **private keys**. Think of this as a mathematical lock-and-key system where the lock (public key) can be shared freely, but only the corresponding key (private key) can unlock it.
 
-A **private key** is a large random number—typically 256 bits of entropy—that serves as the holder's secret. In practice, private keys are usually derived from 12 or 24-word mnemonic seed phrases rather than generated directly. From this private key, mathematical operations generate a corresponding **public key**. The key property: while it's computationally easy to derive a public key from a private key, the reverse is practically impossible with current technology (more about that in Chapter 14).
+A **private key** is a large random number, typically 256 bits of entropy, that serves as the holder's secret. In practice, private keys are usually derived from 12 or 24-word mnemonic seed phrases rather than generated directly. From this private key, mathematical operations generate a corresponding **public key**. The key property: while it's computationally easy to derive a public key from a private key, the reverse is practically impossible with current technology (more about that in Chapter 14).
 
 **Digital signatures** prove ownership without revealing the private key. When someone wants to spend cryptocurrency, they create a digital signature using their private key and the transaction details. Anyone can verify this signature using the public key, confirming that only the holder of the corresponding private key could have created it.
 
-This system enables **non-repudiation**: once someone signs a transaction, they cannot later claim they didn't authorize it. The mathematics provides cryptographic proof of authorization. Different curves like ECDSA (common in Bitcoin/Ethereum) offer standard security but less efficiency, while Schnorr (via Taproot) enables aggregation/privacy, and Ed25519 (in Solana) provides faster verification—choices that influence custody policy and privacy.
+This system enables **non-repudiation**: once someone signs a transaction, they cannot later claim they didn't authorize it. The mathematics provides cryptographic proof of authorization. Different curves like ECDSA (common in Bitcoin/Ethereum) offer standard security but less efficiency, while Schnorr (via Taproot) enables aggregation/privacy, and Ed25519 (in Solana) provides faster verification, choices that influence custody policy and privacy.
 
 ### Addresses: Public Identifiers
 
@@ -47,9 +47,9 @@ These words encode cryptographic entropy plus a checksum to catch transcription 
 - **Hierarchical**: One seed can generate keys for multiple cryptocurrencies and accounts
 - **Recoverable**: The phrase alone can restore an entire wallet across different software
 
-**The 25th word**: An optional passphrase can be added to the mnemonic, creating an additional security layer. This passphrase effectively creates different wallets from the same seed phrase—providing plausible deniability and additional security.
+**The 25th word**: An optional passphrase can be added to the mnemonic, creating an additional security layer. This passphrase effectively creates different wallets from the same seed phrase, providing plausible deniability and additional security.
 
-High-quality random number generation (RNG) is important for seed entropy—weak RNG can lead to predictable keys and compromises. Derivation paths (e.g., BIP-44) matching across wallets prevents interoperability issues like lost funds from path mismatches. Advanced tools like BIP-85 enable deterministic child seeds, while descriptor wallets improve portability by explicitly defining output scripts and paths.
+High-quality random number generation (RNG) is important for seed entropy, weak RNG can lead to predictable keys and compromises. Derivation paths (e.g., BIP-44) matching across wallets prevents interoperability issues like lost funds from path mismatches. Advanced tools like BIP-85 enable deterministic child seeds, while descriptor wallets improve portability by explicitly defining output scripts and paths.
 
 With these cryptographic foundations established, the following sections explore how individuals implement secure custody practices in the real world.
 
@@ -79,15 +79,15 @@ A **Secure Element** is a tamper-resistant hardware chip designed to securely st
 
 When selecting a hardware wallet, individuals can choose between different security philosophies offered by leading manufacturers. **Ledger devices** rely on proprietary secure elements and support thousands of tokens, prioritizing broad compatibility and hardware-level security. In contrast, **Trezor's models** feature open-source firmware that benefits from community auditing, appealing to individuals who prefer transparency and verifiable security. Trezor's newer models also include Secure Elements.
 
-Both approaches deliver substantial security advantages over software-based storage. **Private keys never leave the secure hardware environment**, making remote attacks nearly impossible. Devices are tamper-resistant and enforce PIN protections—Ledger wipes after three wrong PINs; Trezor adds exponential delays and wipes after sixteen. Firmware updates are cryptographically verified to prevent malicious modifications.
+Both approaches deliver substantial security advantages over software-based storage. **Private keys never leave the secure hardware environment**, making remote attacks nearly impossible. Devices are tamper-resistant and enforce PIN protections, Ledger wipes after three wrong PINs; Trezor adds exponential delays and wipes after sixteen. Firmware updates are cryptographically verified to prevent malicious modifications.
 
 ### Operational Best Practices
 
-However, maximizing these security benefits requires careful attention to operational practices. The most important consideration is **secure offline storage of seed phrases**, which serve as the ultimate backup for wallet recovery. Regular firmware updates help patch newly discovered vulnerabilities, while proper physical storage protects devices when not in use. **Device loss doesn't mean fund loss**—PIN protection secures the hardware while seed phrase backups enable full recovery on replacement devices. This resilience represents a key advantage over purely digital storage methods.
+However, maximizing these security benefits requires careful attention to operational practices. The most important consideration is **secure offline storage of seed phrases**, which serve as the ultimate backup for wallet recovery. Regular firmware updates help patch newly discovered vulnerabilities, while proper physical storage protects devices when not in use. **Device loss doesn't mean fund loss**, PIN protection secures the hardware while seed phrase backups enable full recovery on replacement devices. This resilience represents a key advantage over purely digital storage methods.
 
-For individuals managing significant holdings, advanced custody strategies can eliminate **single points of failure** through redundancy and geographic distribution. The foundation of this approach involves creating **multiple copies of seed phrases** and storing them in different secure locations—if one backup is destroyed in a fire or flood, others remain accessible. These backups require either exceptional concealment or storage in fireproof safes to prevent theft while ensuring disaster resilience.
+For individuals managing significant holdings, advanced custody strategies can eliminate **single points of failure** through redundancy and geographic distribution. The foundation of this approach involves creating **multiple copies of seed phrases** and storing them in different secure locations, if one backup is destroyed in a fire or flood, others remain accessible. These backups require either exceptional concealment or storage in fireproof safes to prevent theft while ensuring disaster resilience.
 
-Individuals with larger holdings can employ **Shamir's Secret Sharing (SSS)**, a cryptographic technique that splits seed phrases into multiple shares, requiring only a subset (M-of-N shares) to reconstruct the original phrase. This approach eliminates single points of failure while maintaining security—even if some shares are compromised or lost, the wallet remains both secure and recoverable. However, SSS introduces temporary single points of failure during initial splitting or reassembly (see Section IV for institutional applications).
+Individuals with larger holdings can employ **Shamir's Secret Sharing (SSS)**, a cryptographic technique that splits seed phrases into multiple shares, requiring only a subset (M-of-N shares) to reconstruct the original phrase. This approach eliminates single points of failure while maintaining security, even if some shares are compromised or lost, the wallet remains both secure and recoverable. However, SSS introduces temporary single points of failure during initial splitting or reassembly (see Section IV for institutional applications).
 
 ### Recovery Testing and Maintenance
 
@@ -127,7 +127,7 @@ But significant danger often comes from within. **Insider risk** exists in privi
 
 #### Multisig: The Transparency Standard
 
-**Multisig** represents cryptocurrency's transparency approach, enforcing spending policies directly on the blockchain where they become visible, open-source, and auditable. By requiring multiple signatures from independent keys, organizations create high transparency—stakeholders can verify governance decisions and audit the exact conditions for treasury movements.
+**Multisig** represents cryptocurrency's transparency approach, enforcing spending policies directly on the blockchain where they become visible, open-source, and auditable. By requiring multiple signatures from independent keys, organizations create high transparency, stakeholders can verify governance decisions and audit the exact conditions for treasury movements.
 
 This model particularly benefits DeFi protocols and DAOs, where public verification of approval thresholds builds community trust. Implementation typically relies on Bitcoin's native capabilities or Ethereum's Safe contracts (formerly Gnosis Safe), which have secured billions across thousands of organizations.
 
@@ -137,7 +137,7 @@ Bitcoin's **Taproot** upgrade introduces a privacy option through Schnorr signat
 
 #### MPC and Threshold Signatures: Privacy with Speed
 
-**Multi-Party Computation (MPC)** and threshold signatures address multisig's limitations by enabling joint signature production without reconstructing private keys. Through distributed key generation and signing protocols, multiple parties maintain security while eliminating extra **on-chain** coordination overhead—participants still interact off-chain to jointly produce one signature, with the final signature emerging from combined cryptographic contributions rather than sequential blockchain operations.
+**Multi-Party Computation (MPC)** and threshold signatures address multisig's limitations by enabling joint signature production without reconstructing private keys. Through distributed key generation and signing protocols, multiple parties maintain security while eliminating extra **on-chain** coordination overhead, participants still interact off-chain to jointly produce one signature, with the final signature emerging from combined cryptographic contributions rather than sequential blockchain operations.
 
 This approach changes key management by removing the single private key concept entirely. Secrets are randomized across multiple endpoints that never share them, engaging in decentralized protocols for wallet creation and quorum-based signing. The result: enhanced resilience against threats, operational flexibility for modifying signers without new addresses, simplified disaster recovery, and seamless multi-chain support.
 
@@ -161,7 +161,7 @@ Operationally, qualified custodians employ various method combinations: deep und
 
 The regulatory approach uniquely addresses bankruptcy remoteness, clear legal title, and compliance with evolving requirements. Clients benefit from established legal precedents, regulatory oversight, and private crime/specie policies (digital assets are not FDIC-insured). While DeFi composability remains limited and withdrawal timeframes can extend to days, fiduciaries with regulatory obligations often find this the only acceptable path for significant allocations.
 
-Global regulatory variation affects implementation—stricter U.S. fiduciary rules contrast with flexible frameworks in Singapore, impacting legal protections and innovation. In qualified custody, client assets are held separately from the custodian's property, generally excluded from bankruptcy estates. Recovery timing varies: clean segregation enables prompt transfers to successor custodians, while complex estates can extend timelines to months.
+Global regulatory variation affects implementation, stricter U.S. fiduciary rules contrast with flexible frameworks in Singapore, impacting legal protections and innovation. In qualified custody, client assets are held separately from the custodian's property, generally excluded from bankruptcy estates. Recovery timing varies: clean segregation enables prompt transfers to successor custodians, while complex estates can extend timelines to months.
 
 ### Major Institutional Custodians
 
@@ -185,7 +185,7 @@ Assets on exchanges inherit solvency and operational risks through tiered wallet
 
 #### Proof-of-Reserves
 
-**Proof-of-Reserves** (PoR) demonstrates exchange solvency through on-chain or custodian-verified attestations paired with client-verifiable liability proofs. Effective PoR includes clear exclusion proofs and published scope under independent auditor oversight—Kraken's Merkle-tree liabilities with per-client inclusion proofs exemplify best practices.
+**Proof-of-Reserves** (PoR) demonstrates exchange solvency through on-chain or custodian-verified attestations paired with client-verifiable liability proofs. Effective PoR includes clear exclusion proofs and published scope under independent auditor oversight, Kraken's Merkle-tree liabilities with per-client inclusion proofs exemplify best practices.
 
 However, PoR is a **point-in-time** attestation and can miss off-chain liabilities or short-term borrowings; helpful but **not a full solvency guarantee**. Timing windows between snapshots create blind spots, making PoR necessary but insufficient for complete assurance.
 
@@ -209,4 +209,4 @@ Custody revolves around the **"keys equal control" paradigm**, where private key
 
 Threats span external attacks, insider risks, and operational failures, countered by principles like layered controls, temperature segregation (cold/warm/hot), freeze capabilities, and immutable evidence. Anomaly monitoring and evidence discipline further strengthen defenses. Most failures stem from policy lapses rather than cryptographic breaks, underscoring the need for robust processes.
 
-Institutionally, models like **multisig** provide transparent governance, **MPC** offers private efficiency, **SSS** enables key splitting, **qualified custodians** ensure regulatory protection, and smart contract wallets enable programmable policies—each with trade-offs in cost, flexibility, and risk. Exchange integration requires PoR scrutiny, while lessons from incidents like Mt. Gox and FTX highlight segregation's importance. Overall, effective custody balances security, usability, and compliance, with innovations like Taproot/Schnorr enhancing privacy and thresholds.
+Institutionally, models like **multisig** provide transparent governance, **MPC** offers private efficiency, **SSS** enables key splitting, **qualified custodians** ensure regulatory protection, and smart contract wallets enable programmable policies, each with trade-offs in cost, flexibility, and risk. Exchange integration requires PoR scrutiny, while lessons from incidents like Mt. Gox and FTX highlight segregation's importance. Overall, effective custody balances security, usability, and compliance, with innovations like Taproot/Schnorr enhancing privacy and thresholds.
