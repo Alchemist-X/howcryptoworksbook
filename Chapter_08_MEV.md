@@ -1,4 +1,4 @@
-# Chapter VII: MEV
+# Chapter VIII: MEV
 
 Control over transaction ordering creates and redistributes value on‑chain. This chapter connects market microstructure to MEV: who extracts it, how it impacts users, and what mitigations (private order flow, batch auctions, proposer-builder separation) can return value or reduce harm.
 
@@ -56,7 +56,7 @@ Enter **Flashbots**, a research organization founded in 2020 with a radical prop
 
 The system worked like creating a separate, organized auction house for our market resellers. Instead of everyone shouting bids in the main marketplace (causing chaos for regular shoppers), the resellers could submit sealed bids to market managers who would choose the most profitable arrangement. This reduced the chaos in the main marketplace while sophisticated actors could still compete for MEV opportunities.
 
-**The Transition to Proof-of-Stake**: When Ethereum moved to proof-of-stake in September 2022, the entire MEV landscape needed rebuilding. Flashbots developed **MEV-Boost**, an open-source middleware that provides **out-of-protocol Proposer-Builder Separation (PBS)**. This expanded the builder-validator relationship introduced earlier into a full competitive marketplace via **relays**. Today, approximately 85-95% of Ethereum blocks are built via MEV-Boost.[^2] Note that this is distinct from **enshrined PBS**, which remains in development and research phases.
+**The Transition to Proof-of-Stake**: When Ethereum moved to proof-of-stake in September 2022, the entire MEV landscape needed rebuilding. Flashbots developed **MEV-Boost**, an open-source middleware that provides **out-of-protocol Proposer-Builder Separation (PBS)**. This expanded the builder-validator relationship introduced earlier into a full competitive marketplace via **relays**. Today, approximately 85-95% of Ethereum blocks are built via MEV-Boost. Note that this is distinct from **enshrined PBS**, which remains in development and research phases.
 
 This process is facilitated by trusted entities called relays. Relays act as a neutral escrow and auctioneer: builders send them full blocks, and the relay verifies their validity and bid. The relay then forwards only the block header and the bid to the proposer. The proposer chooses a header without seeing the block's contents, preventing them from stealing the MEV opportunity. This reliance on a small number of trusted relays, however, introduces its own centralization and censorship concerns, as the choice of which relays to trust can determine which transactions are included in blocks.
 
@@ -86,7 +86,6 @@ The broader toolkit approach recognizes that different participants need differe
 
 While these solutions show promise, results in practice remain mixed, and the arms race between MEV extraction and protection continues to evolve.
 
-
 ## Section V: Cross-Domain MEV
 
 Just as the industry began addressing single-chain MEV, a new challenge emerged that threatens to dwarf the current problems. **Cross-Domain MEV** extends our market analogy: imagine if the resellers could now sprint between multiple adjacent markets, buying low in Market A and selling high in Market B faster than anyone else could react.
@@ -106,3 +105,11 @@ Yet the response has been equally sophisticated. From private orderflow to batch
 The stakes couldn't be higher. MEV extraction that benefits sophisticated actors at the expense of regular users undermines the promise of decentralized finance. But the solutions emerging (intent-based systems, private execution, fair ordering mechanisms) point toward a future where the benefits of programmable money can be realized without the extractive dynamics that plague traditional finance.
 
 As blockchain networks multiply and interconnect, the next chapter of this story is already being written across domains and chains. The question isn't whether MEV will continue to evolve, but whether the mitigations can keep pace with the extraction.
+
+## Section VI: Key Takeaways
+
+MEV represents one of blockchain's most fundamental tensions: the infrastructure designed to process transactions neutrally becomes a sophisticated mechanism for extracting value. When transaction intent is visible before execution, controlling the order creates profit opportunities. Searchers exploit this through strategies ranging from benevolent (arbitrage that aligns prices) to parasitic (sandwich attacks that tax users), imposing an invisible cost on regular participants while benefiting well-capitalized professionals with technical expertise.
+
+The ecosystem's response has been pragmatic rather than utopian. Flashbots pioneered infrastructure that accepts MEV as inevitable but channels it more transparently, moving competition from wasteful priority gas auctions into organized off-chain markets. MEV-Boost now facilitates the vast majority of Ethereum blocks through proposer-builder separation, while innovations like private orderflow, batch auctions, and intent-based systems aim to shield users from extraction. These solutions don't eliminate MEV, they redistribute it, returning value to users or removing the timing games that enable attacks.
+
+Yet success breeds new problems. Block building has concentrated dramatically, with a handful of sophisticated actors dominating construction and relay infrastructure, raising censorship concerns that undermine decentralization. Efforts like BuilderNet attempt to decentralize these chokepoints through trusted execution environments, but the fundamental challenge persists: effective MEV extraction requires capital, speed, and expertise that naturally concentrate in few hands. As the ecosystem expands across domains and chains, cross-domain MEV threatens to compound these centralization pressures exponentially, creating extraction opportunities more complex and harder to mitigate than anything seen on single chains. The arms race between extraction and protection continues, with the promise of decentralized finance hanging in the balance.

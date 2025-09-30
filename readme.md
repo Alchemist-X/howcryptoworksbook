@@ -32,11 +32,11 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section I: Blockchain Architectures](./Chapter_04_Layer_1_Blockchains.md#section-i-blockchain-architectures)
 - [Section II: Consensus & Finality](./Chapter_04_Layer_1_Blockchains.md#section-ii-consensus--finality)
 - [Section III: Virtual Machines & Programming Models](./Chapter_04_Layer_1_Blockchains.md#section-iii-virtual-machines--programming-models)
-- [Section V: The Trilemma in Practice](./Chapter_04_Layer_1_Blockchains.md#section-v-the-trilemma-in-practice)
-- [Section VI: Scaling Patterns](./Chapter_04_Layer_1_Blockchains.md#section-vi-scaling-patterns)
-- [Section VII: Fees & Security Budget](./Chapter_04_Layer_1_Blockchains.md#section-vii-fees--security-budget)
-- [Section VIII: Governance & Upgrades](./Chapter_04_Layer_1_Blockchains.md#section-viii-governance--upgrades)
-- [Section IX: Attention Game](./Chapter_04_Layer_1_Blockchains.md#section-ix-attention-game)
+- [Section IV: The Trilemma in Practice](./Chapter_04_Layer_1_Blockchains.md#section-iv-the-trilemma-in-practice)
+- [Section V: Scaling Patterns](./Chapter_04_Layer_1_Blockchains.md#section-v-scaling-patterns)
+- [Section VI: Fees & Security Budget](./Chapter_04_Layer_1_Blockchains.md#section-vi-fees--security-budget)
+- [Section VII: Governance & Upgrades](./Chapter_04_Layer_1_Blockchains.md#section-vii-governance--upgrades)
+- [Section VIII: Attention Game](./Chapter_04_Layer_1_Blockchains.md#section-viii-attention-game)
 
 ### Chapter V: Custody Fundamentals
 - [Section I: Cryptographic Foundations](./Chapter_05_Custody.md#section-i-cryptographic-foundations)
@@ -73,10 +73,10 @@ This is an advanced study plan to take you from competent to expert in the parts
 
 ### Chapter X: Hyperliquid
 - [Section I: Road to Domination](./Chapter_10_Hyperliquid.md#section-i-road-to-domination)
-- [Section III: HyperBFT and EVM](./Chapter_10_Hyperliquid.md#section-iii-hyperbft-and-evm)
-- [Section IV: The HLP Design](./Chapter_10_Hyperliquid.md#section-iv-the-hlp-design)
-- [Section VI: The Governance Balance](./Chapter_10_Hyperliquid.md#section-vi-the-governance-balance)
-- [Section VII: Road to Decentralization](./Chapter_10_Hyperliquid.md#section-vii-road-to-decentralization)
+- [Section II: HyperBFT and EVM](./Chapter_10_Hyperliquid.md#section-ii-hyperbft-and-evm)
+- [Section III: The HLP Design](./Chapter_10_Hyperliquid.md#section-iii-the-hlp-design)
+- [Section IV: The Governance Balance](./Chapter_10_Hyperliquid.md#section-iv-the-governance-balance)
+- [Section V: Road to Decentralization](./Chapter_10_Hyperliquid.md#section-v-road-to-decentralization)
 
 ### Chapter XI: Non-Fungible Tokens (NFTs)
 - [Section I: The Digital Ownership Revolution](./Chapter_11_NFTs.md#section-i-the-digital-ownership-revolution)
@@ -94,7 +94,7 @@ This is an advanced study plan to take you from competent to expert in the parts
 - [Section II: DePIN Technical Architecture](./Chapter_13_DePIN.md#section-ii-depin-technical-architecture)
 - [Section III: DePIN Economics and Governance](./Chapter_13_DePIN.md#section-iii-depin-economics-and-governance)
 - [Section IV: DePIN Categories and Implementation](./Chapter_13_DePIN.md#section-iv-depin-categories-and-implementation)
-- [Section IV: Risks and Challenges](./Chapter_13_DePIN.md#section-iv-risks-and-challenges)
+- [Section V: Risks and Challenges](./Chapter_13_DePIN.md#section-v-risks-and-challenges)
 
 ### Chapter XIV: Quantum Resistance
 - [Section I: Quantum Computing](./Chapter_14_Quantum_Resistance.md#section-i-quantum-computing)

@@ -1,10 +1,10 @@
-# Chapter 4 - L1 Blockchains
+# Chapter IV: L1 Blockchains
 
 When builders talk about **Layer 1 blockchains**, they're referring to the foundational networks that provide the base layer of blockchain infrastructure - Bitcoin, Ethereum, Solana, and dozens of others competing for developers, users, and capital. But what exactly makes an L1, and why do we have so many different approaches?
 
 Every L1 is fundamentally a bundle of four core functions: **execution** (processing transactions), **settlement** (finalizing state), **consensus** (agreeing on order and validity), and **data availability** (ensuring transaction data is accessible). How these functions are organized - whether tightly integrated in a single chain or distributed across specialized layers - represents one of the most important architectural decisions in blockchain design. For instance, Bitcoin prioritizes simplicity and ironclad security for digital money, while Ethereum and Solana embrace greater complexity to enable programmable applications and high-throughput execution.
 
-The core thesis of this chapter is simple: every blockchain design involves trade-offs, and competition between L1s is as much about **liquidity, infrastructure, and attention** as it is about raw technical performance. A chain might process 100,000 transactions per second, but if it lacks users and developer, those transactions flow elsewhere. In fact, by 2025 it's become clear that there is more available blockspace spread across tens if not hundreds of L1s than there is demand to fill it.
+The core thesis of this chapter is simple: every blockchain design involves trade-offs, and competition between L1s is as much about **liquidity, infrastructure, and attention** as it is about raw technical performance. A chain might process 100,000 transactions per second, but if it lacks users and developers, those transactions flow elsewhere. In fact, by 2025 it's become clear that there is more available blockspace spread across tens if not hundreds of L1s than there is demand to fill it.
 
 This chapter connects the deep technical dives from our earlier explorations of Bitcoin, Ethereum, and Solana (Chapters I-III) with the market dynamics we'll examine later - from MEV and market structure (Chapters VI-VII) to DeFi ecosystems and governance (Chapters VIII-XII). Understanding L1 architecture provides the foundation for everything else in the crypto stack.
 
@@ -46,7 +46,7 @@ Building a flash loan that arbitrages between multiple DeFi protocols is trivial
 
 ## Section II: Consensus & Finality
 
-### Proof-of-Work vs Proof-of-Stake
+### Proof-of-Work vs. Proof-of-Stake
 
 Understanding how blockchains reach agreement is crucial for evaluating their security and performance characteristics. **Proof-of-Work** systems like Bitcoin use computational puzzles to select block producers, while **Proof-of-Stake** systems like Ethereum use economic stake for the same purpose.
 
@@ -90,7 +90,7 @@ Understanding these trade-offs helps explain why different chains make different
 
 The **Ethereum Virtual Machine (EVM)** has created an enormous ecosystem gravity well. Thousands of developers know Solidity, hundreds of projects have been audited, and countless tools exist for testing, debugging, and deploying EVM bytecode. This creates powerful network effects that extend far beyond Ethereum itself.
 
-**EVM-compatible chains** like BNB Smart Chain (BSC), Monad (emerging), Avalanche C-Chain, and Polygon can instantly inherit this entire ecosystem. Uniswap-style contracts can be deployed with minimal changes on these networks, bringing battle-tested DeFi protocols to new environments with different performance or cost characteristics.
+**EVM-compatible chains** like BNB Chain, Monad (emerging), Avalanche C-Chain, and Polygon can instantly inherit this entire ecosystem. Uniswap-style contracts can be deployed with minimal changes on these networks, bringing battle-tested DeFi protocols to new environments with different performance or cost characteristics.
 
 **EVM limitations** become apparent at scale. Sequential execution means complex transactions can block simpler ones, gas price volatility creates unpredictable costs, and the lack of native parallel execution limits throughput. Various EVM implementations add optimizations, but fundamental architectural constraints remain.
 
@@ -130,7 +130,7 @@ This creates a classic **innovator's dilemma** in blockchain development. Establ
 
 This strategic decision preserves access to Ethereum's vast ecosystem - developers can use familiar tools like **Hardhat** and **Foundry**, auditors can apply their existing **Solidity** expertise, and protocols can port seamlessly - while the underlying architecture improvements deliver performance gains through **optimistic parallel execution**, **asynchronous I/O**, and a custom **database architecture**. By decoupling the developer-facing VM from the execution implementation, Monad demonstrates that chains can innovate on performance without sacrificing the **network effects** that make the EVM dominant.
 
-## Section V: The Trilemma in Practice
+## Section IV: The Trilemma in Practice
 
 ### Understanding the Trade-offs
 
@@ -207,11 +207,11 @@ The relationship between **security budget** and actual security isn't straightf
 
 The key insight: **security budget ≠ security guarantee**. The distribution of stake or hash power, the liquidity of attack resources, and the coordinated response capabilities of the community all affect actual security levels independent of raw spending amounts.
 
-## Section VI: Scaling Patterns
+## Section V: Scaling Patterns
 
 ### Vertical Scaling Approaches
 
-**Bigger blocks** represent the most straightforward scaling approach - simply increase the amount of transaction data each block can contain. Bitcoin Cash chose this path with larger blocks (historically 32 MB; parameterization has evolved), while **BNB Smart Chain (BSC)** scales by tuning its *block gas limit* (currently ~140M gas). BSC's **2025 roadmap** proposes raising the block gas limit to **1 gigagas** (1,000,000,000 gas) - a 10× increase that's planned but not yet live. Exact throughput depends on block time and transaction mix. The trade-off is predictable: larger blocks require more bandwidth and storage, gradually excluding participants with limited resources.
+**Bigger blocks** represent the most straightforward scaling approach - simply increase the amount of transaction data each block can contain. Bitcoin Cash chose this path with larger blocks (historically 32 MB; parameterization has evolved), while **BNB Chain scales by tuning its *block gas limit* (currently ~140M gas). BNB's **2025 roadmap proposes raising the block gas limit to **1 gigagas** (1,000,000,000 gas) - a 10× increase that's planned but not yet live. Exact throughput depends on block time and transaction mix. The trade-off is predictable: larger blocks require more bandwidth and storage, gradually excluding participants with limited resources.
 
 **Shorter block times** can increase throughput without increasing per-block resource requirements. Ethereum's 12-second blocks process more transactions per minute than Bitcoin's 10-minute blocks, even with similar block sizes. However, shorter intervals increase uncle/orphan rates and may reduce security by giving attackers more opportunities to reorganize recent blocks.
 
@@ -225,7 +225,7 @@ The key insight: **security budget ≠ security guarantee**. The distribution of
 
 **Leader scheduling** and **rotating proposers** create predictable patterns for block production. Solana's leader rotation allows validators to prepare transactions for their upcoming slots, while Ethereum's beacon chain randomly selects proposers to prevent MEV concentration.
 
-## Section VII: Fees & Security Budget
+## Section VI: Fees & Security Budget
 
 Blockchain transaction pricing has evolved significantly beyond simple auction models, with each major Layer 1 developing distinct approaches tailored to their architecture. Bitcoin maintains a classic **first-price auction system** where miners collect fees directly, creating periodic congestion spikes. However, **Replace-by-Fee (RBF)** and **Child-Pays-for-Parent (CPFP)** mechanisms allow users to rebid stuck transactions, adding dynamic elements to the auction process. Ethereum introduced a more sophisticated **dual-fee system** post-EIP-1559, combining a protocol-set **base fee** that adjusts to target utilization (and gets burned) with priority tips, plus a separate **blob fee market** for Layer 2 data. Solana takes a different approach with **localized fee markets** using a fixed **base fee per signature** plus optional **priority fees per compute unit**, leveraging **parallel execution** to keep fees low under normal conditions but creating hotspots around **writable accounts and programs** that become congestion points.
 
@@ -233,7 +233,7 @@ The trend across newer networks like Aptos or Sui reflects a move toward more nu
 
 However, two fundamental pressures now affect all blockchain ecosystems regardless of their fee design. First, **fee competition and modularity** create complex dynamics as execution migrates to L2s, sidechains, and subnets, potentially changing base layer revenue streams and raising questions about whether off-chain activity meaningfully contributes to **base-layer security**. Second, the increasing **liquidity of attack resources** (through hashrate rental markets, liquid staking, and centralized custodians) means that nominal security budgets don't necessarily reflect real attack costs. Ultimately, **practical security** depends not just on economic incentives but on factors like stake distribution, **client diversity**, credible slashing mechanisms, and coordinated response capabilities, making **realized security** distinct from theoretical security budgets.
 
-## Section VIII: Governance & Upgrades
+## Section VII: Governance & Upgrades
 
 Blockchain governance fundamentally revolves around two approaches: **off-chain and on-chain mechanisms**. Bitcoin exemplifies the **off-chain model**, where protocol changes require broad consensus among developers, miners, and economic actors through years of discussion and testing, creating stability but slowing innovation. Ethereum uses a **hybrid approach** with off-chain governance for core protocol changes (via the EIP process and developer consensus) while enabling on-chain governance for application-layer decisions. The **DAO fork** demonstrated how **social consensus** can ultimately override pure technical considerations in critical situations.
 
@@ -243,7 +243,7 @@ Protocol foundations and core development teams wield significant influence desp
 
 Upgrade mechanisms have evolved to balance security, user autonomy, and deployment practicality. The 2017 SegWit activation demonstrated how **User Activated Soft Forks (UASF)** can enable economic actors to coordinate changes independently of miner preferences, with BIP-148 ultimately catalyzing miner adoption through BIP-91. Regional and regulatory considerations increasingly affect governance decisions, as validator geography and jurisdictional differences influence protocol evolution. Ultimately, the **social layer** (community culture, shared values, and informal decision-making processes) determines governance legitimacy regardless of formal mechanisms, often mattering more than specific voting systems or technical procedures.
 
-## Section IX: Attention Game
+## Section VIII: Attention Game
 
 **User adoption and product-market fit** have emerged as the scarcest resources in crypto, with dozens of prominent L1s (and potentially hundreds including smaller or forked chains) competing for a limited user base primarily consisting of crypto natives and retail speculators. Effectively no blockchain to date has achieved widespread sustainable demand for their applications outside of **trading** (decentralized exchanges), **speculation** (like NFTs or memecoins), **stablecoins**, **yield** (whether through lending or other strategies), and **payments/remittances** (particularly in emerging markets), though early pockets are emerging in areas like DePIN, and RWAs. A lot of the use cases that have gotten traction are due to both regulatory arbitrage and better efficiency that blockchains provide compared to archaic traditional banking rails (24/7 settlement, **faster cross-border transfers**, programmability, permissionless access, and global reach).
 
@@ -255,9 +255,12 @@ Upgrade mechanisms have evolved to balance security, user autonomy, and deployme
 
 The competitive landscape demonstrates that **superior technology alone rarely guarantees ecosystem success**. Instead, complex interactions between technical capabilities, economic incentives, and social dynamics determine network outcomes. Networks must balance multiple factors simultaneously: attracting and retaining developers through effective tooling and support, securing crucial liquidity partnerships and exchange relationships, cultivating sustainable community cultures, and navigating regional and institutional adoption requirements. Understanding these **multifaceted network effects** is essential for evaluating the long-term prospects of different Layer 1 networks.
 
-### Key Takeaways
-Layer 1 blockchains bundle execution, settlement, consensus, and data availability, but differ in how they arrange and optimize these functions. Monolithic designs (e.g., Solana, Aptos/Sui) maximize local composability and performance at the cost of higher hardware and operational complexity, while modular designs (e.g., Ethereum with rollups and external DA) scale via specialization but introduce cross-layer composability and latency trade-offs. Consensus choices drive user trust and UX: PoW yields probabilistic finality, PoS targets faster economic finality, and BFT-style protocols provide deterministic finality with different liveness/safety balances.
+## Section IX: Key Takeaways
 
-Virtual machines and programming models shape both throughput and developer experience. The EVM’s tooling and ecosystem gravity enable rapid adoption across EVM chains, whereas SVM-style parallelism, Move’s resource safety, and WASM runtimes offer performance and safety advantages with steeper learning curves and thinner tooling. The trilemma shows up in practice through validator hardware requirements, decentralization gradients, state growth pressures, and the importance of client diversity; scaling techniques span bigger blocks, shorter block times, pipelining/parallelism, and better networking and mempool design.
+Layer 1 blockchains represent bundles of four core functions—execution, settlement, consensus, and data availability—whose arrangement defines fundamental architectural choices. The distinction between monolithic chains (integrating all functions for local composability) and modular architectures (specializing each function for optimization) reveals a central tension: monolithic designs offer seamless atomic transactions but demand increasingly powerful hardware, while modular approaches promise specialized efficiency at the cost of cross-layer coordination complexity.
 
-Beyond pure tech, sustainable fees, MEV management, and security budgets, plus credible governance and upgrade processes, determine long-run resilience. Mindshare is won through liquidity (stablecoins, CEX integrations), developer attention (grants, hackathons, tooling), culture, and regional/institutional adoption.
+Every blockchain design involves inescapable trade-offs. The trilemma between decentralization, security, and scalability manifests in concrete decisions: Bitcoin's modest hardware requirements enable broad participation but limit throughput to single-digit transactions per second, while Solana's high-end validator demands enable thousands of transactions per second but concentrate validation among well-resourced operators. Consensus mechanisms similarly trade off—probabilistic finality offers liveness under network partitions, economic finality provides rational security guarantees, and deterministic finality delivers immediate certainty but risks halting under validator failures. Meanwhile, state growth emerges as the hidden scalability killer, with permanent data accumulation eventually pricing out ordinary node operators unless addressed through rent, expiry, or advanced cryptographic structures.
+
+The Ethereum Virtual Machine has created an ecosystem gravity well that newer technologies struggle to escape. Thousands of Solidity developers, battle-tested protocols, and mature tooling infrastructure generate powerful network effects that transcend pure technical merit. Alternative virtual machines—whether Solana's parallel-execution SVM, Move's resource-safety model, or WASM's multi-language flexibility—offer genuine improvements in performance or security but face the innovator's dilemma of overcoming entrenched ecosystems. Monad's approach exemplifies the pragmatic middle path: maintaining EVM bytecode compatibility while reimagining execution architecture to capture both ecosystem access and performance gains.
+
+Ultimately, L1 competition extends far beyond technical specifications into liquidity, attention, and adoption dynamics. By 2025, dozens of prominent chains compete for limited user bases, with more available blockspace than demand to fill it. Sustainable success requires simultaneously attracting developers through superior tooling, securing stablecoin partnerships and exchange listings for liquidity, cultivating genuine use cases beyond speculation, and navigating regulatory landscapes. Superior technology matters, but network effects—whether in developer ecosystems, liquidity depth, or community culture—often determine outcomes more than raw transaction throughput or novel consensus algorithms.

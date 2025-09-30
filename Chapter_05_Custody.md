@@ -6,7 +6,7 @@
 
 Cryptocurrency fundamentally transforms value into information. This shift eliminates the need for physical trucks and armored vaults but creates a new reality: **keys equal control**. If a party can authorize a transaction, they effectively own the asset, creating new opportunities for self-sovereignty and different categories of risk.
 
-This keys-as-control paradigm becomes particularly relevant when custody can exist entirely in memory. A 12 word mnemonic can hold millions of dollars with no physical footprint. For refugees or anyone living under hostile or bad faith governments, this enables value to cross borders in a head, resist confiscation, evade capital controls, and be reconstructed anywhere with an internet connection. But this capability comes with corresponding responsibility, one forgotten passphrase or compromised backup can mean permanent loss.
+This keys-as-control paradigm becomes particularly relevant when custody can exist entirely in memory. A 12-word mnemonic can hold millions of dollars with no physical footprint. For refugees or anyone living under hostile or bad faith governments, this enables value to cross borders in a head, resist confiscation, evade capital controls, and be reconstructed anywhere with an internet connection. But this capability comes with corresponding responsibility, one forgotten passphrase or compromised backup can mean permanent loss.
 
 Whether for individuals or institutions, this shift from physical to informational value creates new failure modes. Sophisticated custody operations become a discipline of **least hotness** (keeping the minimum online), engineered recovery, and provable operations. In essence: **keys equal control**, transactions are irreversible, and policy/operational failures cause most losses, not broken cryptography.
 
@@ -34,7 +34,7 @@ The key insight: addresses can be shared publicly for receiving funds, but spend
 
 While the cryptographic primitives above provide the mathematical foundation for custody, they create a practical problem: **how do humans safely manage these keys?** Raw private keys are 64-character hexadecimal strings like `e9873d79c6d87dc0fb6a5778633389f4453213303da61f20bd67fc233aa33262` - impossible to memorize, prone to transcription errors, and difficult to store securely.
 
-**Mnemonic seed phrases** solve this usability problem by encoding cryptographic entropy into human-readable words.
+**Mnemonic seed phrases** solve this usability problem by encoding cryptographic entropy into human‑readable words.
 
 **BIP-39** (Bitcoin Improvement Proposal 39) standardizes mnemonic phrases using a dictionary of 2048 words. Common phrase lengths include:
 - **12 words** = ~128 bits of entropy
@@ -52,8 +52,6 @@ These words encode cryptographic entropy plus a checksum to catch transcription 
 High-quality random number generation (RNG) is important for seed entropy, weak RNG can lead to predictable keys and compromises. Derivation paths (e.g., BIP-44) matching across wallets prevents interoperability issues like lost funds from path mismatches. Advanced tools like BIP-85 enable deterministic child seeds, while descriptor wallets improve portability by explicitly defining output scripts and paths.
 
 With these cryptographic foundations established, the following sections explore how individuals implement secure custody practices in the real world.
-
----
 
 ## Section II: Individual Self-Custody
 
@@ -107,8 +105,6 @@ Individual self-custody works well for personal holdings, but certain situations
 
 As custody operations scale beyond individual use, they face a different threat landscape that requires systematic analysis and defense.
 
----
-
 ## Section III: Threats and Security Imperatives
 
 Whether protecting personal holdings or institutional assets, custody faces different threats than traditional finance. Where banks worry about physical robbery and wire fraud, custody must defend against a different attack surface rooted in the keys-as-control paradigm.
@@ -118,8 +114,6 @@ Whether protecting personal holdings or institutional assets, custody faces diff
 But significant danger often comes from within. **Insider risk** exists in privileged access and the temptation of convenient policy downgrades during stressful situations. The human element remains the weakest link, with a single administrator potentially undoing robust security through malice or error.
 
 **Operational failures** represent the third major category, encompassing lost key shards, untested disaster recovery procedures, and weak change management processes. These vulnerabilities often remain hidden until crisis situations place systems under significant stress, precisely when reliable operation becomes most important.
-
----
 
 ## Section IV: Institutional Custody Models and Architecture
 
@@ -203,10 +197,12 @@ Below are notable example of companies that failed to custody users' assets prop
 
 **FTX** (2022) commingled customer and proprietary assets while operating without proper segregation or independent oversight. Despite advanced technical infrastructure, the fundamental custody failure of using customer deposits for proprietary trading created systemic risk that technical security could not address. The collapse demonstrated why regulatory frameworks and independent auditing remain important even for technically advanced operations.
 
-### Key Takeaways
+## Section V: Key Takeaways
 
-Custody revolves around the **"keys equal control" paradigm**, where private keys and derived elements like mnemonics enable self-sovereignty but demand careful management to avoid irreversible losses. Core foundations include public/private key pairs, digital signatures for non-repudiation, and addresses as public identifiers, with mnemonic phrases providing human-readable backups. For individuals, **hardware wallets** offer the gold standard, emphasizing offline storage, recovery testing, and advanced techniques like Shamir's Secret Sharing, while software options trade convenience for higher risks.
+Cryptocurrency transforms value into information, replacing physical vaults with a simple but unforgiving reality: **keys equal control**. This paradigm shift enables unprecedented self-sovereignty—a 12-word mnemonic can hold millions and cross borders in a human mind—but creates corresponding risks where forgotten passphrases mean permanent loss and transactions are irreversible. The cryptographic foundations are elegant: private keys derive public keys and addresses through one-way mathematical functions, while mnemonic seed phrases (standardized through BIP-39) encode this entropy into human-readable words that deterministically generate entire wallet hierarchies. Whether managing personal holdings or institutional treasuries, custody becomes a discipline of least hotness, engineered recovery, and provable operations rather than physical security.
 
-Threats span external attacks, insider risks, and operational failures, countered by principles like layered controls, temperature segregation (cold/warm/hot), freeze capabilities, and immutable evidence. Anomaly monitoring and evidence discipline further strengthen defenses. Most failures stem from policy lapses rather than cryptographic breaks, underscoring the need for robust processes.
+Individual self-custody balances convenience against security across a spectrum of solutions. Software wallets offer seamless integration with DeFi but inherit all vulnerabilities of their host devices—malware, phishing, and device theft. Hardware wallets represent the current gold standard by storing private keys in tamper-resistant secure elements that never expose secrets to potentially compromised networks, requiring physical button presses to approve transactions. Operational excellence demands secure offline storage of seed phrases across multiple geographic locations, regular firmware updates, and—crucially—periodic recovery drills to verify that backups actually work. Advanced techniques like Shamir's Secret Sharing enable M-of-N threshold recovery, eliminating single points of failure for larger holdings while introducing temporary vulnerabilities during key splitting or reassembly.
 
-Institutionally, models like **multisig** provide transparent governance, **MPC** offers private efficiency, **SSS** enables key splitting, **qualified custodians** ensure regulatory protection, and smart contract wallets enable programmable policies, each with trade-offs in cost, flexibility, and risk. Exchange integration requires PoR scrutiny, while lessons from incidents like Mt. Gox and FTX highlight segregation's importance. Overall, effective custody balances security, usability, and compliance, with innovations like Taproot/Schnorr enhancing privacy and thresholds.
+As custody scales to institutional needs, different architectural models emerge with distinct trade-offs. **Multisig** enforces spending policies directly on-chain where they become transparent and auditable—ideal for DAOs and protocols requiring public verification but revealing organizational structure to competitors. **MPC and threshold signatures** distribute key material across multiple parties that jointly produce signatures without reconstruction, offering operational flexibility and multi-chain support at the cost of trusting complex vendor implementations. **Qualified custodians** bring regulatory oversight, legal segregation, and bankruptcy remoteness that fiduciaries often require, though at the expense of withdrawal speed and DeFi composability. The choice between these models reflects fundamental preferences: transparency versus privacy, operational flexibility versus regulatory clarity, technical elegance versus legal certainty.
+
+History validates these architectural choices through spectacular failures. Mt. Gox's absent segregation and reconciliation allowed undetected drainage over years. Parity's shared library dependencies froze hundreds of millions across multiple wallets simultaneously. Ronin Bridge's concentrated validator control enabled a $625 million theft that went unnoticed for six days. FTX's commingling of customer and proprietary assets proved that advanced technical infrastructure means nothing without fundamental custody discipline. These disasters underscore the chapter's central insight: most losses stem from policy and operational failures rather than broken cryptography, making robust processes, tested recovery procedures, and enforced segregation the cornerstones of effective custody at any scale.

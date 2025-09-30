@@ -2,25 +2,25 @@
 
 ## Section I: Road to Domination
 
-The decentralized perpetuals market evolved through distinct phases, each attempting to solve the speed-decentralization dilemma differently. **Synthetix** pioneered synthetic perps with pooled debt but suffered from oracle latency and lack of adoption. **dYdX** popularized orderbook perps but struggled with retaining market share against competitors.
+The decentralized perpetuals market evolved through distinct phases, each attempting to solve the speed-decentralization dilemma differently. **Synthetix** pioneered synthetic perps with pooled debt but suffered from oracle latency and lack of adoption. **dYdX** popularized order book perps but struggled with retaining market share against competitors.
 
 ### The Great Reversal: How Hyperliquid Dethroned dYdX
 
-In one of the most dramatic competitive reversals in DeFi history, **dYdX's share of perp DEX volume fell from 75% in January 2023 to 7% by December 2024**, while newcomer **Hyperliquid rose to nearly 70% in December 2024)**. This transformation occurred despite dYdX's seemingly unassailable position as the established leader with years of market dominance.
+In one of the most dramatic competitive reversals in DeFi history, **dYdX's share of perp DEX volume fell from 75% in January 2023 to 7% by December 2024**, while newcomer **Hyperliquid rose to nearly 70% in December 2024**. This transformation occurred despite dYdX's seemingly unassailable position as the established leader with years of market dominance.
 
-**The roots of dYdX's failure can be traced to flawed strategic choices that made it susceptible to being overtaken.** Most critically, the project's tokenomics offered limited value to users. The original v3 version, built on StarkEx, directed all trading fees to dYdX LLC with no direct benefit to token holders. Even after migrating to v4 as a Cosmos-based appchain, the protocol's fee structure remained problematic. Trading and gas fees flowed to validators and DYDX stakers in USDC creating no buy pressure for the native token. When the buyback program finally launched in March 2025 (presumably as a response to Hyperliquid), it only captured 25% of fees and staked the repurchased tokens rather than burning them creating a much weaker value accrual mechanism than traditional buyback-and-burn models.
+**The roots of dYdX's failure can be traced to flawed strategic choices that made it susceptible to being overtaken.** Most critically, the project's tokenomics offered limited value to users. The original v3 version, built on StarkEx, directed all trading fees to dYdX LLC with no direct benefit to token holders. Even after migrating to v4 as a Cosmos-based appchain, the protocol's fee structure remained problematic. Trading and gas fees flowed to validators and DYDX stakers in USDC, creating no buy pressure for the native token. When the buyback program finally launched in March 2025 (presumably as a response to Hyperliquid), it only captured 25% of fees and staked the repurchased tokens rather than burning them, creating a much weaker value accrual mechanism than traditional buyback-and-burn models.
 
-**Hyperliquid took the opposite approach, aligning incentives from day one.** The platform conducted one of crypto's largest airdrops, distributing 31% of HYPE's total supply to over 90,000 users with zero VC allocation, minimizing sell pressure. The airdrop's initial value exceeded $1B, with HYPE trading around $4 at launch in November 2024 before surging to nearly $60 by September 2025. More importantly, Hyperliquid's tokenomics implement direct value capture through aggressive buybacks, directing approximately 99% of trading fees toward HYPE purchases. This creates an unusually tight link between trading volume and token demand, essentially making HYPE a claim on future protocol cash flows, a mechanism more direct than typical governance tokens, which often struggle to capture value. Fee discounts stem primarily from volume and referral tiers rather than staking requirements alone.
+**Hyperliquid took the opposite approach, aligning incentives from day one.** The platform conducted one of crypto's largest airdrops, distributing 31% of HYPE's total supply to over 90,000 users with zero VC allocation, minimizing sell pressure. The airdrop's initial value exceeded $1B, with HYPE trading around $4 at launch in November 2024 before surging to nearly $60 by September 2025. More importantly, Hyperliquid's tokenomics implement direct value capture through aggressive buybacks, directing approximately 99% of trading fees toward HYPE purchases. This creates an unusually tight link between trading volume and token demand, essentially making HYPE a claim on future protocol cash flows, a mechanism more direct than that of typical governance tokens, which often struggle to capture value. Fee discounts stem primarily from volume and referral tiers rather than staking requirements alone.
 
 **While Hyperliquid refined its value proposition, dYdX was stumbling through a costly technical transition.** The migration to v4 introduced user friction through complex bridging requirements and increased latency to ~1-second block times, precisely when speed became paramount. The timing proved disastrous, diverting critical resources to the overhaul just as Hyperliquid gained momentum.
 
 **This created an opening that Hyperliquid exploited with superior technology.** Built as a custom L1 using proprietary HotStuff consensus, the platform achieved sub-second transaction finality with a median of 0.2 seconds. Most remarkably, it maintained a fully on-chain order book, something previously thought impossible without sacrificing speed. Unlike dYdX's hybrid approach, every bid, ask, and cancellation was recorded on-chain with transparent depth and zero gas fees for trading.
 
-**The market responded immediately and decisively.** By August 2024, Hyperliquid's monthly volume first overtook dYdX. The gap then widened dramatically: by January 2025, Hyperliquid processed $200B while dYdX managed just $20B. In second half of 2025, Hyperliquid is in the league of its own and frequently surpasses $300B in monthly volumes reaching about 15% of Binance's perp volume.
+**The market responded immediately and decisively.** By August 2024, Hyperliquid's monthly volume first overtook dYdX. The gap then widened dramatically: by January 2025, Hyperliquid processed $200B while dYdX managed just $20B. In the second half of 2025, Hyperliquid is in a league of its own and frequently surpasses $300B in monthly volume, reaching about 15% of Binance's perp volume.
 
 This reversal demonstrates that in crypto's fast-moving markets, superior user experience combined with aligned tokenomics can rapidly overcome established market positions, even when the incumbent enjoys years of advantage and institutional backing.
 
-## Section III: HyperBFT and EVM
+## Section II: HyperBFT and EVM
 
 Hyperliquid built **HyperCore**, a bespoke L1 blockchain optimized for maximum speed and developer accessibility. The architecture involves two key decisions that create their own trade-offs.
 
@@ -34,7 +34,7 @@ The speed gains come with centralization risks inherent to leader-based systems.
 
 To become an active validator, each participant must self-delegate at least 10,000 HYPE tokens. Active validators earn the right to produce blocks and receive rewards based on their total delegated stake.
 
-Validators can charge delegators a commission on earned rewards. However, to protect delegators from exploitation, commission increases are strictly limited, validators can only raise their commission if the new rate remains at or below 1%. This prevents validators from attracting large amounts of stake with low commissions, then dramatically increasing fees to take advantage of unsuspecting delegators.
+Validators can charge delegators a commission on earned rewards. However, to protect delegators from exploitation, commission increases are strictly limited: validators can only raise their commission if the new rate remains at or below 1%. This prevents validators from attracting large amounts of stake with low commissions, then dramatically increasing fees to take advantage of unsuspecting delegators.
 
 One-day delegation locks and seven-day unstaking periods balance validator commitment with capital liquidity, though these parameters create their own trade-offs between security and flexibility.
 
@@ -46,19 +46,19 @@ One-day delegation locks and seven-day unstaking periods balance validator commi
 
 **USDC serves as collateral on Hyperliquid.** All perpetual positions use USDC as collateral, creating a unified margin system that simplifies risk management and capital efficiency. The platform's dominance in attracting capital is evident in its nearly $6 billion in bridged USDC from Arbitrum.
 
-In Settember 2025, Circle announced it is launching a native version of USDC on Hyperliquid, starting with the HyperEVM network and expanding to HyperCore later. Circle also invested in HYPE tokens, making it a direct stakeholder in the platform. This development comes shortly after Hyperliquid held a competition to select an issuer for its native USDH stablecoin, which was won by Native Markets.
+In September 2025, Circle announced it would launch a native version of USDC on Hyperliquid, starting with the HyperEVM network and expanding to HyperCore later. Circle also invested in HYPE tokens, making it a direct stakeholder in the platform. This development comes shortly after Hyperliquid held a competition to select an issuer for its native USDH stablecoin, which was won by Native Markets.
 
 ### Tradable Products
 
-Hyperliquid offers three main trading products: **perps** (standard perpetual futures), **hyperps** (pre-launch perps that use internal pricing instead of external oracles), and **spot** trading on fully on-chain order books. The platform also has upcoming features like premissionlessly deployed perps (HIP-3).
+Hyperliquid offers three main trading products: **perps** (standard perpetual futures), **hyperps** (pre-launch perps that use internal pricing instead of external oracles), and **spot** trading on fully on-chain order books. The platform also has upcoming features like permissionlessly deployed perps (HIP-3).
 
 **Listing mechanisms vary by product type.** Spot listings require winning Dutch auctions to deploy HIP-1 tokens on HyperCore, then creating trading pairs through additional auctions. Perp listings are currently curated by the team with community input, though they're moving toward permissionless deployments via HIP-3. Hyperps remain curated and are specifically designed for assets without reliable external price feeds.
 
-**All spot assets trade as HIP-1 tokens** on HyperCore's L1, regardless of their origin. This includes bridged assets like Bitcoin; when a participant deposits BTC or SOL, it becomes a HIP-1 representation that trades on the on-chain orderbook, then can be withdrawn back to the Bitcoin or Solana blockchain.
+**All spot assets trade as HIP-1 tokens** on HyperCore's L1, regardless of their origin. This includes bridged assets like Bitcoin; when a participant deposits BTC or SOL, it becomes a HIP-1 representation that trades on the on-chain order book, then can be withdrawn back to the Bitcoin or Solana blockchain.
 
 Non-EVM assets like Bitcoin and Solana use **Unit's lock-and-mint bridge**, while EVM-based assets like USDC from Arbitrum use Hyperliquid's native validator-signed bridge. For Bitcoin, users send native BTC to a deposit address monitored by Unit. Once confirmed on the Bitcoin blockchain, Unit mints the corresponding HIP-1 token representation on HyperCore that can be traded. Withdrawals work in reverse. The HIP-1 token is burned and Unit releases the native BTC back to the user's address. 
 
-Hyperps are used primarily for trading perps of tokens before they are launched, either to speculate or hedge price of farmed proceeds. Hyperp prices remain more stable and resist manipulation compared to standard pre-launch futures. The system also provides greater flexibility, the underlying asset or index only needs to exist when the contract settles or converts, not throughout the entire trading period.
+Hyperps are used primarily for trading perps of tokens before they are launched, either to speculate or hedge the price of farmed proceeds. Hyperp prices remain more stable and resist manipulation compared to standard pre-launch futures. The system also provides greater flexibility; the underlying asset or index only needs to exist when the contract settles or converts, not throughout the entire trading period.
 
 Funding rates play a crucial role in hyperp trading. When prices move strongly in one direction, the funding mechanism will heavily incentivize positions in the opposite direction for the following eight hours. This creates both opportunities and risks that traders must account for.
 
@@ -66,7 +66,7 @@ In August 2025, four coordinated whales executed market manipulation on Hyperliq
 
 Full on-chain verifiability means positions and liquidation thresholds can sometimes be inferred from public state and trading behavior. That visibility improves auditability and market integrity, but it also makes clustered liquidations easier to target: adversaries can strategically push mark prices through known liquidity-light levels to trigger cascades, and impose outsized losses on passive participants (including HLP) during stress. Mitigations include tighter per-asset risk limits and position caps, anti-manipulation bands around liquidation prices, staggered or batched liquidation flows, and circuit breakers. 
 
-## Section IV: The HLP Design
+## Section III: The HLP Design
 
 Fast execution means little without deep liquidity. Traders need tight spreads, minimal slippage, and reliable liquidation mechanisms, requirements that have historically favored centralized exchanges with dedicated market makers. Hyperliquid's solution creates new trade-offs between liquidity provision and risk concentration.
 
@@ -78,15 +78,15 @@ However, this concentration creates meaningful risks. During extreme volatility,
 
 The **JELLY manipulation** in March 2025 demonstrated how vault-based systems can suffer losses from coordinated attacks. Attackers opened large leveraged positions ($4.5M short, two $2.5M longs) on a low-liquidity token JELLY, then manipulated the liquidation process while simultaneously pumping the token's price 250% on Solana. This created a $12 million unrealized loss that threatened the protocol's solvency. Validators had to make an emergency intervention, overriding the oracle price to prevent collapse, while the team quickly implemented fixes including better position size limits, improved liquidation mechanisms, and enhanced governance controls. All traders were compensated, but the incident exposed significant vulnerabilities in the platform's risk management architecture.
 
-## Section VI: The Governance Balance
+## Section IV: The Governance Balance
 
-As Hyperliquid matured, it faced a classic DeFi dilemma: how to balance permissionlessness while maintaining quality and managing risk. While initially starting off relatively centralized, the protocol now relies on a governance system centered around voting on proposals.
+As Hyperliquid matured, it faced a classic DeFi dilemma: how to balance permissionlessness while maintaining quality and managing risk. While initially relatively centralized, the protocol now relies on a governance system centered around voting on proposals.
 
 **Hyperliquid Improvement Proposals (HIPs)** govern platform evolution, with each proposal addressing specific aspects of permissionless expansion:
 
 **HIP-1** established a native token standard with a 31-hour Dutch auction mechanism, allowing anyone to list spot tokens. This democratizes token launches while using a 31-hour Dutch auction to set deployment gas/ticker costs, which raises the bar for drive-by launches since the auction format naturally selects for tokens with genuine demand.
 
-**HIP-2** introduced automated "Hyperliquidity" for spot pairs against USDC, ensuring baseline liquidity for newly listed HIP-1 tokens. This solves the chicken-and-egg problem where tokens need liquidity to attract traders, but need traders to justify liquidity provision.
+**HIP-2** introduced automated "Hyperliquidity" for spot pairs against USDC, ensuring baseline liquidity for newly listed HIP-1 tokens. This solves the chicken-and-egg problem where tokens need liquidity to attract traders, but they need traders to justify liquidity provision.
 
 **HIP-3** (only live on testnet) aims to make perpetual markets permissionless, subject to a 1 million HYPE staked requirement by the deployer. Builders receive a share of fees in return. This creates strong incentives for responsible listings while generating meaningful cost for spam or low-quality markets.
 
@@ -94,9 +94,9 @@ The 1 million HYPE requirement effectively limits perpetual launches to serious 
 
 This governance structure reflects a sophisticated understanding of platform dynamics: pure permissionlessness can lead to spam and poor user experience, while excessive gatekeeping stifles innovation. The stake-based approach creates market-driven quality control.
 
-## Section VII: Road to Decentralization 
+## Section V: Road to Decentralization
 
-Building in DeFi is fundamentally about balancing performance and decentralization, a tradeoff where simultaneous optimization is rarely possible. Generally, successful protocols start off more centralized to achieve the speed and reliability needed for adoption, then gradually decentralize over time as they mature and their infrastructure becomes more robust.
+Building in DeFi is fundamentally about balancing performance and decentralization, a trade-off where simultaneous optimization is rarely possible. Generally, successful protocols start off more centralized to achieve the speed and reliability needed for adoption, then gradually decentralize over time as they mature and their infrastructure becomes more robust.
 
 Hyperliquid faces persistent criticism around several centralization vectors that critics argue undermine its decentralized positioning. The most prominent concern centers on validator control, where the Hyper Foundation reportedly controls approximately 81% of staked HYPE through its own validators. This concentration could theoretically allow a single entity to halt or steer the chain, raising questions about the protocol's resistance to censorship or coordinated control.
 
@@ -113,3 +113,11 @@ The bridge architecture adds another layer of centralization concerns. Withdrawa
 Critics point to the JELLY token incident as evidence of discretionary control, where validators overrode market outcomes by delisting the token and forcing settlement. While this may have protected users from a problematic asset, it demonstrated that the protocol retains significant interventionist capabilities that run counter to decentralized ideals.
 
 Hyperliquid has acknowledged these concerns and indicated plans to open-source code and decentralize infrastructure over time. However, critics argue that the current centralized dependencies create meaningful risks around censorship, single points of failure, and discretionary control that users should understand when evaluating the protocol's trustworthiness and long-term viability.
+
+## Section VI: Key Takeaways
+
+Hyperliquid executed one of DeFi's most dramatic competitive reversals, rising from obscurity to capture nearly 70% of perpetual DEX volume by end of 2024 while dYdX collapsed from 75% to less than 10%. This transformation wasn't accidental, it resulted from superior strategic choices across three dimensions. First, Hyperliquid's tokenomics aligned incentives through aggressive fee buybacks (99% of trading fees) and a massive VC-free airdrop, while dYdX's token offered minimal value capture. Second, its custom HyperBFT consensus achieved sub-second finality with a fully on-chain order book, precisely when dYdX stumbled through a costly v4 migration that increased latency. Third, its HyperEVM execution layer provided seamless Ethereum compatibility, lowering barriers to adoption.
+
+The platform's architecture reflects calculated trade-offs between performance and decentralization. The HLP vault innovatively consolidates market-making and liquidations into a community-owned system, internalizing profits while creating concentration risk that manifested dramatically in the JELLY and XPL incidents. Governance evolved through HIPs that balance permissionlessness with quality control, HIP-1's Dutch auctions democratize spot listings, HIP-2 ensures baseline liquidity, and HIP-3's 1 million HYPE staking requirement gates perpetual launches to serious participants while enabling fee sharing.
+
+Yet centralization concerns persist beneath Hyperliquid's decentralized positioning. The Hyper Foundation controls roughly 81% of staked HYPE, validators run closed-source binaries with limited autonomy, and critical infrastructure depends on centralized APIs that caused a 37-minute July 2025 outage. The bridge relies on a permissioned 4-validator set rather than broader consensus security. These dependencies represent meaningful risks around censorship and single points of failure that temper the protocol's otherwise impressive technical achievements. Hyperliquid's trajectory illustrates crypto's fundamental tension: dominant execution often requires initial centralization, with decentralization as an aspirational roadmap rather than a present reality.

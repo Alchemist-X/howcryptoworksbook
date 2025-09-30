@@ -6,7 +6,7 @@
 
 Think of regular computers like a light switch - it's either on (1) or off (0). Every calculation happens by flipping millions of these tiny switches very quickly, but they can only be in one state at a time.
 
-Quantum computers are like magical light switches that can be both on AND off at the same time. Even stranger, these switches can be entangled, showing strong correlations even over long distances (though this doesn't allow faster-than-light messaging).
+Quantum computers are like special light switches that can be both on AND off at the same time. Even stranger, these switches can be entangled, showing strong correlations even over long distances (though this doesn't allow faster-than-light messaging).
 
 This means quantum computers can explore many possible solutions simultaneously instead of checking them one by one. Imagine trying to escape a maze - a regular computer would try each path one at a time, while a quantum computer could explore all paths at once. The real trick is quantum interference, which amplifies the good paths and cancels out the bad ones to find the exit faster.
 
@@ -74,8 +74,6 @@ Realistically, we're looking at the early 2030s at the absolute earliest. More l
 
 This timeline creates pressure across the entire blockchain ecosystem. Migration to quantum-resistant cryptography demands extensive coordination among all network participants, a challenge that extends far beyond simple algorithm swapping to encompass wallet software, infrastructure, governance mechanisms, and user education.
 
----
-
 ## Section II: Blockchain Vulnerability Assessment
 
 ### Public Key Exposure Models
@@ -118,8 +116,6 @@ To protect against future quantum computing threats, users should adopt careful 
 
 Bitcoin users should similarly avoid address reuse by spending entire UTXOs to fresh addresses, ensuring no value remains tied to previously exposed public keys. While multisig and multi-party computation (MPC) solutions offer enhanced security today, they don't eliminate quantum risk if they still rely on secp256k1 cryptography once public keys are revealed; their primary value lies in providing an upgrade path to quantum-resistant algorithms when they become available.
 
----
-
 ## Section III: Quantum-Resistance Transition
 
 ### Bitcoin's Approach
@@ -147,3 +143,13 @@ Beyond user accounts, Ethereum is planning broader architectural shifts toward q
 This is no longer just theoretical planning. There are draft EIPs in active discussion, Ethereum Foundation grants funding post-quantum research, and working prototypes using Account Abstraction for quantum-resistant signatures. While these new algorithms offer security against quantum computers, they come with significant practical trade-offs. 
 
 One of the largest challenges is the increase in **data size and computational cost**. A current ECDSA signature is approximately 64 bytes, whereas a quantum-resistant signature from CRYSTALS-Dilithium can be over 2,400 bytes, and a SPHINCS+ signature can be over 17,000 bytes. This dramatic increase in size directly impacts the blockchain by leading to larger transactions, increased storage requirements (**blockchain bloat**), and higher transaction fees. Slower verification times can also affect block processing and network throughput, presenting a major engineering hurdle for protocol developers.
+
+## Section IV: Key Takeaways
+
+Quantum computers represent a fundamental shift in computational capability, with the power to break the cryptographic foundations securing today's digital infrastructure. Unlike classical computers that explore possibilities sequentially, quantum systems leverage superposition and entanglement to solve certain problems exponentially faster, most critically, Shor's algorithm can break the public key cryptography underpinning blockchain signatures, online banking, and secure communications. While symmetric encryption and hash functions face only quadratic weakening from Grover's algorithm, the asymmetric schemes protecting Bitcoin, Ethereum, and the broader internet face existential threat.
+
+The timeline remains uncertain but increasingly urgent. Early estimates suggesting 20 million qubits have been revised downward to potentially under one million, moving the threat horizon from distant speculation to the 2030s or 2040s. This creates a "harvest now, decrypt later" risk where adversaries collect encrypted data today for future decryption, making long-term secrets vulnerable immediately. Yet the response is already underway: NIST finalized the first post-quantum standards in 2024, and major institutions are building flexible systems capable of swapping cryptographic methods as seamlessly as updating software.
+
+For blockchain networks, vulnerability hinges on public key exposure. Bitcoin's early P2PK outputs, approximately 1.5 to 1.9 million BTC including Satoshi's holdings, sit completely exposed on-chain, while reused addresses reveal public keys after spending, leaving remaining balances at risk. Ethereum's account model exposes public keys after any outbound transaction, though smart contract wallets offer upgrade paths. Modern best practices, single-use addresses, hash-protected outputs, and migration to fresh keys, provide immediate protection, but dormant wallets with exposed keys represent a ticking time bomb that could trigger a "quantum rush" where attackers race to harvest vulnerable funds.
+
+Both Bitcoin and Ethereum communities are developing concrete migration strategies, though neither has reached consensus on implementation. Bitcoin developers debate proposals ranging from optional upgrades like BIP-360's quantum-resistant address types to forced migration deadlines, with the fundamental tension between protecting the network and respecting user sovereignty. Ethereum's approach centers on EIP-7932 for multi-signature support, Account Abstraction for gradual adoption, and a long-term architectural shift toward STARK-based constructions immune to Shor's algorithm. The primary engineering challenge isn't theoretical possibility but practical cost: quantum-resistant signatures can be 30 to 250 times larger than current ECDSA signatures, threatening blockchain bloat, higher fees, and reduced throughput. The transition will be gradual, coordinated, and essential, not a catastrophic event but a managed evolution that blockchain networks must navigate carefully to preserve both security and usability in the quantum era.
