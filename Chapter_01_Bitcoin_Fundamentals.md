@@ -18,34 +18,21 @@ Think of two hikers taking different routes, one logs 1,000 easy steps, the othe
 
 ### Mining and Proof of Work
 
-Bitcoin's **Proof of Work** system enables miners to prove they've expended enormous computational effort in a way that anyone can quickly verify. Miners compete to find a hash value below a specific target, a brute-force computational search that requires massive energy expenditure but takes only moments to validate.
+Bitcoin's **Proof of Work** system enables miners to prove they've expended enormous computational effort in a way that anyone can quickly verify.
 
-Here's how it works. Miners bundle transactions into a block and repeatedly hash the block header using the double SHA-256 algorithm. They're searching for a hash value below a specific target, like rolling dice until getting a number lower than a certain threshold, except they're "rolling" trillions of times per second.
+Miners bundle transactions into a block and repeatedly hash the **block header**, an 80-byte data structure containing the previous block's hash, a summary of all transactions, timestamp, difficulty target, and a nonce, using the **double SHA-256** algorithm. They're searching for a hash output that, when interpreted as a number, falls below a specific **target** encoded in nBits. The probability of any single hash succeeding is extremely small, like rolling dice until getting a number lower than a certain threshold, except they're "rolling" trillions of times per second.
 
-#### Block Header Structure
+**Hash rate** measures how many hashes a miner or the entire network can try each second, typically shown in TH/s (terahashes) or EH/s (exahashes). Higher total network hash rate doesn't make blocks come faster on average; difficulty adjusts to compensate.
 
-The **block header** is an 80-byte data structure that miners hash repeatedly while searching for a valid block. It contains exactly six fields:
+To generate different guesses, miners vary several fields: the **nonce** (a 32-bit number offering about 4 billion attempts), the timestamp, and sometimes the version field. When the nonce space is exhausted, miners modify arbitrary data in the coinbase transaction (the extra nonce), which changes the block's **Merkle root** and effectively gives them a fresh header space to search.
 
-1. **Previous Block Hash** (32 bytes): The double SHA-256 hash of the preceding block's header, creating the cryptographic chain that links all blocks together.
-2. **Merkle Root** (32 bytes): The root hash of a Merkle tree built from all transactions in the block. This efficiently commits to every transaction while allowing verification of individual transactions without the full block.
-3. **Version** (4 bytes): Indicates the block validation rules and can signal for soft fork readiness through version bits (BIP 9).
-4. **Timestamp** (4 bytes): The approximate creation time of the block in Unix epoch seconds. Must be greater than the median of the previous 11 blocks and within two hours of network-adjusted time.
-5. **nBits** (4 bytes): A compact representation of the target threshold that the block's hash must fall below. This format allows a very large 256-bit number (the target) to be expressed in just 4 bytes, saving space in the block header. This encodes the current difficulty level.
-6. **Nonce** (4 bytes): An arbitrary number that miners increment while searching for a valid hash. Despite offering about 4 billion possible values, this space is often exhausted before finding a valid block.
+The network performs a **difficulty retarget** every 2,016 blocks (approximately two weeks) to keep the average block time at 10 minutes. The algorithm measures the actual time taken for those blocks and adjusts difficulty accordingly, clamping extreme changes between ¼× and 4× to prevent wild swings.
 
-When miners hash this 80-byte header with double SHA-256, they're looking for an output that, when interpreted as a number, falls below the target encoded in nBits. The probability of any single hash succeeding is extremely small, which is why miners must try trillions of combinations.
+Hash rate comes from **ASIC hardware**, specialized chips designed solely for Bitcoin mining that are thousands of times more efficient than regular computers. These ASICs are typically organized into **mining pools** using the **Stratum protocol**, where thousands of miners combine their computing power and share rewards proportionally. Each miner receives a unique coinbase and job template so everyone searches distinct header space without duplicate work.
 
-**Hash rate** is the speed of this guessing process: how many hashes a miner or the entire network can try each second while searching for a valid block. More hash rate means more chances per second to find a block. It's measured in hashes per second (H/s), commonly shown as TH/s (terahashes), or EH/s (exahashes). Importantly, higher total network hash rate doesn't make blocks come faster on average; difficulty adjusts to maintain the ~10 minute target.
+Miners use pools because solo mining is like a huge lottery. With one home ASIC, you could wait years without finding a block. Pools combine hash rate so blocks are found regularly and rewards are split by each miner's contributed work, providing steady, predictable payouts instead of long dry spells.
 
-To generate different guesses, miners vary several fields: the nonce (a 32-bit number offering about 4 billion attempts), the timestamp, and sometimes the version field. When the nonce space is exhausted, miners modify arbitrary data in the coinbase transaction (often called an **extra nonce**) which changes the block's Merkle root and effectively gives them a fresh header space to search.
-
-To keep the average block time at approximately 10 minutes, the network performs a **difficulty retarget** every 2,016 blocks, which is about every two weeks. The algorithm measures the actual time taken for those 2,016 blocks and adjusts difficulty accordingly, though it clamps extreme changes between ¼× and 4× to prevent wild swings.
-
-Hash rate comes from **ASIC hardware**, specialized computer chips designed solely for Bitcoin mining that are thousands of times more efficient than regular computers. These ASICs are typically organized into mining pools, where thousands of miners combine their computing power and share rewards proportionally. Pools coordinate this work using the **Stratum protocol**, which gives each miner a unique coinbase and job template so everyone searches distinct header space while avoiding duplicate work.
-
-Miners use pools because finding a block is like a huge lottery. With one home ASIC, a miner's chance on any given day is tiny, they could wait years and still never hit one. Pools let miners combine their hash rate so blocks are found regularly, and rewards are split by each miner's share of work. That means steadier, more predictable payouts instead of long dry spells.
-
-Occasionally, two miners find valid blocks at nearly the same time, creating temporary forks in the blockchain. These **stale blocks** and brief **chain reorganizations** are normal; the network automatically settles on the chain with more accumulated work. This is why merchants typically wait for multiple confirmations (additional blocks built on top) before considering large payments final.
+Occasionally, two miners find valid blocks at nearly the same time, creating temporary forks in the blockchain. These **stale blocks** and brief chain reorganizations are normal; the network automatically settles on the chain with more accumulated work. This is why merchants typically wait for multiple **confirmations** (additional blocks built on top) before considering large payments final.
 
 ### Monetary Policy
 
@@ -63,17 +50,17 @@ Bitcoin's predictable scarcity forms a cornerstone of its store of value proposi
 
 ### UTXO Model
 
-Bitcoin's approach to tracking ownership fundamentally differs from traditional banking through its **Unspent Transaction Output (UTXO) model**.
+Bitcoin tracks ownership differently than traditional banks through its **Unspent Transaction Output (UTXO) model**. The best way to understand this is through a cash analogy.
 
-Think of it like physical cash in a wallet. Instead of having a single account balance, there are individual bills of different denominations: a $20, two $5s, and some $1s. When buying something for $7, one might use a $5 and two $1s, getting back change if needed.
+Imagine physical cash in your wallet: not a single account balance, but individual bills of different denominations like a $20, two $5s, and some $1s. When you buy something for $7, you hand over a $5 and two $1s, getting change back if needed. You can't split a single bill; you use the denominations you have and receive new ones in return.
 
-Bitcoin works similarly. Instead of a single balance, a wallet holds a collection of UTXOs (individual digital "coins" of varying amounts). When sending bitcoin, the wallet performs **coin selection** (choosing which UTXOs to spend, with privacy and fee trade offs), consumes them entirely, and creates new UTXOs as outputs: one for the recipient and another as "change" back to the sender. This elegant design prevents double spending: once a UTXO is spent in a confirmed transaction, it's permanently removed from the UTXO set and can never be spent again.
+Bitcoin operates on the same principle. Your wallet holds a collection of **UTXOs**, individual digital "coins" of varying amounts. When you send bitcoin, your wallet selects which UTXOs to spend (a process called **coin selection** that involves privacy and fee tradeoffs), consumes them entirely, and creates new UTXOs: one for the recipient and one as "change" back to you. This design elegantly prevents **double-spending** because once a UTXO appears in a confirmed transaction, it's permanently removed from the spendable set and cannot be used again.
 
-Each full node maintains its own view of the global **UTXO set** (the complete collection of all spendable outputs) derived from the validated blockchain.
+Every full node maintains its own view of this global **UTXO set**, the complete collection of all spendable outputs, by validating the entire blockchain.
 
-**Bitcoin Script** is a simple programming language that defines spending conditions. Each output carries a **locking script** (scriptPubKey), and inputs provide **unlocking data** (scriptSig and/or witness for SegWit) that must satisfy that script. Addresses are just encodings of common script templates like P2PKH, P2SH, P2WPKH, and P2TR (Taproot).
+The rules for spending these UTXOs are defined by **Bitcoin Script**, a simple programming language. Each output includes a **locking script** (scriptPubKey) that sets the spending conditions, while inputs provide **unlocking data** (scriptSig and witness data for SegWit transactions) to satisfy those conditions. **Bitcoin addresses** are simply user-friendly encodings of common script templates like P2PKH, P2SH, P2WPKH, and P2TR (Taproot).
 
-**Timelocks** make transactions invalid until a specified time or block height, either **absolute** timelocks (nLockTime or OP_CHECKLOCKTIMEVERIFY) or **relative** timelocks (nSequence with OP_CHECKSEQUENCEVERIFY). These enable more complex contracts like Lightning channels, vaults, and escrow arrangements.
+Bitcoin Script also supports **timelocks**, which keep transactions invalid until a specified time or block height is reached. These come in two forms: absolute timelocks (using nLockTime or OP_CHECKLOCKTIMEVERIFY) and relative timelocks (using nSequence with OP_CHECKSEQUENCEVERIFY). Together, these features enable sophisticated contracts like Lightning channels, vaults, and escrow arrangements.
 
 ### Address Types and Formats
 
