@@ -84,7 +84,7 @@ This process intentionally prioritizes caution over speed. Changes to a system s
 
 ### The Great Transition: From Mining to Staking
 
-September 15, 2022, marked a watershed moment in Ethereum history. On that day, **The Merge** was completed, a years-long engineering effort that transitioned the network from energy-intensive mining to a **proof-of-stake** system. This wasn't just a technical upgrade. It was a reimagining of how Ethereum secures itself.
+September 15, 2022, marked a watershed moment in Ethereum history. On that day, **The Merge** was completed, a years-long engineering effort that transitioned the network from energy-intensive mining to a **proof-of-stake** system. The upgrade represented a reimagining of how Ethereum secures itself.
 
 The transformation was unprecedented in scope. Bitcoin miners race to solve computational puzzles using large amounts of electricity. Ethereum's new system relies instead on validators who lock up their own ETH as collateral. These validators earn rewards for honest behavior and face severe penalties for malicious actions. The result? Ethereum reduced its energy consumption by over 99.9% while maintaining comparable security guarantees.
 
@@ -238,7 +238,7 @@ The liquid restaking ecosystem introduces systemic risks that compound on top of
 
 **EIP-1559's fee burn aligns incentives between network usage and token value.** Ethereum created a direct link between blockspace demand and supply dynamics: successful applications don't just increase demand for ETH, they actively reduce its supply. This mechanism transformed ETH from a simple utility token into an asset whose economics directly reflect network success, making periods of sustained activity potentially deflationary.
 
-**Proof-of-stake enables security properties that proof-of-work cannot match.** The transition to staking wasn't just about energy efficiency. It separated consensus from execution, creating the architectural foundation for rollups and data availability sampling. More importantly, slashing penalties can scale with attack size, making coordinated attacks exponentially more expensive as they grow. Staked capital can be confiscated in ways that computational power never could, fundamentally changing the security model.
+**Proof-of-stake enables security properties that proof-of-work cannot match.** The transition to staking accomplished more than energy efficiency: it separated consensus from execution, creating the architectural foundation for rollups and data availability sampling. More importantly, slashing penalties can scale with attack size, making coordinated attacks exponentially more expensive as they grow. Staked capital can be confiscated in ways that computational power never could, fundamentally changing the security model.
 
 **Scaling through rollups requires accepting new architectural compromises.** Rollups can inherit Ethereum's security, but only when they post their data availability to mainnet. Alternative DA solutions sacrifice some security guarantees for lower costs. Optimistic approaches trade fast finality for withdrawal delays. ZK approaches eliminate those delays but introduce cryptographic assumptions. Centralized sequencers improve user experience while creating censorship vectors. Each design optimizes for different priorities. There's no universally superior solution, only context-dependent choices.
 

@@ -2,7 +2,7 @@
 
 ## Section I: Bitcoin Core Concepts
 
-Bitcoin emerged from the ashes of the 2008 global financial crisis. On January 3rd, 2009, its anonymous creator, Satoshi Nakamoto, inscribed a telling message into Bitcoin's genesis block, the first block in its blockchain. The headline from *The Times* read: "Chancellor on brink of second bailout for banks." This wasn't just a timestamp. It was a permanent statement of purpose, a critique embedded in code against centralized financial systems that had failed the world.
+Bitcoin emerged from the ashes of the 2008 global financial crisis. On January 3rd, 2009, its anonymous creator, Satoshi Nakamoto, inscribed a telling message into Bitcoin's genesis block, the first block in its blockchain. The headline from *The Times* read: "Chancellor on brink of second bailout for banks." It served as a permanent statement of purpose, a critique embedded in code against centralized financial systems that had failed the world.
 
 Bitcoin's design draws from the cypherpunk movement, which championed using cryptography to protect individual freedom and financial sovereignty. Rather than relying on banks or governments, Bitcoin functions as a peer-to-peer electronic cash system with no trusted intermediaries. 
 

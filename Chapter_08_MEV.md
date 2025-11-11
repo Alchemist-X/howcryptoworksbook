@@ -8,7 +8,7 @@ Picture a busy marketplace with a peculiar setup. A big whiteboard where everyon
 
 A fast-moving reseller spots the order, sprints to Stall A, buys the tomatoes first, then offers them back to the trader at a markup. Another reseller notices the trader is about to make a large purchase that will drive up tomato prices, so they buy just before the trader and sell immediately after, pocketing the price difference the trade created. Meanwhile, the market manager starts auctioning off the right to decide who gets served first: whoever pays the highest tip jumps to the front of the line.
 
-This market chaos isn't just an analogy but exactly what happens in **the public mempool**, creating what researchers call a "dark forest" where revealing profitable trades attracts predators.
+This market chaos mirrors exactly what happens in **the public mempool**, creating what researchers call a "dark forest" where revealing profitable trades attracts predators.
 
 **Maximal Extractable Value (MEV)** is the profit that emerges from this system. Originally called "Miner Extractable Value" during Ethereum's proof-of-work era, MEV represents revenue extracted beyond standard block rewards and transaction fees by strategically ordering, including, or excluding transactions within blocks.
 
@@ -54,7 +54,7 @@ The trader pays an invisible tax for revealing their intent publicly. The bot ri
 
 **Beyond price manipulation, liquidations** represent another MEV category: when someone's borrowed too much against their collateral, searchers race to claim the reward for closing out the position. Unlike sandwiching, liquidations serve a necessary function, but this competition still inflates costs for everyone.
 
-Priority-gas-auction bidding historically spiked gas costs as bots competed for transaction priority; today much of that competition is off-chain via specialized auction systems where searchers bid for transaction ordering rights, reducing broad mempool fee spikes but often shifting costs into worse execution for users or rebates captured by intermediaries. This isn't just theoretical harm. Every sandwich attack represents value directly transferred from a user to a well-capitalized operator, even if the fee externalities now appear less in the public mempool and more in private routing markets.
+Priority-gas-auction bidding historically spiked gas costs as bots competed for transaction priority; today much of that competition is off-chain via specialized auction systems where searchers bid for transaction ordering rights, reducing broad mempool fee spikes but often shifting costs into worse execution for users or rebates captured by intermediaries. This harm is far from theoretical. Every sandwich attack represents value directly transferred from a user to a well-capitalized operator, even if the fee externalities now appear less in the public mempool and more in private routing markets.
 
 ### How Users Can Protect Themselves
 

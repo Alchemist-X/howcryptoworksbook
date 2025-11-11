@@ -16,7 +16,7 @@ It's 2016, and Ethereum has been live for barely a year. A group of developers l
 
 Then a week later it gets hacked for $60 million due to a smart contract bug.
 
-The DAO's spectacular rise and fall taught the crypto world a crucial lesson: decentralized governance isn't just about writing smart contracts but rather about reimagining how humans coordinate at scale. If every stakeholder held direct voting power, the thinking went, then no CEO could make self-serving decisions and no board could prioritize shareholders over users. The elimination of traditional principal-agent problems seemed within reach.
+The DAO's spectacular rise and fall taught the crypto world a crucial lesson: decentralized governance requires more than writing smart contracts; it requires reimagining how humans coordinate at scale. If every stakeholder held direct voting power, the thinking went, then no CEO could make self-serving decisions and no board could prioritize shareholders over users. The elimination of traditional principal-agent problems seemed within reach.
 
 The theory was elegant, but reality proved messier. Democracy works differently when voters are pseudonymous, the treasury is programmable money, and decisions execute automatically through immutable code.
 
@@ -90,7 +90,7 @@ This informal discussion phase, often called a **Request for Comment (RFC)**, se
 
 #### Stage 2: The Temperature Check and Consensus Check (Snapshot Polling)
 
-Once the proposal has survived the Discord gauntlet, it is time for preliminary votes. Uniswap uses a two-phase snapshot process (a **temperature check** and then **consensus check**) although a lot of protocols use just one. They use a service called **Snapshot**, which is a gasless, off-chain voting platform that lets the community signal support without spending any money on transaction fees.
+Once the proposal has survived the Discord gauntlet, preliminary votes begin. Uniswap uses a two-phase snapshot process (a **temperature check** and then **consensus check**) although a lot of protocols use just one. They use a service called **Snapshot**, which is a gasless, off-chain voting platform that lets the community signal support without spending any money on transaction fees.
 
 The temperature check serves two purposes: it saves a proposer from the embarrassment (and cost) of submitting a formal proposal that will fail. It also provides data to refine the approach. Maybe 60% support the new fee tier but want different technical parameters. Maybe the community loves the concept but wants more analysis of liquidity migration effects first.
 
@@ -100,9 +100,9 @@ Snapshot prevents manipulation by taking a "snapshot" of token balances at a spe
 
 #### Stage 3: The Formal Proposal (On-Chain Submission)
 
-If the consensus check passes the minimum threshold, it is time to make it official. Submitting an on-chain governance proposal requires skin in the game: the proposer must have substantial UNI delegated (currently representing significant value) just to create the proposal. This ensures only serious proposals with significant backing make it this far.
+If the consensus check passes the minimum threshold, the proposal moves to official status. Submitting an on-chain governance proposal requires skin in the game: the proposer must have substantial UNI delegated (currently representing significant value) just to create the proposal. This ensures only serious proposals with significant backing make it this far.
 
-The proposal isn't just text; it includes the actual smart contract code that will execute if the vote passes. The proposal specifies everything: exactly which new fee tier will be added, how the factory contracts will be updated, and what happens during the transition period. There's no room for ambiguity since the code is the proposal.
+The proposal contains more than text: it includes the actual smart contract code that will execute if the vote passes. The proposal specifies everything: exactly which new fee tier will be added, how the factory contracts will be updated, and what happens during the transition period. There's no room for ambiguity since the code is the proposal.
 
 #### Stage 4: The Voting Period (Democracy in Action)
 
@@ -174,7 +174,7 @@ Hyperliquid takes this approach with HYPE. Instead of distributing profits, the 
 
 These tokens function as the native currency for accessing protocol services. Users must hold or spend the token to interact with the protocol, creating natural demand independent of speculation or governance participation. The stronger the demand for the protocol's services, the stronger the demand for the token. However, this model faces the risk of being displaced if competitors offer superior services.
 
-Chainlink's LINK token serves a clear function: it is used to pay for many oracle services. Today, Data Streams supports payment in assets other than LINK (with a surcharge), while Functions bills in LINK. Holding LINK isn't universally required across all services. This creates natural demand regardless of governance participation while maintaining payment flexibility. The downside? If someone builds a better oracle, your token's utility (and value) could evaporate overnight.
+Chainlink's LINK token serves a clear function: paying for oracle services. Today, Data Streams supports payment in assets other than LINK (with a surcharge), while Functions bills in LINK. Holding LINK varies by service. This creates natural demand regardless of governance participation while maintaining payment flexibility. The downside? If someone builds a better oracle, your token's utility (and value) could evaporate overnight.
 
 #### The Supply Dilemma: Scarcity vs. Sustainability
 
