@@ -12,6 +12,8 @@ This creates a powerful information aggregation system. People with inside knowl
 
 **The empirical evidence is compelling.** Academic research consistently finds prediction markets outperform polls in a majority of elections. This superior accuracy stems from fundamental structural advantages. Traditional polling faces declining response rates (now under 5% for many surveys), difficulty reaching certain demographics, and social desirability bias where respondents may not truthfully report unpopular preferences. Prediction markets circumvent these issues by requiring participants to put money at stake, creating stronger incentives for accuracy than answering survey questions. Rather than relying on representative sampling, markets aggregate the beliefs of people willing to back their convictions with capital.
 
+This raises a fundamental design question: should these markets be run by centralized companies or decentralized protocols?
+
 ## Section II: The Case for Decentralization
 
 **Decentralized prediction markets** remove central authorities from the equation entirely. Rather than relying on bookmakers to set odds and manage payouts, these platforms use smart contracts to automatically match traders, execute transactions, and resolve outcomes through predetermined oracle mechanisms. This fundamental shift creates distinct advantages over traditional betting platforms.
@@ -32,7 +34,7 @@ Decentralized platforms have historically operated through **regulatory arbitrag
 
 ### Kalshi: The Compliance Alternative
 
-The trade-offs between decentralization and regulation become concrete when examining **Kalshi**, a fully centralized competitor that chose the opposite path. Operating as a CFTC-regulated Designated Contract Market, Kalshi requires KYC verification and uses traditional central limit order book trading rather than blockchain execution. The platform currently serves only U.S.-based users, which represents the opposite of offshore platforms' global strategy.
+At the opposite end of the spectrum, some platforms embrace full U.S. compliance. The trade-offs between decentralization and regulation become concrete when examining **Kalshi**, a fully centralized competitor that chose the opposite path. Operating as a CFTC-regulated Designated Contract Market, Kalshi requires KYC verification and uses traditional central limit order book trading rather than blockchain execution. The platform currently serves only U.S.-based users, which represents the opposite of offshore platforms' global strategy.
 
 Ensuring compliance with U.S. financial regulations, Kalshi accepts crypto deposits (USDC, BTC, WLD, RLUSD, XRP) through Zero Hash, immediately converting them to USD and never actually touching crypto. Traditional funding methods like bank transfers and card payments are also supported, with all accounts denominated in dollars and settled through conventional clearing procedures.
 
@@ -40,7 +42,7 @@ In September 2025, Kalshi launched the KalshiEco Hub with Solana and Base to sup
 
 ## Section III: The Early Failures
 
-The advantages of decentralized prediction markets (transparency, censorship resistance, and global liquidity) motivated significant investment and development in the mid-2010s, with **Gnosis** and **Augur** emerging as the most prominent attempts to build this infrastructure. Both projects raised substantial funding and generated considerable excitement, yet neither achieved meaningful adoption. Understanding their failures reveals the challenges that later platforms would need to overcome.
+To understand why pragmatism on user experience, liquidity, and resolution mechanisms became decisive, consider the first wave of decentralized platforms. The advantages of decentralized prediction markets (transparency, censorship resistance, and global liquidity) motivated significant investment and development in the mid-2010s, with **Gnosis** and **Augur** emerging as the most prominent attempts to build this infrastructure. Both projects raised substantial funding and generated considerable excitement, yet neither achieved meaningful adoption. Understanding their failures reveals the challenges that later platforms would need to overcome.
 
 Gnosis, launched in 2017 after raising $12.5 million in one of the fastest ICOs in history (12 minutes), suffered from a classic case of premature optimization. The platform was technically sophisticated, featuring complex market-making algorithms and a dual-token system (GNO and OWL tokens), but this complexity created barriers for ordinary users. The interface was confusing, the market creation process was cumbersome, and the economic model was difficult to understand.
 

@@ -24,7 +24,7 @@ Perpetual futures, first introduced by the crypto exchange BitMEX, represent one
 
 At the heart of perpetuals lies the **funding payment system**, a periodic transfer between long and short positions designed to keep the contract's price anchored to the spot index. This mechanism works on a simple principle: when perpetual contracts trade above the underlying index price, long position holders pay short position holders. When perpetuals trade below the index, the payment flows in reverse. Exchanges pay funding on the position notional, though the calculation basis varies by venue. Some exchanges use mark price × position size, while others use oracle spot price × size.
 
-Most exchanges implement caps on funding rates to prevent extreme scenarios. For example, Binance caps the BTC perp contract at ±0.3% per 8 hour period. Funding cadence is commonly 8 hours on CEXs, but varies widely across platforms. For BTCUSDT and certain pairs, if the funding rate hits ±0.3% at the scheduled settlement, Binance switches settlement frequency to hourly until conditions normalize. Hyperliquid, as of mid-2025 the largest DEX perp platform by volume and market share, has funding interval of 1 hour while the cap is ±4.00% per hour, a less restrictive cap (allowing larger rates) than typical CEX limits.
+Most exchanges implement caps on funding rates to prevent extreme scenarios. For example, Binance caps the BTC perp contract at ±0.3% per 8 hour period. Funding cadence is commonly 8 hours on CEXs, but varies widely across platforms. For BTCUSDT and certain pairs, if the funding rate hits ±0.3% at the scheduled settlement, Binance switches settlement frequency to hourly until conditions normalize. Hyperliquid, as of mid-2025 the largest DEX perp platform by volume and market share, has funding interval of 1 hour while the cap is ±4.00% per hour, a less restrictive cap (allowing larger rates) than typical CEX limits. These venue-specific parameters matter for practitioners, but the core takeaway is funding aligns perps to spot while mark price governs liquidation and PnL.
 
 **Mark price** is an estimate of what a futures contract is truly worth, calculated by exchanges using fair-value formulas that blend several inputs (index/spot prices, bid/ask spreads, sometimes a basis component). It prevents traders from getting liquidated when prices jump around wildly due to market manipulation or temporary spikes. Exchanges use mark price as a liquidation trigger and for unrealized profit and loss calculation. **Last price**, by contrast, is simply the latest executed trade price of the futures contract, which is significantly more volatile and reactive to specific trading activity. It's generally used for displaying the active price while trading.
 
@@ -106,7 +106,7 @@ Most U.S. spot BTC ETFs rely on a small set of qualified custodians, most promin
 
 While ETFs opened the door for passive institutional exposure, a parallel development emerged: corporations allocating treasury capital to Bitcoin as a strategic asset. Beginning in 2020, a few public companies spearheaded by Michael Saylor began moving portions of their corporate cash reserves to Bitcoin, viewing it as a long-duration, non-sovereign monetary asset that could serve multiple purposes: portfolio diversification, inflation hedging, and brand alignment with digital-native finance.
 
-This trend reflects Bitcoin's evolution from niche digital experiment to an asset class that major corporations consider suitable for treasury management, though adoption remains limited relative to total corporate cash balances. The most dramatic example is Strategy's (formerly MicroStrategy) aggressive accumulation playbook, which illustrates how sophisticated financial engineering can leverage the market infrastructure examined throughout this chapter.
+This trend reflects Bitcoin's evolution from niche digital experiment to an asset class that major corporations consider suitable for treasury management, though adoption remains limited relative to total corporate cash balances. To illustrate how these rails translate into balance-sheet behavior, consider a representative corporate case study. The most dramatic example is Strategy's (formerly MicroStrategy) aggressive accumulation playbook, which illustrates how sophisticated financial engineering can leverage the market infrastructure examined throughout this chapter.
 
 ##### The Strategy Playbook
 
@@ -137,6 +137,8 @@ Premium compression represents the primary threat: if Strategy's stock price con
 Diminishing returns become evident at scale: the company required just 2.6 Bitcoin to generate one basis point of yield in 2021 but needed 58 Bitcoin by 2025 for the same result.
 
 Strategy's success depends on three key conditions: Bitcoin maintaining its long term upward trajectory, the stock preserving high volatility to attract convertible arbitrageurs, and continued access to capital markets for refinancing operations. While these conditions persist, the company appears positioned to continue its Bitcoin accumulation strategy with structural protections against forced liquidation.
+
+This financing flywheel interfaces directly with market structure via basis, funding, and ETF flows discussed earlier, reinforcing the feedback loops across spot and derivatives.
 
 ### Market Leaders by Product Category
 

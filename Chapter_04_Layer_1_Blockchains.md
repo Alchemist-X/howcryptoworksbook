@@ -79,7 +79,7 @@ Understanding how blockchains reach agreement reveals the practical constraints 
 
 ### Proof-of-Work vs. Proof-of-Stake
 
-Understanding how blockchains reach agreement is crucial for evaluating their security and performance characteristics. Proof-of-Work (PoW) systems like Bitcoin use computational puzzles to select block producers. Miners compete to solve cryptographically difficult problems, and the winner gets to propose the next block. Security derives from the sheer cost of acquiring and operating enough hardware to control the network. An attacker would need to outpace the combined computational power of all honest miners.
+Proof-of-Work (PoW) systems like Bitcoin use computational puzzles to select block producers. Miners compete to solve cryptographically difficult problems, and the winner gets to propose the next block. Security derives from the sheer cost of acquiring and operating enough hardware to control the network. An attacker would need to outpace the combined computational power of all honest miners.
 
 Proof-of-Stake (PoS) systems like Ethereum use economic stake rather than computational work to select block producers. Validators lock up capital (32 ETH minimum for Ethereum) as collateral, earning rewards for honest participation but facing slashing penalties if they misbehave. Security comes from making attacks economically irrational: attacking the network means destroying your own staked capital.
 
@@ -87,7 +87,7 @@ The key difference shapes how each system handles finality, performance, and eco
 
 ### Liveness vs Safety
 
-These different consensus approaches stem from fundamental choices about liveness and safety. Blockchains face a core tension: should they keep producing blocks no matter what (liveness), or should they refuse to produce any blocks if there's a risk of creating conflicting information (safety)? The CAP theorem from distributed systems theory captures a similar tension, and it applies loosely to blockchains facing network disruptions.
+A deeper lens on these consensus families is the liveness versus safety trade-off. Blockchains face a core tension: should they keep producing blocks no matter what (liveness), or should they refuse to produce any blocks if there's a risk of creating conflicting information (safety)? The CAP theorem from distributed systems theory captures a similar tension, and it applies loosely to blockchains facing network disruptions.
 
 **Liveness** means the network keeps making progress and producing new blocks. **Safety** means the network never creates invalid or conflicting blocks, even if that means stopping completely.
 
@@ -97,7 +97,7 @@ Different blockchains make different choices about this balance:
 
 **Ethereum takes a balanced approach.** It has an "inactivity leak" feature that gradually reduces the stake of validators who go offline. If enough validators disappear, this mechanism eventually lets the remaining online validators continue producing blocks, preserving liveness while normally prioritizing safety.
 
-**Many BFT chains choose safety.** These chains completely halt when validators drop below the required threshold for consensus, refusing to produce any new blocks rather than risk creating conflicting information. This gives stronger guarantees that what gets finalized is correct, but it means the network can become unavailable during major outages or coordinated attacks.
+**Many BFT chains choose safety.** These chains completely halt when validators drop below the required threshold for consensus, refusing to produce any new blocks rather than risk creating conflicting information. This safety-first stance enables deterministic finality (which we'll examine shortly), giving stronger guarantees that what gets finalized is correct, but it means the network can become unavailable during major outages or coordinated attacks.
 
 Neither approach is inherently better. The right choice depends on what the blockchain is trying to achieve. A financial settlement layer might prioritize safety above all else, accepting the risk of downtime. A high-throughput application chain might prioritize staying available, accepting that it needs mechanisms to handle temporary forks.
 
@@ -129,7 +129,7 @@ With these consensus mechanisms and their liveness/safety choices established, w
 
 **Deterministic finality** (BFT consensus families) means finality arrives within seconds and is mathematically guaranteed, assuming less than one-third of validators are malicious. Once a block receives sufficient votes from the validator set, it's immediately and permanently final with no possibility of reversal. The limitation usually involves lower throughput compared to optimistic approaches, or higher centralization pressure due to the coordination requirements of reaching consensus quickly among many validators.
 
-These differences have practical implications across the ecosystem. DeFi protocols might wait 6-12 blocks on Bitcoin for high-value transactions. On Ethereum, some applications act on 1-2 block confirmations for better UX, but true *economic finality* doesn't arrive until after approximately 2 epochs (~12.8 minutes when the network finalizes a checkpoint). BFT chains provide deterministic finality within seconds, enabling different application designs. Cross-chain bridges must carefully calibrate their security parameters around these finality models. The mismatch between probabilistic and deterministic finality has contributed to bridge exploits when systems didn't wait for sufficient confirmations on the source chain.
+These differences have practical implications across the ecosystem. DeFi protocols might wait 6-12 blocks on Bitcoin for high-value transactions. On Ethereum, some applications act on 1-2 block confirmations for better UX, but true *economic finality* doesn't arrive until after approximately 2 epochs (~12.8 minutes when the network finalizes a checkpoint). BFT chains provide deterministic finality within seconds, enabling different application designs. Cross-chain bridges must carefully calibrate their security parameters around these finality models. As we'll see in Section VI, the mismatch between probabilistic and deterministic finality has contributed to bridge exploits when systems didn't wait for sufficient confirmations on the source chain.
 
 Consensus mechanisms determine security and finality, but developers experience blockchains through the virtual machine environments where they actually build applications. The programming model shapes not just technical performance but also ecosystem growth and security properties.
 
@@ -137,11 +137,7 @@ Consensus mechanisms determine security and finality, but developers experience 
 
 Once a chain establishes its consensus mechanism, it must decide how developers will build applications on it. This choice shapes ecosystem growth as much as technical performance does.
 
-### Development Experience Considerations
-
-Virtual machine choice fundamentally shapes what builders can create and how quickly they can ship. Beyond technical architecture, these VM choices create dramatically different developer experiences that ultimately determine adoption. The decision involves weighing established infrastructure against technical capabilities, with implications that compound over a project's lifetime.
-
-#### The Ecosystem vs. Innovation Dilemma
+### The Ecosystem vs. Innovation Dilemma
 
 The choice between virtual machines presents a classic innovator's dilemma. Building on an established VM like the EVM means accessing mature infrastructure: extensive documentation, battle-tested libraries, experienced developers, sophisticated debugging tools, comprehensive testing frameworks, and auditing firms with deep expertise. A protocol like Uniswap can deploy on EVM chains with minimal changes, bringing battle-tested DeFi primitives across networks. A new DeFi protocol can immediately plug into Uniswap liquidity, Chainlink oracles, and Aave lending markets. This shared application layer spanning EVM chains creates composability benefits (discussed in Section II) that alternative platforms struggle to replicate.
 
@@ -181,7 +177,7 @@ The WASM approach hasn't achieved the network effects of EVM or the performance 
 
 ### Bridging the Gap: Monad's Approach
 
-Monad demonstrates a pragmatic path through the ecosystem versus innovation dilemma by maintaining full EVM bytecode compatibility while reimagining execution internals. Any Solidity contract written for Ethereum deploys on Monad without modification, preserving access to familiar tooling and audited libraries.
+Some projects aim to keep EVM compatibility while reimagining execution internals. Monad demonstrates this pragmatic path through the ecosystem versus innovation dilemma by maintaining full EVM bytecode compatibility while reimagining execution internals. Any Solidity contract written for Ethereum deploys on Monad without modification, preserving access to familiar tooling and audited libraries.
 
 Underneath that compatible interface, Monad achieves 10,000+ TPS through optimistic parallel execution, asynchronous I/O, and a custom state database. Developers use familiar tools like Hardhat and Remix. Protocols port seamlessly. Yet the performance gains are real, delivered through architectural innovation abstracted from the developer experience.
 
@@ -199,7 +195,7 @@ The hardware demands for running validators reveal one of the clearest balancing
 
 Bitcoin sets the lowest barrier to entry. A modest Raspberry Pi with adequate storage can fully validate the chain, enabling broad participation from nearly anyone with basic computing resources. This democratic approach comes at a cost: throughput maxes out around 5 transactions per second, depending on transaction size.
 
-Ethereum strikes a middle ground post-Merge. While validation requires more substantial resources than Bitcoin (32 GB RAM and 4 TB NVMe storage are recommended, along with a 32 ETH stake), these requirements remain achievable for home operators. This balance has fostered a geographically distributed network of over 1 million active validators, supporting roughly 20 TPS on Layer 1 (varying with gas usage and 12-second block times).
+Ethereum strikes a middle ground post-Merge. While validation requires more substantial resources than Bitcoin (32 GB RAM and 4 TB NVMe storage are recommended, along with a 32 ETH stake), these requirements remain achievable for home operators. This balance has fostered a geographically distributed validator set, supporting roughly 20 TPS on Layer 1 (varying with gas usage and 12-second block times).
 
 As mentioned in the introduction, Solana's architecture illustrates this trade-off starkly. The network prioritizes performance through demanding specifications: high-clock CPUs, 256+ GB RAM, fast NVMe drives, and at least 1 Gbps network connections. To manage storage, validators typically prune ledger history by default. In return, the network sustains thousands of transactions per second during normal operations. However, these steep requirements concentrate validation power among well-resourced entities.
 

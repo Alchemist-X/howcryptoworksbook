@@ -6,7 +6,7 @@
 
 Cryptocurrency fundamentally transforms value into information. This shift eliminates the need for physical trucks and armored vaults but creates a new reality: **keys equal control**. If a party can authorize a transaction, they effectively own the asset, creating new opportunities for self-sovereignty and different categories of risk. Custody can exist entirely in memory. A 12-word mnemonic can hold millions of dollars with no physical footprint. For refugees or anyone living under hostile or bad faith governments, this enables value to cross borders in someone's head, resist confiscation, evade capital controls, and be reconstructed anywhere with an internet connection.
 
-This capability comes with corresponding responsibility. Whether for individuals or institutions, the shift from physical to informational value creates new failure modes. One forgotten passphrase or compromised backup can mean permanent loss. Sophisticated custody operations become a discipline of minimizing online exposure, implementing tested recovery procedures, and ensuring provable operations. The implications are clear: transactions are irreversible, and most losses stem from operational lapses rather than cryptographic vulnerabilities.
+This capability comes with corresponding responsibility. Whether for individuals or institutions, the shift from physical to informational value creates new failure modes. One forgotten passphrase or compromised backup can mean permanent loss. Sophisticated custody operations become a discipline of minimizing online exposure, implementing tested recovery procedures, and ensuring provable operations. The implications are clear: transactions are irreversible, and most losses stem from operational lapses rather than cryptographic vulnerabilities. To see how control is enforced in practice, we start with keys, addresses, and signatures.
 
 ### Public Keys, Private Keys, and Digital Signatures
 
@@ -59,6 +59,8 @@ High-quality random number generation (RNG) is important for seed entropy, weak 
 
 ## Section II: Individual Self-Custody
 
+With the cryptographic primitives established, we now apply them to real-world personal custody workflows and threat models.
+
 ### Software Wallets: Convenience vs. Security
 
 **Software wallets** store private keys on general-purpose devices like smartphones or computers. Popular examples include MetaMask, Trust Wallet, and Phantom. These wallets offer excellent user experience and seamless integration with DeFi applications, making them ideal for active trading and frequent transactions.
@@ -81,7 +83,7 @@ Best practices for software wallets include using dedicated devices for crypto a
 
 **Hardware wallets** represent the current best practice for individual custody. These specialized devices store private keys in tamper-resistant hardware that never exposes them to potentially compromised computers or networks. The core security model is straightforward. Private keys are generated and stored on the device (often in a **Secure Element**, depending on model), transactions are signed internally, and only the signatures are transmitted to host computers. Users maintain control by physically pressing buttons to approve each transaction, while a mnemonic seed phrase provides recovery capabilities.
 
-A Secure Element is a tamper-resistant hardware chip designed to securely store cryptographic keys and perform sensitive operations in isolation from the main processor. It provides hardware-level protection against both physical and software attacks, ensuring private keys cannot be extracted even if the device is compromised. **Hardware Security Modules (HSMs)** serve a similar but distinct purpose at enterprise scale. These are rack-mounted devices used by institutional custodians for large-scale key management, with advanced policy engines and enclave capabilities. Secure Elements are optimized for constrained devices like hardware wallets and smartphones, while HSMs are typically larger appliances designed for data center environments.
+A Secure Element is a tamper-resistant hardware chip designed to securely store cryptographic keys and perform sensitive operations in isolation from the main processor. It provides hardware-level protection against both physical and software attacks, ensuring private keys cannot be extracted even if the device is compromised. At institutional scale, similar protections are delivered by Hardware Security Modules (HSMs) and secure enclaves, covered in Section III.
 
 ### Choosing Between Security Philosophies
 
@@ -99,19 +101,17 @@ For individuals managing significant holdings, advanced custody strategies can e
 
 Regardless of the backup strategy chosen, testing recovery procedures is non-negotiable. **At minimum, perform an initial test restore** on a second device to verify backups work correctly and to familiarize yourself with emergency procedures before they're actually needed. More sophisticated operators implement **periodic recovery drills** that simulate complete loss scenarios: restore from backups on fresh devices, measure recovery time objective (RTO) and recovery point objective (RPO), document any issues encountered, and update procedures annually or after significant changes to holdings or infrastructure.
 
-Key management follows standards like BIP-39 for mnemonics and BIP-32/44 for hierarchical derivation, with optional passphrases (the "25th word") adding extra security. Effective practices include creating offline backups, performing mandatory test restores, and avoiding digital seed storage (no photos, cloud, or password managers).
-
 Individual self-custody through hardware wallets and tested backup procedures works well for personal holdings. However, as holdings grow beyond $1M, operational complexity increases (active trading, DeFi, multi-chain operations), or organizational needs emerge (businesses, DAOs, investment funds), individual custody models reach their limits. These situations require multi-party approval processes, institutional-grade security measures, compliance capabilities, and audit trails that hardware wallets cannot provide. Section III explores the specialized custody architectures designed to address these fundamentally different challenges.
 
 ## Section III: Institutional Custody Models and Architecture
 
-While individual custody focuses on protecting keys from external attackers, institutional custody must solve a more complex problem: **protecting the organization from itself.** As custody scales from individual to institutional operations, the threat landscape fundamentally shifts. External attackers remain a concern, but new categories of risk emerge that individual security models cannot address. 
+While individual custody focuses on protecting keys from external attackers, institutional custody must solve a more complex problem: **protecting the organization from itself.** Beyond external threats, institutions must control insider risk and prove process integrity, which changes the architecture entirely. As custody scales from individual to institutional operations, the threat landscape fundamentally shifts. External attackers remain a concern, but new categories of risk emerge that individual security models cannot address. 
 
 **Insider risk** represents a persistent challenge in privileged access scenarios. Administrators with signing authority can potentially abuse their position through malice or error. The temptation to downgrade security policies during stressful situations "just this once" to meet a deadline creates vulnerabilities that sophisticated security architecture alone cannot prevent. The human element remains the weakest link, with a single administrator potentially undoing robust technical controls.
 
 **Operational failures** compound these risks through seemingly mundane issues that are devastating in practice: lost key shards that cannot be recovered, disaster recovery procedures that have never been tested, and weak change management processes that allow configuration drift. These vulnerabilities often remain hidden during normal operations, only revealing themselves when crisis situations place systems under significant stress, precisely when reliable operation becomes most important. The historical failures examined later in this section demonstrate these risks in practice across different custody models.
 
-Institutional custody models address these challenges through different architectural approaches, each offering distinct trade-offs between transparency, operational flexibility, and risk mitigation.
+Institutional custody models address these challenges through different architectural approaches, each offering distinct trade-offs between transparency, operational flexibility, and risk mitigation. We compare three approaches—on-chain multisig, MPC/threshold signatures, and Shamir's secret sharing—then map them to qualified custodians.
 
 ### Primary Custody Models
 
@@ -121,7 +121,7 @@ Institutional custody models address these challenges through different architec
 
 This transparency carries operational trade-offs. Larger transaction sizes increase fees, while public policy structures reveal organizational decision-making processes. Different blockchains have varying implementations, complicating multi-chain support. For **legacy Bitcoin scripts**, changing thresholds or keys requires moving all funds to a new address, while **Ethereum using Safe** allows owner updates without changing the address.
 
-Recent protocol upgrades address these limitations. Bitcoin's **Taproot** upgrade (activated November 14, 2021) introduced Schnorr signatures, enabling new privacy and efficiency capabilities. Through **MuSig2** (an off-chain signing protocol) and threshold schemes like FROST (discussed in Section I), Taproot **can** make multi-party custody indistinguishable from single-signature transactions on-chain **when using key-path spends with key aggregation**, greatly reducing the transparency trade-offs of traditional multisig. Script-path spends with complex policies can still reveal conditions on spend.
+Recent protocol upgrades address these limitations. Bitcoin's **Taproot** upgrade (activated November 14, 2021) introduced Schnorr signatures, enabling new privacy and efficiency capabilities. Through **MuSig2** (an off-chain signing protocol) and threshold schemes like FROST (discussed in Section I), Taproot with key-path spends and MuSig2 **can** make multi-party custody indistinguishable from single-signature transactions on-chain, greatly reducing the transparency trade-offs of traditional multisig, while script-path spends with complex policies can still reveal conditions on spend.
 
 #### MPC and Threshold Signatures: Privacy with Speed
 
@@ -135,7 +135,7 @@ These advantages make MPC ideal for active trading desks and multi-chain operati
 
 The risk profile, however, shifts toward platform and vendor quality. Since cryptographic operations occur within specialized software or hardware, operators must trust implementation correctness and procedure compliance. Prominent providers like Fireblocks and Copper have deployed MPC, though the technology's complexity has revealed vulnerabilities in protocols like GG18 and GG20, including private key extraction risks. This less-standardized approach demands transparent vendor updates, verifiable logs, and careful auditing of distributed key generation transcripts.
 
-Understanding this distinction becomes important when evaluating another common approach to distributed custody: Shamir's Secret Sharing.
+These threshold signature schemes operate fundamentally differently from another common approach to distributed custody: Shamir's Secret Sharing.
 
 #### Shamir's Secret Sharing: Storage and Recovery
 
@@ -147,7 +147,7 @@ Shamir's Secret Sharing (SSS) splits private keys into multiple shares where onl
 
 **Regulated banks and trust companies** bring traditional custody expertise with legal segregation, examiner oversight, and insurance coverage that many institutional investors require. Operating under established regulatory frameworks, these institutions provide legal clarity, fiduciary protections, and **bankruptcy remoteness** (legal structures ensuring client assets are segregated from the custodian's own assets and protected in insolvency scenarios) that technology alone cannot ensure.
 
-Operationally, qualified custodians layer multiple security approaches. At the infrastructure level, they deploy HSMs to generate and store keys while performing cryptographic operations in isolated environments, often housed in deep underground vaults. These technical controls frequently combine with MPC for distributed key management, creating defense-in-depth architectures. Strict temperature segregation policies maintain specific hot/warm/cold storage thresholds, while automated systems enforce cold storage policies without human discretion.
+Operationally, qualified custodians layer multiple security approaches. At the infrastructure level, they deploy **Hardware Security Modules (HSMs)**—rack-mounted devices used for large-scale key management with advanced policy engines and enclave capabilities—to generate and store keys while performing cryptographic operations in isolated environments, often housed in deep underground vaults. These technical controls frequently combine with MPC for distributed key management, creating defense-in-depth architectures. Strict temperature segregation policies maintain specific hot/warm/cold storage thresholds, while automated systems enforce cold storage policies without human discretion.
 
 Withdrawal processes introduce deliberate friction through multi-day verification periods with authentication through multiple channels before accessing segregated systems. This deliberate friction, while slower than technical solutions, provides security layers many institutional clients require.
 
@@ -175,7 +175,7 @@ While the custodians above provide comprehensive services including regulatory c
 
 ### Exchange Custody: Operational Considerations
 
-Many institutions maintain assets on centralized exchanges for active trading, lending, or liquidity provision. This operational necessity creates distinct custody considerations, as exchange custody involves different risk profiles and trust assumptions than self-custody or qualified custodian relationships.
+Even with robust self-custody or qualified custodian relationships, active market participation often requires maintaining balances on exchanges; this introduces a distinct trust surface. Many institutions maintain assets on centralized exchanges for active trading, lending, or liquidity provision. This operational necessity creates distinct custody considerations, as exchange custody involves different risk profiles and trust assumptions than self-custody or qualified custodian relationships.
 
 #### Exchange Custody Risks
 
@@ -193,7 +193,7 @@ Professional custody implements value-based asset separation with systematic tie
 
 #### Historical Custody Failures: Lessons from Practice
 
-The theoretical frameworks and best practices described above emerged from hard-earned lessons. Several high-profile failures demonstrate how custody breakdowns occur in practice, not through sophisticated attacks on cryptography but rather through operational lapses, poor segregation, and insider risks. These cases illustrate why institutional custody requires more than technical sophistication; it demands rigorous processes, proper oversight, and unwavering adherence to segregation principles.
+The architectural choices and best practices described above were forged by failure; the cases below show how custody breakdowns happen in practice. Several high-profile failures demonstrate how custody breakdowns occur, not through sophisticated attacks on cryptography but rather through operational lapses, poor segregation, and insider risks. These cases illustrate why institutional custody requires more than technical sophistication; it demands rigorous processes, proper oversight, and unwavering adherence to segregation principles.
 
 **Mt. Gox** (2014) demonstrated the severe consequences of blurred hot/cold segregation and absent reconciliation procedures. The exchange operated for years with inadequate controls and no real-time visibility into actual versus reported balances. When the collapse occurred, investigators discovered that hackers had been slowly draining funds since 2011, while the exchange continued operating normally. Approximately 850,000 BTC were initially reported lost; about 200,000 BTC were later recovered, leaving approximately 650,000 BTC permanently missing. These losses could have been detected and limited through proper segregation and daily reconciliation.
 

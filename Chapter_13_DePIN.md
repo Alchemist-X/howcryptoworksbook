@@ -18,15 +18,13 @@ Here's how it works in practice: participants earn tokens by providing genuine s
 
 This creates a self-organizing system where individual profit motives align with network growth. Participants compete to provide valuable infrastructure services, while cryptography prevents cheating and ensures all contributions are authentic.
 
-The result is a coordination mechanism that builds infrastructure through aligned incentives rather than top-down control, enabled by technical architecture that makes decentralized verification possible and economic incentives that sustain network growth.
+The result is a coordination mechanism that builds infrastructure through aligned incentives rather than top-down control, enabled by technical architecture that makes decentralized verification possible and economic incentives that sustain network growth. The next section details the verification mechanisms that make this coordination economically sustainable at scale.
 
 ## Section II: DePIN Technical Architecture
 
-Successfully coordinating thousands of independent participants requires solving a fundamental challenge: confirming that millions of claimed services are genuine while keeping verification costs low enough to maintain network economics. These technical mechanisms determine whether DePIN networks can scale efficiently.
+Successfully coordinating thousands of independent participants requires solving a fundamental challenge: confirming that millions of claimed services are genuine while keeping verification costs low enough to maintain network economics. At the core are proof systems that attest to real-world service while keeping verification costs bounded.
 
 ### Hardware Requirements and Proof Systems
-
-DePIN networks must validate that millions of participants genuinely provide claimed services while keeping verification costs reasonable. This creates computational bottlenecks that can destroy network economics if not properly designed.
 
 #### Proof-of-Coverage (Wireless Networks)
 Helium's proof-of-coverage system confirms that hotspots genuinely provide wireless coverage through **radio challenges** where hotspots periodically send encrypted packets to nearby devices, with witnessing hotspots receiving these packets and reporting signal strength data on-chain. The system must balance security with efficiency: too frequent challenges and verification costs exceed token rewards, too infrequent and participants can game the system without detection.
@@ -45,7 +43,7 @@ Stake-based deterrence makes spoofing economically risky. Behavioral analysis id
 
 ### Network Participation and Verification
 
-Participants in DePIN networks take on specific roles with defined responsibilities and economic incentives.
+These mechanisms are executed by distinct participant roles with aligned incentives.
 
 #### Service Providers
 Hardware operators deploy and maintain real-world infrastructure: hotspots, storage devices, or sensors. They receive base rewards for providing service capacity plus usage rewards tied to actual consumption.
@@ -59,6 +57,8 @@ Oracle networks bridge real-world data to blockchain validation. Challenge gener
 
 ## Section III: DePIN Economics and Governance
 
+The cost and cadence of verification directly shape token design and sustainability.
+
 ### The Cold-Start Problem and Token Incentives
 
 Every DePIN network faces a classic chicken-and-egg dilemma: early participants must invest in expensive hardware and pay ongoing operational costs while serving practically zero customers. It's like opening a restaurant in an empty neighborhood, where you pay for ingredients, staff, and rent before anyone walks through the door.
@@ -71,7 +71,7 @@ The solution to the cold-start problem begins with **emission schedules** that d
 
 Helium uses a predictable two-year halving schedule where token rewards cut in half every two years as the network matures, similar to Bitcoin's approach. Other networks use different approaches: fixed emission rates, milestone-based reductions, or governance-adjustable schedules. The successful models share a common trait: they front-load rewards to bootstrap the network, then gradually reduce emissions as genuine demand takes over.
 
-Geographic distribution adds another layer of complexity. Building on the location verification challenges from Section II, **location-based multipliers** offer higher rewards in sparse areas to encourage balanced coverage. Left to market forces alone, participants naturally cluster where demand is highest. However, these multipliers create challenges around preventing GPS spoofing or coordinated gaming, which are technical obstacles examined in the proof-of-location discussion earlier.
+Geographic distribution adds another layer of complexity. Building on the location verification challenges from Section II, **location-based multipliers** offer higher rewards in sparse areas to encourage balanced coverage. Left to market forces alone, participants naturally cluster where demand is highest. However, these multipliers create challenges around preventing GPS spoofing or coordinated gaming, which are technical obstacles as examined earlier in Section II's proof-of-location discussion.
 
 #### Revenue Models and Unit Economics
 
@@ -163,7 +163,7 @@ Following these principles, Planetwatch coordinates distributed sensor networks 
 
 ## Section V: Risks and Challenges
 
-While the DePIN model presents a powerful new paradigm for infrastructure, its path to mainstream adoption is fraught with significant risks and challenges. These hurdles span the regulatory, economic, and technical domains, and overcoming them is critical for long-term viability.
+Despite traction across categories, cross-cutting risks threaten sustainability. While the DePIN model presents a powerful new paradigm for infrastructure, its path to mainstream adoption is fraught with significant risks and challenges. These hurdles span the regulatory, economic, and technical domains, and overcoming them is critical for long-term viability.
 
 ### Market and Economic Risks
 

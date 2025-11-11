@@ -22,6 +22,8 @@ PDAs solve the fundamental custody problem that plagues traditional escrow syste
 
 Accounts must hold minimum lamports (the smallest unit of SOL, Solana's native token) to remain rent-exempt, preventing state bloat by requiring economic commitment for persistent storage. This acts as a security deposit for using storage space.
 
+These execution constraints and the account model shape how users actually transact on Solana. The following section examines the transaction structure, fee mechanics, and the user experience they enable.
+
 ## Section II: Transactions, Fees, and UX
 
 ### The Transaction Model
@@ -38,7 +40,9 @@ The economic impact matters most. Sub-cent transaction costs allow entirely diff
 
 The network has evolved considerably through operational challenges. Early Solana suffered from congestion-related outages that critics frequently highlighted. Notably, in February 2024, Solana experienced an outage lasting roughly five hours, caused by a bug in the BPF loader cache. However, systematic upgrades (versions 1.17 and 1.18), including QUIC networking improvements, Turbine propagation refinements, and runtime optimizations, have significantly reduced both the frequency and severity of these issues, delivering increased inclusion rates and overall reliability.
 
-That said, fee dynamics don't guarantee inclusion during extreme congestion. In periods of high network activity (such as the memecoin frenzy in 2024), Solana has experienced elevated rates of "dropped" transactions. These are transactions that never reach a block due to network overload, insufficient priority fees, or expired blockhashes, and they leave no on-chain record. This differs from "failed" transactions, which are actually processed and included in a block but revert due to program logic errors or unmet conditions (like excessive slippage).
+That said, fee dynamics don't guarantee inclusion during extreme congestion. In periods of high network activity (such as the memecoin frenzy in 2024), Solana has experienced elevated rates of "dropped" transactions. These are transactions that never reach a block due to network overload, insufficient priority fees, or expired blockhashes, and they leave no on-chain record. This differs from "failed" transactions, which are actually processed and included in a block but revert due to program logic errors or unmet conditions (like excessive slippage). In practice, users and applications mitigate dropped transactions by retrying with higher priority fees or using services that forward transactions to multiple leaders.
+
+The sub-second confirmations users experience, along with the inclusion behavior described above, are direct consequences of the consensus, scheduling, and networking stack operating beneath the surface.
 
 ## Section III: Consensus, Scheduling, and Networking
 
@@ -50,11 +54,11 @@ At the base layer sits **Proof of History (PoH)**, Solana's cryptographic timeke
 
 ### Consensus Built on Time: Tower BFT
 
-**Tower BFT** leverages these PoH timestamps to handle finality. Rather than requiring validators to constantly communicate about block order, Tower BFT uses the timestamp record as a shared reference point. Validators cast stake-weighted votes on blocks, and the PoH timestamps help prevent equivocation (voting for conflicting blocks). This produces deterministic finality currently around 12.8 seconds, though economic finality arrives faster in practice.
+**Tower BFT** leverages these PoH timestamps to handle finality. Rather than requiring validators to constantly communicate about block order, Tower BFT uses the timestamp record as a shared reference point. Validators cast stake-weighted votes on blocks, and the PoH timestamps help prevent equivocation (voting for conflicting blocks). This produces deterministic finality currently around 12.8 seconds, though users typically experience faster economic finality in practice as transactions become increasingly unlikely to reverse after just a few confirmations.
 
 ### Leader Scheduling and Transaction Routing
 
-The PoH timekeeping mechanism makes deterministic **leader scheduling** possible. Leaders are pre-scheduled in short slots (about 400ms each), organized into roughly two-day periods called epochs. Your stake determines your chances of being selected as a leader, along with other factors like commissions and required warmup/cooldown periods.
+The PoH timekeeping mechanism makes deterministic **leader scheduling** possible. Leaders are pre-scheduled in short slots (roughly 400ms each), organized into roughly two-day periods called epochs. Your stake determines your chances of being selected as a leader, along with other factors like commissions and required warmup/cooldown periods.
 
 This predictable scheduling enables **Gulf Stream**, Solana's transaction forwarding protocol. Unlike blockchains that broadcast transactions to everyone, Solana sends them directly to the current and upcoming leaders. This direct routing reduces delays by eliminating the mempool broadcast phase. Transactions can even be forwarded to future leaders before their slot begins, enabling sub-second confirmations once the leader's slot starts.
 
@@ -68,7 +72,9 @@ The underlying transport layer uses **QUIC protocol**, a modern internet protoco
 
 ### Alpenglow: Upgrading the Entire Stack
 
-This integrated system of PoH, Tower BFT, Gulf Stream, Turbine, and QUIC has evolved through years of production experience. **Alpenglow** represents a major upgrade approved by the community that fundamentally reimagines this entire stack. Rather than incremental improvements, Alpenglow replaces the core consensus and data propagation systems with redesigned alternatives: **Votor** (a new voting method using off-chain voting combined with on-chain certificates) replaces PoH and TowerBFT, while **Rotor** (direct relay for data distribution) replaces Turbine and gossip.
+The integrated system of PoH, Tower BFT, Gulf Stream, Turbine, and QUIC described above represents Solana's current production infrastructure, evolved through years of mainnet operation. **Alpenglow** represents a forward-looking overhaul that fundamentally reimagines this entire stack rather than incrementally improving individual components.
+
+Alpenglow replaces the core consensus and data propagation systems with redesigned alternatives: **Votor** (a new voting method using off-chain voting combined with on-chain certificates) replaces PoH and Tower BFT, while **Rotor** (direct relay for data distribution) replaces Turbine and gossip.
 
 In simulations, Alpenglow achieves around 100 milliseconds median finality, compared to the current 12.8 seconds deterministic finality. Beyond performance, it addresses critical economic and security concerns: vote transaction fees will drop dramatically, fundamentally changing validator economics by lowering the break-even threshold for smaller operators and potentially reversing centralization trends by making validation economically viable for more participants. The faster finality also creates smaller time windows for MEV extraction, reducing opportunities for front-running and sandwich attacks.
 
@@ -76,9 +82,13 @@ The rollout plan includes testnet deployment in December 2025, with mainnet acti
 
 ### MEV and Block Building
 
+With leader routing via Gulf Stream and the potential for dramatically faster finality through Alpenglow, the dynamics of how value is extracted and transactions are ordered within blocks become particularly important.
+
 The leader-centric architecture we've described, with Gulf Stream routing transactions directly to scheduled leaders, creates important implications beyond latency. Because transactions don't sit in a public mempool visible to everyone, Solana's **MEV (maximal extractable value)** landscape operates quite differently than other architectures.
 
 Many validators now run **Jito-Solana**, a modified client that enables bundle auctions. This is optional infrastructure (not built into the protocol) that has achieved significant adoption. Searchers can package transactions into "bundles," simulate them off-chain, and pay tips for inclusion. Validators running Jito then build blocks combining both regular transactions (ordered by priority fees) and profitable bundles (ordered by tips). This system emerged organically from the direct-to-leader transaction flow, creating a MEV market that's integrated at the validator level rather than through separate relay infrastructure.
+
+The consensus mechanics, leader selection, and MEV dynamics described above flow directly into validator economics: understanding who pays what costs, who earns which revenue streams, and what incentives shape network participation.
 
 ## Section IV: Economics, Staking, and Governance
 
@@ -94,7 +104,7 @@ However, inflation represents only one side of the supply equation. **Fee burnin
 
 During periods of extreme network activity, burn rates can theoretically exceed inflation, making SOL temporarily deflationary. In practice, current transaction volume doesn't consistently achieve this threshold, but the mechanism creates a direct relationship between network usage and token supply dynamics.
 
-The practical impact: **staking yields** on Solana are ~7% APY (varying with inflation rate and total staked percentage), reflecting the need to compensate validators for substantial hardware costs and operational complexity.
+The practical impact: **staking yields** on Solana are roughly 7% APY (varying with inflation rate and total staked percentage), reflecting the need to compensate validators for substantial hardware costs and operational complexity.
 
 ### Staking Mechanics and Validator Economics
 
@@ -118,9 +128,7 @@ More troubling, approximately 20 of the largest validators control enough stake 
 
 Solana's security model also diverges from many proof-of-stake chains in one critical aspect: **slashing is not implemented today**. Validators don't currently lose stake for misbehavior like double-signing or extended downtime, though proposals to add slashing are being explored. The current design reflects a stance that slashing introduces complexity, potential for accidental losses due to operational mistakes, and doesn't fundamentally prevent determined attacks by sophisticated adversaries willing to accept the stake loss as a cost of attack.
 
-Without slashing, Solana relies on **reputational incentives** and **opportunity cost** to maintain validator honesty. A validator attempting to attack the network risks losing future delegation and fee revenue, plus any investments in hardware and reputation. Whether this proves sufficient long-term remains an open question, as many chains consider slashing essential to crypto-economic security.
-
-As discussed earlier, upcoming protocol improvements like Alpenglow aim to address these economic barriers by dramatically cutting vote fees.
+Without slashing, Solana relies on **reputational incentives** and **opportunity cost** to maintain validator honesty. A validator attempting to attack the network risks losing future delegation and fee revenue, plus any investments in hardware and reputation. Whether this proves sufficient long-term remains an open question, as many chains consider slashing essential to crypto-economic security. The upcoming Alpenglow upgrade's dramatic reduction in vote fees may strengthen this model by making honest validation more economically viable for smaller operators, potentially improving decentralization without requiring slashing penalties.
 
 ### Governance and Upgrade Mechanisms
 
@@ -133,6 +141,8 @@ Validators make the ultimate decision through **social consensus**: they choose 
 Velocity and pragmatism take priority over formalized democratic processes. Upgrades can ship relatively quickly when core developers and major validators align, allowing rapid iteration on performance and reliability improvements. The trade-off is less transparent decision-making compared to systems with explicit on-chain governance, and critics argue this concentrates power among a smaller set of influential actors.
 
 The Foundation maintains a substantial treasury of SOL from initial token allocation, funding ecosystem development, grants, security audits, and infrastructure. This financial influence extends to governance: the Foundation can credibly advocate for changes knowing it has resources to support implementation. However, the Foundation has progressively decentralized control, with stated goals of eventually reducing its role as the ecosystem matures.
+
+These economic and operational realities directly inform how developers build on Solana. The constraints that enable performance shape the entire developer experience.
 
 ## Section V: Developer Stack and Standards
 
@@ -194,11 +204,13 @@ When you want to prove you own a specific NFT, you provide a Merkle proof: a sho
 
 The economics transform dramatically. That 1 million NFT collection costs under $100 instead of $250,000, making large-scale generative art, gaming assets, and loyalty programs economically viable. The **Metaplex** standards provide the tooling and conventions that make compressed NFTs work seamlessly with existing wallets and marketplaces.
 
+The performance characteristics and design constraints explored throughout the developer stack directly drive data growth and operational trade-offs at the infrastructure level.
+
 ## Section VI: Performance and Its Trade-offs
 
 Solana's architectural choices deliver exceptional performance, but this speed comes with fundamental trade-offs that ripple through the entire ecosystem.
 
-High throughput drives rapid blockchain expansion. Solana's full archive ledger (~350 TB) grows at roughly 90 TB annually, creating substantially different infrastructure economics compared to other chains. Archive storage at this scale represents significant cost, approximately $100 per TB per month, translating to roughly $40,000 monthly for full historical archives. However, it's crucial to understand that regular Solana validators and RPC nodes prune historical data and don't face these extreme storage requirements; these figures apply specifically to **archive nodes** maintaining complete transaction history.
+High throughput drives rapid blockchain expansion. Solana's full archive ledger (roughly 350 TB) grows at roughly 90 TB annually, creating substantially different infrastructure economics compared to other chains. Archive storage at this scale represents significant cost, approximately $100 per TB per month, translating to roughly $40,000 monthly for full historical archives. However, it's crucial to understand that regular Solana validators and RPC nodes prune historical data and don't face these extreme storage requirements; these figures apply specifically to **archive nodes** maintaining complete transaction history.
 
 ### Mitigation Strategies
 
@@ -208,9 +220,11 @@ Solana addresses these challenges through two complementary approaches: operatio
 
 While these approaches mean ordinary validators aren't burdened with full historical storage requirements, they do concentrate archive responsibilities among a smaller set of specialized providers rather than distributing this function across all node operators.
 
-**Architectural resilience** comes through client diversity. **Firedancer**, developed by Jump Crypto, represents an independent, ground-up reimplementation of the Solana validator. If one implementation has a critical flaw, the network doesn't grind to a halt. Firedancer targets substantial throughput and resiliency improvements, with demos exceeding 1 million transactions per second, while aiming to reduce hardware requirements. An early hybrid version called **Frankendancer** began operating on mainnet in September 2024, with full Firedancer deployment targeted for late 2025, though timelines for such complex infrastructure projects remain subject to change based on testing outcomes and network readiness.
+**Architectural resilience** comes through client diversity. **Firedancer**, developed by Jump Crypto, represents an independent, ground-up reimplementation of the Solana validator. If one implementation has a critical flaw, the network doesn't grind to a halt. Firedancer targets substantial throughput and resiliency improvements, with demos exceeding 1 million transactions per second, while aiming to reduce hardware requirements. An early hybrid version called **Frankendancer** (which combines Firedancer's networking layer with the existing Solana Labs validator core) began operating on mainnet in September 2024, with full Firedancer deployment targeted for late 2025, though timelines for such complex infrastructure projects remain subject to change based on testing outcomes and network readiness.
 
 These infrastructure improvements work in concert with the Alpenglow consensus overhaul to form a comprehensive strategy for maintaining Solana's competitive position. Together, these upgrades aim to unlock use cases that remain economically unviable under current network conditions while improving validator economics, decentralization, and overall network resilience.
+
+Taken together, the performance characteristics, operational trade-offs, and ongoing infrastructure improvements determine where Solana fits best and where alternative architectures might be preferable.
 
 ## Section VII: Use-Case Fit and Design Patterns
 

@@ -120,6 +120,8 @@ Two approaches dominate the space:
 
 Liquid staking offers clear advantages, but it also comes with risks you need to understand. Lido's dominance raises serious questions about protocol governance and network resilience. If too much staking power concentrates in one provider, it could threaten the security and decentralization of the underlying network. **Smart contract vulnerabilities** are another pressing concern. Bugs in staking protocols could potentially drain user funds. Validator penalties from misbehavior or technical failures affect everyone in the pool. Finally, **liquidity risk** can surface during periods of market stress. LST tokens might trade below their true value (we saw this with stETH discounts in 2022), which creates potential losses if you need to exit your position quickly.
 
+With consensus secured and staking economics established, Ethereum's remaining bottleneck is scale—hence the rise of Layer 2 rollups.
+
 ## Section III: Ethereum Scaling and Layer 2 Solutions
 
 ### The Rollup Revolution
@@ -168,7 +170,7 @@ Not all rollups prioritize decentralization equally. Some projects deliberately 
 
 ### Solving the Data Availability Challenge
 
-Data availability represents the biggest cost bottleneck for Layer 2 solutions. Before March 2024, rollups had to store their data permanently in Ethereum's expensive execution layer, making data availability costs account for 80-95% of total rollup fees.
+With rollups defined, the dominant cost driver becomes data availability. Before March 2024, rollups had to store their data permanently in Ethereum's expensive execution layer, making data availability costs account for 80-95% of total rollup fees.
 
 **EIP-4844**, implemented in the **Dencun upgrade**, fundamentally changed this economics by introducing **blob-carrying transactions**. EIP-4844 introduced blobs with a separate fee market and temporary retention (~18 days), cutting rollup DA costs. These **blobs** are large packets of data (about 128 KB each) that live temporarily on Ethereum's consensus layer before being automatically pruned, establishing a separate, much cheaper data market specifically designed for rollups.
 
@@ -184,7 +186,7 @@ For applications requiring even lower costs than Ethereum's blobs provide, sever
 
 **Celestia** represents the most ambitious alternative. It's a specialized blockchain that provides consensus and data availability only, without execution. It uses **Data Availability Sampling** with **erasure coding**, allowing even light clients to gain high confidence that full block data was published by sampling small, random pieces. The system uses **namespaced Merkle trees** so different rollups can efficiently prove their data was included without downloading irrelevant information. Security relies on validators and an honest majority of independent samplers, with full nodes able to produce fraud proofs if data is incorrectly encoded.
 
-**EigenDA** leverages Ethereum's restaking ecosystem (described in Section V) to provide high-throughput data availability. A **disperser** coordinates the encoding and distribution of data across operators who attest to its availability. Throughput can be high, but security depends on the value restaked by operators and the specific quorum assumptions of each deployment.
+**EigenDA** leverages Ethereum's restaking ecosystem (described in Section IV) to provide high-throughput data availability. A **disperser** coordinates the encoding and distribution of data across operators who attest to its availability. Throughput can be high, but security depends on the value restaked by operators and the specific quorum assumptions of each deployment.
 
 **Validium** and **committee-based systems** take a different approach entirely, keeping data off-chain under the control of a committee or bonded set of operators. This can be cheaper than on-chain alternatives but weakens security guarantees since data availability isn't enforced by Layer 1 protocol rules.
 
@@ -230,7 +232,7 @@ Choosing the right operator becomes pivotal in this environment. Most restakers 
 
 The liquid restaking ecosystem introduces systemic risks that compound on top of the liquid staking risks discussed earlier. **Liquidity cascades** could emerge if LRT tokens lose their peg to underlying ETH, potentially forcing mass withdrawals that create destructive feedback loops across the entire restaking ecosystem. There's also **basis risk** between the underlying ETH staking yields and LRT token prices, adding complexity for users who expect predictable returns. When you layer restaking on top of liquid staking protocols like Lido or Rocket Pool, you're compounding multiple layers of smart contract risk, economic assumptions, and potential failure points.
 
-## Section VI: Key Takeaways
+## Section V: Key Takeaways
 
 **Token standards create composability, which transforms how applications can interact.** When every token follows the same interface and smart contracts can call each other within single transactions, you get flash loans, automated market makers, and liquidity aggregators that emerge organically from the platform itself. This composability represents Ethereum's most distinctive property: protocols become building blocks that combine in ways their original creators never anticipated. The value isn't just in individual applications but in the exponential possibilities that emerge when they work together.
 
