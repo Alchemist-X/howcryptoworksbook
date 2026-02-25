@@ -1,123 +1,86 @@
-## How Crypto Actually Works: The Missing Manual
+# How Crypto Actually Works: The Missing Manual
 
-## Chapters and sections
+**Current Status:** Pre-First Edition - Open for community feedback before the official first edition is published as a free ebook
 
-### Chapter I: A Comprehensive Introduction to Bitcoin
-- [Section I: Bitcoin Core Concepts](./Chapter_01_Bitcoin_Fundamentals.md#section-i-bitcoin-core-concepts)
-- [Section II: Bitcoin Technical Architecture](./Chapter_01_Bitcoin_Fundamentals.md#section-ii-bitcoin-technical-architecture)
-- [Section III: Bitcoin Upgrades and Scaling](./Chapter_01_Bitcoin_Fundamentals.md#section-iii-bitcoin-upgrades-and-scaling)
-- [Section IV: Bitcoin Layer 2 and Extensions](./Chapter_01_Bitcoin_Fundamentals.md#section-iv-bitcoin-layer-2-and-extensions)
-- [Section V: Bitcoin Network Operations and Security Model](./Chapter_01_Bitcoin_Fundamentals.md#section-v-bitcoin-network-operations-and-security-model)
-- [Section VI: Bitcoin Ordinals](./Chapter_01_Bitcoin_Fundamentals.md#section-vi-bitcoin-ordinals)
- - [Section VII: Key Takeaways](./Chapter_01_Bitcoin_Fundamentals.md#section-vii-key-takeaways)
+**Author:** Larry Cermak
 
-### Chapter II: The Ethereum Ecosystem
-- [Section I: Ethereum Core Concepts](./Chapter_02_Ethereum_Ecosystem.md#section-i-ethereum-core-concepts)
-- [Section II: Ethereum Consensus and Staking](./Chapter_02_Ethereum_Ecosystem.md#section-ii-ethereum-consensus-and-staking)
-- [Section III: Ethereum Scaling and Layer 2 Solutions](./Chapter_02_Ethereum_Ecosystem.md#section-iii-ethereum-scaling-and-layer-2-solutions)
-- [Section IV: Account Abstraction and Future Upgrades](./Chapter_02_Ethereum_Ecosystem.md#section-iv-account-abstraction-and-future-upgrades)
-- [Section V: Restaking](./Chapter_02_Ethereum_Ecosystem.md#section-v-restaking)
- - [Section VI: Key Takeaways](./Chapter_02_Ethereum_Ecosystem.md#section-vi-key-takeaways)
+**Co-Authors:** Wintermute Research, The Block Research
 
-### Chapter III: The Solana Ecosystem
-- [Section I: Architecture and Execution](./Chapter_03_Solana_Ecosystem.md#section-i-architecture-and-execution)
-- [Section II: Transactions, Fees, and UX](./Chapter_03_Solana_Ecosystem.md#section-ii-transactions-fees-and-ux)
-- [Section III: Consensus, Scheduling, and Networking](./Chapter_03_Solana_Ecosystem.md#section-iii-consensus-scheduling-and-networking)
- - [Section IV: Economics, Staking, and Governance](./Chapter_03_Solana_Ecosystem.md#section-iv-economics-staking-and-governance)
-- [Section V: Developer Stack and Standards](./Chapter_03_Solana_Ecosystem.md#section-v-developer-stack-and-standards)
-- [Section VI: Performance and Its Trade-offs](./Chapter_03_Solana_Ecosystem.md#section-vi-performance-and-its-trade-offs)
-- [Section VII: Use-Case Fit and Design Patterns](./Chapter_03_Solana_Ecosystem.md#section-vii-use-case-fit-and-design-patterns)
- - [Section VIII: Key Takeaways](./Chapter_03_Solana_Ecosystem.md#section-viii-key-takeaways)
+---
 
-### Chapter IV: L1 Blockchains
-- [Section I: Blockchain Architectures](./Chapter_04_Layer_1_Blockchains.md#section-i-blockchain-architectures)
-- [Section II: Consensus & Finality](./Chapter_04_Layer_1_Blockchains.md#section-ii-consensus--finality)
-- [Section III: Virtual Machines & Programming Models](./Chapter_04_Layer_1_Blockchains.md#section-iii-virtual-machines--programming-models)
-- [Section IV: The Trilemma in Practice](./Chapter_04_Layer_1_Blockchains.md#section-iv-the-trilemma-in-practice)
-- [Section V: Scaling Patterns](./Chapter_04_Layer_1_Blockchains.md#section-v-scaling-patterns)
-- [Section VI: Interoperability & Cross-Chain Architecture](./Chapter_04_Layer_1_Blockchains.md#section-vi-interoperability--cross-chain-architecture)
-- [Section VII: Attention Game](./Chapter_04_Layer_1_Blockchains.md#section-vii-attention-game)
-- [Section VIII: Key Takeaways](./Chapter_04_Layer_1_Blockchains.md#section-viii-key-takeaways)
+## About This Book
 
-### Chapter V: Custody Fundamentals
-- [Section I: Cryptographic Foundations](./Chapter_05_Custody.md#section-i-cryptographic-foundations)
-- [Section II: Individual Self-Custody](./Chapter_05_Custody.md#section-ii-individual-self-custody)
-- [Section III: Institutional Custody Models and Architecture](./Chapter_05_Custody.md#section-iii-institutional-custody-models-and-architecture)
-- [Section IV: Key Takeaways](./Chapter_05_Custody.md#section-iv-key-takeaways)
+*How Crypto Actually Works* is a comprehensive technical book that explains how cryptocurrency and blockchain technology actually functions, from Bitcoin's UTXO model to quantum-resistant cryptography. It spans 80,000+ words across 15 chapters plus a preface, covering everything from foundational concepts to cutting-edge developments in the crypto ecosystem.
 
-### Chapter VI: Crypto Market Structure & Trading
-- [Section I: Exchange Architecture and Core Products](./Chapter_06_Market_Structure_Trading.md#section-i-exchange-architecture-and-core-products)
-- [Section II: Order Types and Execution](./Chapter_06_Market_Structure_Trading.md#section-ii-order-types-and-execution)
-- [Section III: Market Makers](./Chapter_06_Market_Structure_Trading.md#section-iii-market-makers)
-- [Section IV: Risk Management](./Chapter_06_Market_Structure_Trading.md#section-iv-risk-management)
-- [Section V: Price Discovery and Volatility Analysis](./Chapter_06_Market_Structure_Trading.md#section-v-price-discovery-and-volatility-analysis)
-- [Section VI: The Corporate Treasury Trend](./Chapter_06_Market_Structure_Trading.md#section-vi-the-corporate-treasury-trend)
-- [Section VII: Key Takeaways](./Chapter_06_Market_Structure_Trading.md#section-vii-key-takeaways)
+This repository contains the complete text of the book, which is open source and free to read, download, and share. This version is published on GitHub to collect feedback from the community. The best edits and corrections will be incorporated into the official first edition, which will be released as a **free ebook** on Amazon and other platforms in the coming months.
 
-### Chapter VII: DeFi
-- [Section I: DeFi Core Concepts and Philosophy](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-i-defi-core-concepts-and-philosophy)
-- [Section II: Decentralized Exchange Architecture](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-ii-decentralized-exchange-architecture)
-- [Section III: Lending and Borrowing Fundamentals](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-iii-lending-and-borrowing-fundamentals)
-- [Section IV: Yield Generation and Optimization](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-iv-yield-generation-and-optimization)
-- [Section V: Infrastructure Dependencies](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-v-infrastructure-dependencies)
- - [Section VI: Key Takeaways](./Chapter_07_DeFi_Protocols_Mechanisms.md#section-vi-key-takeaways)
+If you'd like to help shape the final version, now is the time - see [Contributing](#contributing) below.
 
-### Chapter VIII: MEV
-- [Section I: The Market Chaos: Understanding MEV Fundamentals](./Chapter_08_MEV.md#section-i-the-market-chaos-understanding-mev-fundamentals)
-- [Section II: How Value Gets Extracted](./Chapter_08_MEV.md#section-ii-how-value-gets-extracted)
-- [Section III: Flashbots: Taming the Dark Forest](./Chapter_08_MEV.md#section-iii-flashbots-taming-the-dark-forest)
-- [Section IV: The Centralization Crisis](./Chapter_08_MEV.md#section-iv-the-centralization-crisis)
-- [Section V: Cross-Domain MEV](./Chapter_08_MEV.md#section-v-cross-domain-mev)
- - [Section VI: Key Takeaways](./Chapter_08_MEV.md#section-vi-key-takeaways)
+## Why This Book Exists
 
-### Chapter IX: Stablecoins and RWAs
-- [Section I: Fiat Stablecoins](./Chapter_09_Stablecoins_and_RWAs.md#section-i-fiat-stablecoins)
-- [Section II: Real World Assets](./Chapter_09_Stablecoins_and_RWAs.md#section-ii-real-world-assets)
- - [Section III: Key Takeaways](./Chapter_09_Stablecoins_and_RWAs.md#section-iii-key-takeaways)
+When I tried to recommend a single resource that could give candidates a solid foundation in crypto, I came up short. Some books dive deeply into one protocol and ignore the rest. YouTube and X overflow with thinly disguised advertising. The best research is scattered across dozens of paywalled sites. Academic papers are rigorous but too abstract for practical learning.
 
-### Chapter X: Hyperliquid
-- [Section I: Road to Domination](./Chapter_10_Hyperliquid.md#section-i-road-to-domination)
-- [Section II: HyperBFT and EVM](./Chapter_10_Hyperliquid.md#section-ii-hyperbft-and-evm)
-- [Section III: The HLP Design](./Chapter_10_Hyperliquid.md#section-iii-the-hlp-design)
-- [Section IV: The Governance Balance](./Chapter_10_Hyperliquid.md#section-iv-the-governance-balance)
-- [Section V: Road to Decentralization](./Chapter_10_Hyperliquid.md#section-v-road-to-decentralization)
- - [Section VI: Emerging Competitors](./Chapter_10_Hyperliquid.md#section-vi-emerging-competitors)
- - [Section VII: Key Takeaways](./Chapter_10_Hyperliquid.md#section-vii-key-takeaways)
+Everything was missing something: too narrow, too biased, too advanced, too fragmented, or simply too hard to approach without a guide.
 
-### Chapter XI: Non-Fungible Tokens (NFTs)
-- [Section I: The Digital Ownership Revolution](./Chapter_11_NFTs.md#section-i-the-digital-ownership-revolution)
-- [Section II: Beyond Simple Ownership](./Chapter_11_NFTs.md#section-ii-beyond-simple-ownership)
-- [Section III: The Technical Foundation](./Chapter_11_NFTs.md#section-iii-the-technical-foundation)
-- [Section IV: Where NFTs Actually Trade](./Chapter_11_NFTs.md#section-iv-where-nfts-actually-trade)
- - [Section V: Key Takeaways](./Chapter_11_NFTs.md#section-v-key-takeaways)
+This book is my attempt to solve that problem.
 
-### Chapter XII: Governance & Token Economics
-- [Section I: The Foundations of Digital Democracy](./Chapter_12_Governance_and_Token_Economics.md#section-i-the-foundations-of-digital-democracy)
-- [Section II: From Discord Drama to On-Chain Democracy](./Chapter_12_Governance_and_Token_Economics.md#section-ii-from-discord-drama-to-on-chain-democracy)
-- [Section III: Token Economics and Distribution](./Chapter_12_Governance_and_Token_Economics.md#section-iii-token-economics-and-distribution)
-- [Section IV: A Three-Pillar Structure](./Chapter_12_Governance_and_Token_Economics.md#section-iv-a-three-pillar-structure)
-- [Section V: Key Takeaways](./Chapter_12_Governance_and_Token_Economics.md#section-v-key-takeaways)
+## What Makes It Different
 
-### Chapter XIII: DePIN
-- [Section I: DePIN Core Concepts](./Chapter_13_DePIN.md#section-i-depin-core-concepts)
-- [Section II: DePIN Technical Architecture](./Chapter_13_DePIN.md#section-ii-depin-technical-architecture)
-- [Section III: DePIN Economics and Governance](./Chapter_13_DePIN.md#section-iii-depin-economics-and-governance)
-- [Section IV: DePIN Categories and Implementation](./Chapter_13_DePIN.md#section-iv-depin-categories-and-implementation)
-- [Section V: Risks and Challenges](./Chapter_13_DePIN.md#section-v-risks-and-challenges)
- - [Section VI: Key Takeaways](./Chapter_13_DePIN.md#section-vi-key-takeaways)
+- **Comprehensive Coverage:** 15 chapters covering Bitcoin, Ethereum, Solana, DeFi, MEV, stablecoins, custody, market structure, governance, NFTs, DePIN, quantum resistance, and more
+- **Structured Learning:** Each chapter builds on the last, creating a coherent story that gradually increases in complexity
+- **Expert Review:** Each chapter was reviewed by someone who works deeply in that specific area
+- **Honest Assessment:** Technical ideas are explained clearly without dumbing them down, and both strengths and limitations are discussed
+- **Open Source:** The entire book is free to read and share. Basic education shouldn't be locked behind paywalls
 
-### Chapter XIV: Quantum Resistance
-- [Section I: Quantum Computing](./Chapter_14_Quantum_Resistance.md#section-i-quantum-computing)
-- [Section II: Blockchain Vulnerability Assessment](./Chapter_14_Quantum_Resistance.md#section-ii-blockchain-vulnerability-assessment)
-- [Section III: Quantum-Resistance Transition](./Chapter_14_Quantum_Resistance.md#section-iii-quantum-resistance-transition)
-- [Section IV: Key Takeaways](./Chapter_14_Quantum_Resistance.md#section-iv-key-takeaways)
+## Who This Book Is For
 
-### Chapter XV: Prediction Markets
-- [Section I: The Core Mechanism](./Chapter_15_Prediction_Markets.md#section-i-the-core-mechanism)
-- [Section II: The Case for Decentralization](./Chapter_15_Prediction_Markets.md#section-ii-the-case-for-decentralization)
-- [Section III: The Early Failures: Gnosis and Augur's Lessons](./Chapter_15_Prediction_Markets.md#section-iii-the-early-failures-gnosis-and-augurs-lessons)
-- [Section IV: The Breakthrough](./Chapter_15_Prediction_Markets.md#section-iv-the-breakthrough)
-- [Section V: The Technical Architecture Behind the Success](./Chapter_15_Prediction_Markets.md#section-v-the-technical-architecture-behind-the-success)
-- [Section VI: The Network Effects of Political Prediction](./Chapter_15_Prediction_Markets.md#section-vi-the-network-effects-of-political-prediction)
-- [Section VII: The Future of Information Markets](./Chapter_15_Prediction_Markets.md#section-vii-the-future-of-information-markets)
-- [Section VIII: Key Takeaways](./Chapter_15_Prediction_Markets.md#section-viii-key-takeaways)
+This book is written for people who want to understand how the technology actually works, not just traders or investors. It assumes you're intellectually curious but doesn't assume prior expertise.
+
+If you read this carefully and absorb the key ideas, you'll end up knowing more than most people who work in crypto full-time today.
+
+## Chapters
+
+| # | Chapter |
+|---|---------|
+| - | [Preface: Why This Matters](Chapters/_preface.md) |
+| 1 | [A Comprehensive Introduction to Bitcoin](Chapters/ch01_bitcoin.md) |
+| 2 | [The Ethereum Ecosystem](Chapters/ch02_ethereum.md) |
+| 3 | [The Solana Ecosystem](Chapters/ch03_solana.md) |
+| 4 | [L1 Blockchains](Chapters/ch04_l1_blockchains.md) |
+| 5 | [Custody Fundamentals](Chapters/ch05_custody.md) |
+| 6 | [Crypto Market Structure & Trading](Chapters/ch06_market_structure.md) |
+| 7 | [DeFi](Chapters/ch07_defi.md) |
+| 8 | [MEV](Chapters/ch08_mev.md) |
+| 9 | [Stablecoins and RWAs](Chapters/ch09_stablecoins_rwas.md) |
+| 10 | [Hyperliquid](Chapters/ch10_hyperliquid.md) |
+| 11 | [Non-Fungible Tokens (NFTs)](Chapters/ch11_nfts.md) |
+| 12 | [Governance & Token Economics](Chapters/ch12_governance.md) |
+| 13 | [DePIN](Chapters/ch13_depin.md) |
+| 14 | [Quantum Resistance](Chapters/ch14_quantum_resistance.md) |
+| 15 | [Prediction Markets](Chapters/ch15_prediction_markets.md) |
+
+Start with the [Preface](Chapters/_preface.md), or see the [Table of Contents](table_of_contents.md) for a full section-by-section breakdown.
+
+## Contributing
+
+This is a **pre-first edition** release. We are actively seeking expert reviewers and contributors to help refine the content before the official first edition.
+
+To contribute to this book, see [CONTRIBUTING.md](CONTRIBUTING.md). All contributions must be your original work and contributed under a CC-BY license.
+
+If you find errors, have comments, or would like to contribute improvements:
+
+- **For small corrections:** Submit a pull request with the fix
+- **For larger changes or new material:** Please coordinate with the author first
+- **For questions or discussion:** Open an issue
+
+When submitting pull requests, please use separate commits for each change to make review easier. Significant contributors will be acknowledged in future editions.
+
+---
+
+## License
+
+<a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
+
+This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>. Individual contributions are licensed under CC-BY; the compiled book is published under CC-BY-NC-ND.
+
+The decision to make this book freely available is both practical and philosophical: traditional publishing can't keep pace with crypto's evolution, and basic education shouldn't be locked behind paywalls.
